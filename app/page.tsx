@@ -12,10 +12,11 @@ export default async function Index() {
   const {
     data: { user },
   } = await supabase.auth.getUser()
+  let metadata = user?.user_metadata
 
-  if (!user) {
-    redirect("/unauthenticated")
-  }
+  // if (!user) {
+  //   redirect("/unauthenticated")
+  // }
 
   return (
     <div>
@@ -23,15 +24,14 @@ export default async function Index() {
           <div>
             {user ? (
               <div>
-                Hey, {user.email}!
+                Hey, {metadata.first_name}!
                 <LogoutButton />
               </div>
             ) : (
-              <Link
-                href="/login"
-              >
-                Login
-              </Link>
+              <>
+              <Link href="/login">Login</Link>
+              <Link href="/signup">Sign Up</Link>
+            </>
             )}
           </div>
         </div>

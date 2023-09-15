@@ -22,6 +22,16 @@ export default function Login() {
           placeholder="••••••••"
           required
         />
+        <input
+          type="first_name"
+          name="first_name"
+          required
+        />
+                <input
+          type="last_name"
+          name="last_name"
+          required
+        />
         <button>Sign up</button>
       </form>
     </div>
