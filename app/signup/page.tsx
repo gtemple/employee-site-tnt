@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Messages from './messages'
 
 export default function Login() {
   return (
@@ -7,7 +6,7 @@ export default function Login() {
       <Link href="/">Back</Link>
 
       <form
-        action="/auth/sign-in"
+        action="/auth/sign-up"
         method="post"
       >
         <label htmlFor="email">Email</label>
@@ -23,8 +22,7 @@ export default function Login() {
           placeholder="••••••••"
           required
         />
-        <button>Sign In</button>
-        <Messages />
+        <button>Sign up</button>
       </form>
     </div>
   )
