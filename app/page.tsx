@@ -24,7 +24,7 @@ export default async function Index() {
           <div>
             {user ? (
               <div>
-                Hey, {metadata.first_name}!
+                Hey, {user?.email}!
                 <LogoutButton />
               </div>
             ) : (
