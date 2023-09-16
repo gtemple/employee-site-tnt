@@ -16,9 +16,8 @@ export default async function Index() {
   const { data, error } = await supabase
     .from('profiles')
     .select('*')
-    .eq('user_id', '09449ff0-c92b-4eaf-8551-f99634180381')
+    .eq('user_id', user?.id)
 
-  console.log('*');
 
   let metadata = user?.user_metadata
 
@@ -30,10 +29,10 @@ export default async function Index() {
     <div>
       <div>
         <div>
-          {user ? (
+          {data ? (
             <div>
-              {console.log(data)}
-              Hey, {user?.email}!
+              Hey, {data[0].first_name}!
+              <Link href={'/update-user'}>Update Account</Link>
               <LogoutButton />
             </div>
           ) : (

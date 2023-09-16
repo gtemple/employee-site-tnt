@@ -8,10 +8,6 @@ export async function POST(request: Request) {
   const requestUrl = new URL(request.url)
   const formData = await request.formData()
   const email = String(formData.get('email'))
-  const first_name = String(formData.get('first_name'))
-  const last_name = String(formData.get('last_name'))
-  const admin = false;
-  const moderator = false;
   const password = String(formData.get('password'))
   const supabase = createRouteHandlerClient({ cookies })
 
@@ -19,15 +15,10 @@ export async function POST(request: Request) {
     email,
     password,
     options: {
-      data: {
-        first_name,
-        last_name,
-        admin,
-        moderator
-      },
       emailRedirectTo: `${requestUrl.origin}/auth/callback`,
     },
   })
+
 
   if (error) {
     return NextResponse.redirect(
