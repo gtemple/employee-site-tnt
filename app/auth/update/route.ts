@@ -11,15 +11,11 @@ export async function POST(request: Request) {
   const password = String(formData.get('password'))
   const supabase = createRouteHandlerClient({ cookies })
 
-  const { error } = await supabase.auth.signInWithPassword({
+  const { data, error } = await supabase.auth.updateUser({
     email,
     password,
+    data: { hello: 'world' }
   })
-
-  const { data } = await supabase
-    .from('profiles')
-    .select("first_name", "last_name")
-  console.log('hi', data)
 
   if (error) {
     return NextResponse.redirect(
@@ -30,7 +26,6 @@ export async function POST(request: Request) {
       }
     )
   }
-
 
   return NextResponse.redirect(requestUrl.origin, {
     // a 301 status is required to redirect from a POST to a GET route
