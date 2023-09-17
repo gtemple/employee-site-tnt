@@ -1,39 +1,20 @@
 import Link from 'next/link'
+import { TextField, Button } from '@mui/material'
 
 export default function UpdateUser() {
   
   return (
     <div>
       <Link href="/">Back</Link>
-
-      <form
-        action="/auth/update"
-        method="post"
-      >
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          placeholder="••••••••"
-          required
-        />
-        <input
-          type="text"
-          name="first_name"
-          required
-        />
-        <input
-          type="text"
-          name="last_name"
-          required
-        />
-        <input
-          type="hidden"
-          name="user_id"
-          value="something"
-        />
-        <button>Update</button>
-      </form>
+        <form
+          action="/auth/update"
+          method="post"
+        >
+            <TextField id="outlined-basic" label="Password" variant="outlined" type="password" name="password" required/>
+            <TextField id="outlined-basic" label="First Name" variant="outlined" type="text" name="first_name" required/>
+            <TextField id="outlined-basic" label="Last Name" variant="outlined" type="text" name="last_name" required/>
+            <button>Update</button>
+        </form>
     </div>
   )
 }

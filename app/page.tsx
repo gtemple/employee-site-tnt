@@ -1,7 +1,6 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import Link from 'next/link'
-import { redirect } from 'next/navigation'
 import LogoutButton from '../components/LogoutButton'
 
 export const dynamic = 'force-dynamic'
@@ -18,8 +17,8 @@ export default async function Index() {
     .select('*')
     .eq('user_id', user?.id)
 
+  let profile = data && data[0];
 
-  let metadata = user?.user_metadata
 
   // if (!user) {
   //   redirect("/unauthenticated")
@@ -29,11 +28,12 @@ export default async function Index() {
     <div>
       <div>
         <div>
-          {data ? (
+          {profile ? (
             <div>
-              Hey, {data[0].first_name}!
+              Hey, {profile.first_name}!
               <Link href={'/update-user'}>Update Account</Link>
               <LogoutButton />
+              {profile.admin && <Link href="/admin/dashboard">admin</Link>}
             </div>
           ) : (
             <>
