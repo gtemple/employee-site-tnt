@@ -28,15 +28,19 @@ export default async function Index() {
     <div>
       <div>
         <div>
+          {console.log(profile)}
           {profile ? (
             <div>
               Hey, {profile.first_name}!
-              <Link href={'/update-user'}>Update Account</Link>
+
+              <Link href={'/update-user'}>Update Profile</Link>
               <LogoutButton />
               {profile.admin && <Link href="/admin/dashboard">admin</Link>}
             </div>
           ) : (
             <>
+              <div>To gain full access to our site, please complete your profile</div>
+              <Link href={'/update-user'}>Update Account</Link>
               <Link href="/login">Login</Link>
               <Link href="/signup">Sign Up</Link>
             </>
