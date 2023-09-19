@@ -24,29 +24,43 @@ export default async function Index() {
   //   redirect("/unauthenticated")
   // }
 
+  if (!user) {
+    return (
+      <>
+        <Link href={'/update-user'}>Update Account</Link>
+        <Link href="/login">Login</Link>
+        <Link href="/signup">Sign Up</Link>
+      </>
+    )
+  }
+
+  if (!profile.first_name || !profile.last_name) {
+    return (
+      <>
+        <div>Hi, {profile.first_name}! Please complete your account to gain full access:</div>
+        <Link href={'/update-user'}>Update Account</Link>
+        <LogoutButton />
+      </>
+    )
+  }
+
+  if (!profile.active) {
+    return (
+      <>
+        <div>Hi, {profile.first_name}! your account is waiting approval</div>
+        <Link href={'/update-user'}>Update Account</Link>
+        <LogoutButton />
+      </>
+    )
+  }
+
   return (
     <div>
-      <div>
-        <div>
-          {console.log(profile)}
-          {profile ? (
-            <div>
-              Hey, {profile.first_name}!
+      Hey, {profile.first_name}!
 
-              <Link href={'/update-user'}>Update Profile</Link>
-              <LogoutButton />
-              {profile.admin && <Link href="/admin/dashboard">admin</Link>}
-            </div>
-          ) : (
-            <>
-              <div>To gain full access to our site, please complete your profile</div>
-              <Link href={'/update-user'}>Update Account</Link>
-              <Link href="/login">Login</Link>
-              <Link href="/signup">Sign Up</Link>
-            </>
-          )}
-        </div>
-      </div>
+      <Link href={'/update-user'}>Update Profile</Link>
+      <LogoutButton />
+      {profile.admin && <Link href="/admin/dashboard">admin</Link>}
     </div>
   )
 }
