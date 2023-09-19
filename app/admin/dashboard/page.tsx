@@ -1,6 +1,7 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import Link from 'next/link'
+import UsersTable from '@/components/admin/usersTable'
 
 export default async function Admin() {
   const supabase = createServerComponentClient({ cookies })
@@ -22,15 +23,11 @@ export default async function Admin() {
     return <div>Authentication failed</div>
   }
 
-  
   return (
     <div>
       {data && (
         <div>
-          {data.map((profile) => {
-            return (<div>{profile.first_name}</div>)
-          })
-          }
+          <UsersTable userData={{data: data, hello: 'hello'}} />
         </div>
       )}
       Admin page
