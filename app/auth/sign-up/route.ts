@@ -42,7 +42,8 @@ export async function POST(request: Request) {
       last_name,
       admin: false,
       moderator: false,
-      active: false
+      active: false,
+      user_id: data.user?.id
     });
 
   return NextResponse.redirect(
