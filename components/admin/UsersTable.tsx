@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import { getAllProfiles } from '@/app/lib/profiles';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -51,3 +52,13 @@ export default function UsersTable({userData}) {
     </div>
   )
 };
+
+export const getStaticProps = async () => {
+  const allProfiles = getAllProfiles();
+
+  console.log('profiles', allProfiles)
+
+  return {
+    props: { allProfiles },
+  }
+}
