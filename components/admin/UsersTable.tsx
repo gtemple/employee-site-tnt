@@ -1,6 +1,5 @@
 import React from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/router';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -42,10 +41,7 @@ export default function UsersTable({userData}) {
                 <TableCell>{profile.moderator ? 'yes' : 'no'}</TableCell>
                 <TableCell>{profile.admin ? 'yes' : 'no'}</TableCell>
                 <TableCell>
-                  <Link href={{
-                    pathname: `/pages/admin/profile/[id]}`,
-                    query: {id: profile.id}
-                  }}>
+                  <Link href={`/pages/admin/dashboard/${profile.id}`}>
                       Edit
                     </Link>
                 </TableCell>

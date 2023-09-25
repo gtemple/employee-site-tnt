@@ -16,7 +16,7 @@ export async function getProfileData(userId: String) {
     return 'failed to get profile';
   }
 
-  return { userData: data};
+  return { profileData: data};
 }
 
 export async function getAllProfiles() {
@@ -33,7 +33,7 @@ export async function getAllProfiles() {
   }
 
   console.log(data)
-  return { profileData: data};
+  return { allProfileData: data};
 }
 
 
