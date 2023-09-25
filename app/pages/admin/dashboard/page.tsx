@@ -25,12 +25,12 @@ export default async function Admin() {
 
   return (
     <div>
+      Admin Page
       {data && (
         <div>
-          <UsersTable userData={{data: data, hello: 'hello'}} />
+          <UsersTable userData={{data}} />
         </div>
       )}
-      Admin page
       <Link href="/">Back</Link>
 
     </div>

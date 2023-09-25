@@ -26,12 +26,13 @@ export async function getAllProfiles() {
   const { data, error } = await supabase
   .from('profiles')
   .select('*')
-  
+
   if (error) {
     console.log(error);
     return 'failed to get profile';
   }
 
+  console.log(data)
   return { profileData: data};
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { getAllProfiles } from '@/app/lib/profiles';
+import { useRouter } from 'next/router';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,7 +11,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 export default function UsersTable({userData}) {
-  const profiles = userData['data']
+  const profiles = userData['data'];
 
   return (
     <div>
@@ -42,7 +42,12 @@ export default function UsersTable({userData}) {
                 <TableCell>{profile.moderator ? 'yes' : 'no'}</TableCell>
                 <TableCell>{profile.admin ? 'yes' : 'no'}</TableCell>
                 <TableCell>
-                  <Link href={`/admin/profiles/${profile.user_id}`}>Edit</Link>
+                  <Link href={{
+                    pathname: `/pages/admin/profile/[id]}`,
+                    query: {id: profile.id}
+                  }}>
+                      Edit
+                    </Link>
                 </TableCell>
               </TableRow>
           ))}
@@ -52,13 +57,3 @@ export default function UsersTable({userData}) {
     </div>
   )
 };
-
-export const getStaticProps = async () => {
-  const allProfiles = getAllProfiles();
-
-  console.log('profiles', allProfiles)
-
-  return {
-    props: { allProfiles },
-  }
-}
