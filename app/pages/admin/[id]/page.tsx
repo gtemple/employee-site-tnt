@@ -1,30 +1,16 @@
 import React from 'react'
-import { getProfileIds, getProfileData } from '@/app/lib/profiles';
+import {  getProfileData } from '@/app/lib/profiles';
 
-export async function getStaticPaths() {
-  const paths = await getProfileIds();
-  return {
-    paths,
-    fallback: false,
-  };
-}
 
-export async function getStaticProps({ params }) {
-  const profileData = await getProfileData(params.id)
-  console.log('profile data:', profileData)
-
-  return {
-    props: {
-      profileData,
-    },
-  };
-}
-
-export default function Profile({ profileData }) {
+export default async function Profile({ params }) {
+  console.log('params', params, params.id)
+  const { profileData } = await getProfileData(params.id);
   console.log(profileData)
-  console.log('test', profileData.id)
+
   return (
-    <div>hello profile {console.log(profileData.id)} {profileData.id}</div>
+    <div>hello profile
+      {profileData[0].first_name}
+      </div>
   )
 }
 

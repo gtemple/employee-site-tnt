@@ -22,19 +22,17 @@ export default async function Admin() {
   const profiles = await getAllProfiles();
   const { profileData } = await getProfileData(user?.id);
 
-
-  console.log('the one:', profileData)
-  console.log('here they are:', profiles)
-
   if (profileData && !profileData[0].admin) {
     return <div>Authentication failed</div>
   }
 
   return (
     <div>
-      Admin Page
       {profiles.allProfileData?.length > 0 && (
         <div>
+          <div>
+            {profileData[0].first_name} {profileData[0].last_name} admin dashboard
+          </div>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
