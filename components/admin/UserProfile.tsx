@@ -1,9 +1,13 @@
+"use client"
+
 import React from 'react'
 import { useState } from 'react';
+import Link from 'next/link';
 
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
+import { prototype } from 'module';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -18,25 +22,27 @@ const style = {
 };
 
 
-const UserProfile = () => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+const UserProfile = (props) => {
+  const {
+    first_name,
+    last_name,
+    user_id,
+    admin,
+    moderator,
+    email,
+    active
+  } = props.profile
 
   return (
-    <div>
-      <div>UserProfile</div>
-      <Button onClick={handleOpen} variant="outlined">Contained</Button>
-          <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          hello
-        </Box>
-      </Modal>
+    <div> hey {first_name} {user_id}
+      {console.log(props)}
+      {/* <div>
+        {console.log(props)}
+        <div>
+          <Button onClick={adminValidation} variant="outlined">Hello</Button>
+        </div>
+      </div> */}      
+
     </div>
   )
 }

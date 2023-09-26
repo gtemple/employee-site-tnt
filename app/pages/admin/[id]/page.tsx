@@ -1,11 +1,9 @@
-"use client"
-
 import React from 'react';
-import { useState } from 'react';
 import Link from 'next/link';
-import { getProfileData } from '@/app/api/getProfilesClient';
+import { getProfileData } from '@/app/api/getProfilesServer';
 
 import Button from '@mui/material/Button';
+import UserProfile from '@/components/admin/UserProfile';
 
 
 export default async function Profile({ params }) {
@@ -21,21 +19,12 @@ export default async function Profile({ params }) {
     active
   } = profileData[0]
 
-  const adminValidation = () => {
-
-    return (
-      <div>
-        <Button>Are you sure?</Button>
-      </div>
-    )
-  }
-
   return (
     <div>
       <div>
         hello {first_name} {last_name}
         <div>
-          <button onClick={adminValidation} variant="outlined">Hello</button>
+          <UserProfile profile={profileData[0]} />
         </div>
       </div>
       <Link href="/pages/admin/dashboard">Back</Link>
