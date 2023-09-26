@@ -1,16 +1,48 @@
-import React from 'react'
-import {  getProfileData } from '@/app/lib/profiles';
+"use client"
+
+import React from 'react';
+import { useState } from 'react';
+import Link from 'next/link';
+import { getProfileData } from '@/app/api/getProfilesClient';
+
+import Button from '@mui/material/Button';
 
 
 export default async function Profile({ params }) {
-  console.log('params', params, params.id)
+
   const { profileData } = await getProfileData(params.id);
-  console.log(profileData)
+  const {
+    first_name,
+    last_name,
+    user_id,
+    admin,
+    moderator,
+    email,
+    active
+  } = profileData[0]
+
+  const adminValidation = () => {
+
+    return (
+      <div>
+        <Button>Are you sure?</Button>
+      </div>
+    )
+  }
 
   return (
-    <div>hello profile
-      {profileData[0].first_name}
+    <div>
+      <div>
+        hello {first_name} {last_name}
+        <div>
+          <button onClick={adminValidation} variant="outlined">Hello</button>
+        </div>
       </div>
+      <Link href="/pages/admin/dashboard">Back</Link>
+      
+
+    </div>
   )
 }
+
 

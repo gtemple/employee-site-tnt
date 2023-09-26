@@ -3,8 +3,7 @@ import { cookies } from 'next/headers'
 
 
 export async function getProfileData(userId: String) {
-  const supabase = createServerComponentClient({ cookies })
-  console.log('get profiled data functioning')
+  const supabase = createServerComponentClient({ cookies });
 
   const { data, error } = await supabase
   .from('profiles')
@@ -16,12 +15,12 @@ export async function getProfileData(userId: String) {
     return 'failed to get profile';
   }
 
+  console.log(data)
   return { profileData: data};
 }
 
 export async function getAllProfiles() {
   const supabase = createServerComponentClient({ cookies })
-  console.log('get all profiles')
 
   const { data, error } = await supabase
   .from('profiles')
@@ -39,7 +38,6 @@ export async function getAllProfiles() {
 
 export async function getProfileIds() {
   const supabase = createServerComponentClient({ cookies })
-  console.log('get profile ids functioning')
 
   const { data, error } = await supabase
   .from('profiles')
@@ -49,6 +47,7 @@ export async function getProfileIds() {
     console.log(error);
     return 'failed to get profile ids';
   }
-
+  
+  console.log(data)
   return { profileIds: data};
 }
