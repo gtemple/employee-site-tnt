@@ -13,6 +13,7 @@
     "@mui/material": "^5.14.9",
     "@supabase/auth-helpers-nextjs": "latest",
     "@supabase/supabase-js": "latest",
+    "body-parser": "^1.20.2",
     "next": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0",

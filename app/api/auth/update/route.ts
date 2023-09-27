@@ -9,11 +9,11 @@ export async function POST(request: Request) {
   const formData = await request.formData();
   const email = String(formData.get('email'));
   const password = String(formData.get('password'));
-  const first_name = String(formData.get('first_name'))
-  const last_name = String(formData.get('last_name'))
+  const first_name = String(formData.get('first_name'));
+  const last_name = String(formData.get('last_name'));
   const admin = false;
   const moderator = false;
-  const user_id = String(formData.get('user_id'))
+  const user_id = String(formData.get('user_id'));
   const supabase = createServerActionClient({ cookies });
 
   const { data: { user } } = await supabase.auth.getUser()

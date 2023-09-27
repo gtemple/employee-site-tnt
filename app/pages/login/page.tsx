@@ -7,7 +7,7 @@ export default function Login() {
       <Link href="/">Back</Link>
 
       <form
-        action="/auth/sign-in"
+        action="/api/auth/sign-in"
         method="post"
       >
         <label htmlFor="email">Email</label>

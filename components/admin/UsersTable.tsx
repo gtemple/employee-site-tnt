@@ -41,7 +41,7 @@ export default function UsersTable({userData}) {
                 <TableCell>{profile.moderator ? 'yes' : 'no'}</TableCell>
                 <TableCell>{profile.admin ? 'yes' : 'no'}</TableCell>
                 <TableCell>
-                  <Link href={`/pages/admin/dashboard/${profile.id}`}>
+                  <Link href={`/pages/admin/${profile.id}`}>
                       Edit
                     </Link>
                 </TableCell>

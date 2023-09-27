@@ -7,7 +7,7 @@ export default function UpdateUser() {
     <div>
       <Link href="/">Back</Link>
         <form
-          action="/auth/update"
+          action="api/auth/update"
           method="post"
         >
             <TextField id="outlined-basic" label="Password" variant="outlined" type="password" name="password" required/>

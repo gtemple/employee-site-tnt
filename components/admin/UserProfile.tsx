@@ -23,6 +23,18 @@ const style = {
 
 
 const UserProfile = (props) => {
+  const [openModerator, setOpenModerator] = useState(false);
+  const handleOpenModerator = () => setOpenModerator(true);
+  const handleCloseModerator = () => setOpenModerator(false);
+
+  const [openAdmin, setOpenAdmin] = useState(false);
+  const handleOpenAdmin = () => setOpenAdmin(true);
+  const handleCloseAdmin = () => setOpenAdmin(false);
+
+  const adminDesc = "Assigning someone as an admin gives them full application privledges. This includes: activating/deactivating accounts, assiging Activities Directors to tours, and and adding/editing/deleting information such as schools, tours, sites, accomodation and bus companies.";
+  const moderatorDesc = "Assiging someone as moderator will allow them to edit a trips details";
+  const activeDesc = "Activating an account will allow a user to edit their profile and view upcoming and previous tours.";
+
   const {
     first_name,
     last_name,
@@ -33,15 +45,45 @@ const UserProfile = (props) => {
     active
   } = props.profile
 
+  const dataSend = {
+    'admin': admin,
+    'moderator': moderator,
+    'active': active,
+    'user_id': user_id,
+    'test': 'test'
+  }
+
+  const postUpdate = (access) => {
+    console.log('we got here')
+    fetch('/api/auth/admin-update', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dataSend),
+    })
+  }
+
   return (
-    <div> hey {first_name} {user_id}
-      {console.log(props)}
-      {/* <div>
-        {console.log(props)}
+    <div> hey {first_name} {user_id} moderator? {moderator ? 'yes' : 'no'}
+       <div>
         <div>
-          <Button onClick={adminValidation} variant="outlined">Hello</Button>
+          <Button onClick={handleOpenModerator} variant="outlined">Change</Button>
+          <Modal
+        open={openModerator}
+        onClose={handleCloseModerator}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <div>{adminDesc}</div>
+          <div>Are you sure?</div>
+         <Button onClick={postUpdate} variant="outlined">Confirm</Button>
+         <Button onClick={handleCloseModerator} variant="outlined">Cancel</Button>
+        </Box>
+      </Modal>
         </div>
-      </div> */}      
+      </div>   
 
     </div>
   )
