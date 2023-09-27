@@ -7,35 +7,31 @@ export const dynamic = 'force-dynamic'
 export async function POST(req: NextRequest, res: NextResponse) {
   const requestUrl = new URL(req.url)
   const body = await req.json();
-
-  console.log('request body:', body)
-  // const supabase = createServerActionClient({ cookies });
+  const admin = body.admin;
+  const moderator = body.moderator;
+  const active = body.active
+  const user_id = body.user_id
+  const supabase = createServerActionClient({ cookies });
 
   // const { data: { user } } = await supabase.auth.getUser()
 
+  const { data, error } = await supabase
+    .from('profiles')
+    .update({ 'admin': admin, 'moderator': moderator, 'active': active })
+    .eq('id', user_id)
+    .select()
+  console.log(data)
 
-  // console.log(formData)
-
-  // const adminBool = (admin === 'true')
-  // const moderatorBool = (moderator === 'true')
-  // const activeBool = (active === 'true')
-
-  // const { error } = await supabase
-  //   .from('profiles')
-  //   .update({ 'admin': adminBool, 'moderator': moderatorBool, 'active': activeBool })
-  //   .eq('id', user_id)
-
-
-  // if (error) {
-  //   console.log(error)
-  //   return NextResponse.redirect(
-  //     `${requestUrl.origin}/?error=Could not authenticate user`,
-  //     {
-  //       // a 301 status is required to redirect from a POST to a GET route
-  //       status: 301,
-  //     }
-  //   )
-  // }
+  if (error) {
+    console.log(error)
+    return NextResponse.redirect(
+      `${requestUrl.origin}/?error=Could not authenticate user`,
+      {
+        // a 301 status is required to redirect from a POST to a GET route
+        status: 301,
+      }
+    )
+  }
 
   return NextResponse.redirect(requestUrl.origin, {
     // a 301 status is required to redirect from a POST to a GET route

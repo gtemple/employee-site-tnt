@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 import Button from '@mui/material/Button';
@@ -23,6 +24,8 @@ const style = {
 
 
 const UserProfile = (props) => {
+  const router = useRouter();
+
   const [openModerator, setOpenModerator] = useState(false);
   const handleOpenModerator = () => setOpenModerator(true);
   const handleCloseModerator = () => setOpenModerator(false);
@@ -50,11 +53,12 @@ const UserProfile = (props) => {
     'moderator': moderator,
     'active': active,
     'user_id': user_id,
-    'test': 'test'
   }
 
-  const postUpdate = (access) => {
-    console.log('we got here')
+  const postUpdate = (access: string) => {
+    if (access === 'admin') { dataSend['admin'] = !admin}
+
+
     fetch('/api/auth/admin-update', {
       method: 'POST',
       headers: {
@@ -62,10 +66,11 @@ const UserProfile = (props) => {
       },
       body: JSON.stringify(dataSend),
     })
+    router.refresh();
   }
 
   return (
-    <div> hey {first_name} {user_id} moderator? {moderator ? 'yes' : 'no'}
+    <div> hey {first_name} {user_id} admin? {admin ? 'yes' : 'no'}
        <div>
         <div>
           <Button onClick={handleOpenModerator} variant="outlined">Change</Button>
@@ -78,7 +83,7 @@ const UserProfile = (props) => {
         <Box sx={style}>
           <div>{adminDesc}</div>
           <div>Are you sure?</div>
-         <Button onClick={postUpdate} variant="outlined">Confirm</Button>
+         <Button onClick={()=> { postUpdate('admin'); handleCloseModerator();}} variant="outlined">Confirm</Button>
          <Button onClick={handleCloseModerator} variant="outlined">Cancel</Button>
         </Box>
       </Modal>
