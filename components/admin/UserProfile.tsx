@@ -5,10 +5,12 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
+
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import { prototype } from 'module';
+import Snackbar from '@mui/material/Snackbar';
+
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -72,22 +74,20 @@ const UserProfile = (props) => {
   return (
     <div> hey {first_name} {user_id} admin? {admin ? 'yes' : 'no'}
        <div>
-        <div>
           <Button onClick={handleOpenModerator} variant="outlined">Change</Button>
-          <Modal
+        <Modal
         open={openModerator}
         onClose={handleCloseModerator}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <div>{adminDesc}</div>
-          <div>Are you sure?</div>
-         <Button onClick={()=> { postUpdate('admin'); handleCloseModerator();}} variant="outlined">Confirm</Button>
-         <Button onClick={handleCloseModerator} variant="outlined">Cancel</Button>
-        </Box>
-      </Modal>
-        </div>
+        >
+          <Box sx={style}>
+            <div>{adminDesc}</div>
+            <div>Are you sure?</div>
+            <Button onClick={()=> { postUpdate('admin'); handleCloseModerator();}} variant="outlined">Confirm</Button>
+            <Button onClick={handleCloseModerator} variant="outlined">Cancel</Button>
+          </Box>
+        </Modal>
       </div>   
 
     </div>

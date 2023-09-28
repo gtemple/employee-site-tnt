@@ -22,9 +22,6 @@ export async function POST(request: Request) {
     password
   });
 
-      console.log('here is the user:', user?.id)
-    console.log('here is the name:', first_name)
-
   const { error: error2 } = await supabase
     .from('profiles')
     .update({ first_name: first_name, last_name: last_name, admin, moderator })
