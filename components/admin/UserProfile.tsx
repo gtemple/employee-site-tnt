@@ -59,6 +59,8 @@ const UserProfile = (props) => {
   const postUpdate = (access: string) => {
     if (access === 'admin') { dataSend['admin'] = !admin}
     if (access === 'moderator') { dataSend['moderator'] = !moderator}
+    if (access === 'active') { dataSend['active'] = !active}
+
 
     fetch('/api/auth/admin-update', {
       method: 'POST',
@@ -76,10 +78,16 @@ const UserProfile = (props) => {
       hey {first_name} {user_id}
       <div>admin? {admin ? 'yes' : 'no'}</div>
       <div>moderator? {moderator ? 'yes' : 'no'}</div>
+      <div>active? {active ? 'yes' : 'no'}</div>
 
        <div>
         Admin<Button onClick={handleOpenAdmin} variant="outlined">Change</Button>
         Moderator<Button onClick={handleOpenModerator} variant="outlined">Change</Button>
+        Active<Button onClick={() => {
+          postUpdate('active');
+          enqueueSnackbar(`Account ${(active ? 'deactivated' : 'activated')}`, { autoHideDuration: 3000, variant: 'success' })
+          }} variant="outlined">{active ? 'deactivate' : 'activate'}</Button>
+
           {/* admin modal */}
         <Modal
         open={openAdmin}
