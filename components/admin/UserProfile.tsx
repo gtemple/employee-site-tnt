@@ -9,8 +9,7 @@ import Link from 'next/link';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import Snackbar from '@mui/material/Snackbar';
-
+import { SnackbarProvider, enqueueSnackbar } from 'notistack';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -59,7 +58,7 @@ const UserProfile = (props) => {
 
   const postUpdate = (access: string) => {
     if (access === 'admin') { dataSend['admin'] = !admin}
-
+    if (access === 'moderator') { dataSend['moderator'] = !moderator}
 
     fetch('/api/auth/admin-update', {
       method: 'POST',
@@ -72,9 +71,36 @@ const UserProfile = (props) => {
   }
 
   return (
-    <div> hey {first_name} {user_id} admin? {admin ? 'yes' : 'no'}
+    <div> 
+      <SnackbarProvider />
+      hey {first_name} {user_id}
+      <div>admin? {admin ? 'yes' : 'no'}</div>
+      <div>moderator? {moderator ? 'yes' : 'no'}</div>
+
        <div>
-          <Button onClick={handleOpenModerator} variant="outlined">Change</Button>
+        Admin<Button onClick={handleOpenAdmin} variant="outlined">Change</Button>
+        Moderator<Button onClick={handleOpenModerator} variant="outlined">Change</Button>
+          {/* admin modal */}
+        <Modal
+        open={openAdmin}
+        onClose={handleCloseAdmin}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <div>{adminDesc}</div>
+            <div>Are you sure?</div>
+            <Button onClick={()=> { 
+              enqueueSnackbar(`Admin privledges ${(admin ? 'removed' : 'added')}`, { autoHideDuration: 3000, variant: 'success' })
+              postUpdate('admin');
+              handleCloseAdmin();
+              }} variant="outlined">
+                Confirm
+            </Button>
+            <Button onClick={handleCloseAdmin} variant="outlined">Cancel</Button>
+          </Box>
+        </Modal>
+        {/* moderator modal */}
         <Modal
         open={openModerator}
         onClose={handleCloseModerator}
@@ -82,9 +108,15 @@ const UserProfile = (props) => {
         aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <div>{adminDesc}</div>
+            <div>{moderatorDesc}</div>
             <div>Are you sure?</div>
-            <Button onClick={()=> { postUpdate('admin'); handleCloseModerator();}} variant="outlined">Confirm</Button>
+            <Button onClick={()=> { 
+              enqueueSnackbar(`Moderator privledges ${(moderator ? 'removed' : 'added')}`, { autoHideDuration: 3000, variant: 'success' })
+              postUpdate('moderator');
+              handleCloseModerator();
+              }} variant="outlined">
+                Confirm
+            </Button>
             <Button onClick={handleCloseModerator} variant="outlined">Cancel</Button>
           </Box>
         </Modal>
