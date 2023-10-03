@@ -1,4 +1,5 @@
 import Navigation from "@/components/Navigation"
+import { spartan300, spartan400  } from "./styles/fonts"
 import './globals.css'
 
 export const metadata = {
@@ -13,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className={spartan300.className}>
         <Navigation />
         {children}
       </body>
