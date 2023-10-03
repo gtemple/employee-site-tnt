@@ -34,6 +34,7 @@ export default function Login() {
         />
         <button>Sign up</button>
       </form>
+      <Link href="/pages/login">Login</Link>
     </div>
   )
 }

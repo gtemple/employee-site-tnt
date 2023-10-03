@@ -19,15 +19,9 @@ export default async function Index() {
 
   let profile = data && data[0];
 
-
-  // if (!user) {
-  //   redirect("/unauthenticated")
-  // }
-
   if (!user) {
     return (
       <>
-        <Link href={'/pages/user/update'}>Update Account</Link>
         <Link href="/pages/login">Login</Link>
         <Link href="/pages/signup">Sign Up</Link>
       </>
@@ -59,7 +53,6 @@ export default async function Index() {
       Hey, {profile.first_name}!
       <Link href={'/pages/user/update'}>Update Profile</Link>
       <LogoutButton />
-      {profile.admin && <Link href="/pages/admin/dashboard">admin</Link>}
     </div>
   )
 }
