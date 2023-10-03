@@ -1,5 +1,24 @@
+.form-field-group {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
 .text-input {
   height: 35px;
-  width: 250px;
+  width: 300px;
+  margin: 5px 0;
+}
+
+button {
+  width: 180px;
+  height: 40px;
   margin: 5px;
+  color: white;
+  background-color: blue;
+  border-radius: 5px;
+  border-style: hidden;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 17px;
 }
