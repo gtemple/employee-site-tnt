@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { getProfileData } from '@/app/api/getProfilesServer';
 
 import Button from '@mui/material/Button';
-import UserProfile from '@/components/admin/UserProfile';
+import UserProfile from '@/app/components/admin/UserProfile';
 
 
 export default async function Profile({ params }) {

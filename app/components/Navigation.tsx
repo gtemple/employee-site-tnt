@@ -2,6 +2,8 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import Link from 'next/link'
 
+import '../styles/nav.css'
+
 
 export const dynamic = 'force-dynamic'
 
@@ -21,7 +23,10 @@ export default async function Navigation() {
   let profile = data && data[0];
   if (user) {
     return (
-      <div>
+      <div className='nav-bar'>
+        <div>
+          <div>Hi, {profile.first_name}</div>
+        </div>
         <div>My Tours</div>
         <div>Profile</div>
         <div>admin</div>

@@ -1,3 +1,11 @@
+body {
+  margin: 0;
+}
+
+.page-layout {
+  display: flex;
+}
+
 .form-field-group {
   display: flex;
   flex-direction: column;
@@ -21,4 +29,8 @@ button {
   text-transform: uppercase;
   font-weight: 500;
   font-size: 17px;
+}
+
+button:hover {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }

@@ -1,6 +1,6 @@
-import Navigation from "@/components/Navigation"
+import Navigation from "@/app/components/Navigation"
 import { spartan300, spartan400  } from "./styles/fonts"
-import './globals.css'
+import './styles/globals.css'
 
 export const metadata = {
   title: 'TNT',
@@ -14,9 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={spartan300.className}>
-        <Navigation />
-        {children}
+      <body className={`${spartan300.className} page-layout`}>
+          <Navigation />
+          {children}
       </body>
     </html>
   )
