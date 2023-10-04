@@ -32,8 +32,6 @@ export default async function Index() {
     return (
       <>
         <div>Hi, {profile.first_name}! Please complete your account to gain full access:</div>
-        <Link href={'/pages/user/update'}>Update Account</Link>
-        <LogoutButton />
       </>
     )
   }
@@ -42,8 +40,6 @@ export default async function Index() {
     return (
       <>
         <div>Hi, {profile.first_name}! your account is waiting approval</div>
-        <Link href={'/pages/user/update'}>Update Account</Link>
-        <LogoutButton />
       </>
     )
   }
@@ -51,8 +47,6 @@ export default async function Index() {
   return (
     <div>
       Hey, {profile.first_name}!
-      <Link href={'/pages/user/update'}>Update Profile</Link>
-      <LogoutButton />
     </div>
   )
 }

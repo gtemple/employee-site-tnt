@@ -9,3 +9,8 @@
   font-size: 25px;
   font-weight: 600;
 }
+
+.nav-link{
+  color: red;
+  text-decoration: none;
+}

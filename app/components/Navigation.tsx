@@ -1,6 +1,7 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import Link from 'next/link'
+import LogoutButton from './LogoutButton'
 
 import '../styles/nav.css'
 
@@ -26,14 +27,17 @@ export default async function Navigation() {
       <div className='nav-bar'>
         <div>
           <div>Hi, {profile.first_name}</div>
+          <Link href={'/pages/user/update'} className='nav-link'>Update Profile</Link>
         </div>
         <div>My Tours</div>
         <div>Profile</div>
-        <div>admin</div>
         <div> 
-          {console.log(profile)}
+          {profile.moderator && <Link href="/pages/moderator/dashboard">moderator</Link>}
+        </div>
+        <div>
           {profile.admin && <Link href="/pages/admin/dashboard">admin</Link>}
         </div>
+        <LogoutButton />
       </div>
     )
   }
