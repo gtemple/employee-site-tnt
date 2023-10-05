@@ -1,9 +1,23 @@
 import Link from 'next/link'
+import { redirect } from "next/navigation";
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import { cookies } from 'next/headers'
 import Messages from './messages'
+
 
 import './login.css'
 
-export default function Login() {
+export default async function Login() {
+  const supabase = createServerComponentClient({ cookies })
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  if (user) {
+    redirect('/')
+  }
+  
   return (
     <div>
       <div className='login-box'>

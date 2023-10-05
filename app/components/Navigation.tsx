@@ -24,6 +24,7 @@ export default async function Navigation() {
 
   let profile = data && data[0];
   if (user) {
+    console.log(user)
     return (
       <div className='nav-bar'>
         <div>
@@ -44,4 +45,6 @@ export default async function Navigation() {
       </div>
     )
   }
+
+  return null
 }
