@@ -10,6 +10,14 @@
   font-weight: 600;
 }
 
+.nav-profile {
+  display: flex;
+}
+
+.nav-name {
+  padding: 7px 0 0 10px;
+}
+
 .nav-link{
   color: red;
   text-decoration: none;

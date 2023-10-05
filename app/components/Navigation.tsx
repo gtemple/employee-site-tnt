@@ -1,6 +1,7 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import Link from 'next/link'
+import Avatar from '@mui/material/Avatar';
 import LogoutButton from './LogoutButton'
 
 import '../styles/nav.css'
@@ -26,11 +27,13 @@ export default async function Navigation() {
     return (
       <div className='nav-bar'>
         <div>
-          <div>Hi, {profile.first_name}</div>
+          <div className='nav-profile'>
+            <Avatar>P</Avatar>
+            <div className='nav-name'>{profile.first_name}</div>
+          </div>
           <Link href={'/pages/user/update'} className='nav-link'>Update Profile</Link>
         </div>
         <div>My Tours</div>
-        <div>Profile</div>
         <div> 
           {profile.moderator && <Link href="/pages/moderator/dashboard">moderator</Link>}
         </div>
