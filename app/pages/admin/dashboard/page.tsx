@@ -1,7 +1,7 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import Link from 'next/link'
-import { getProfileData, getAllProfiles } from '@/app/api/getProfilesServer'
+import { getProfileData, getAllProfiles } from '@/app/api/getProfiles'
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
