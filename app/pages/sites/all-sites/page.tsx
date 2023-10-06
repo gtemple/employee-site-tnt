@@ -28,8 +28,7 @@ export default async function Admin() {
 
   return (
     <div>
-      {console.log(sites)}
-      {/* {sites.allSiteData?.length > 0 && (
+      {sites.allSiteData?.length > 0 && (
         <div>
           <div>
             {profileData[0].first_name} {profileData[0].last_name} sites
@@ -37,32 +36,21 @@ export default async function Admin() {
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
-              <TableRow>
-                  <TableCell>Site</TableCell>
-                  <TableCell>Last Name</TableCell>
-                  <TableCell>Email</TableCell>
-                  <TableCell>Active</TableCell>
-                  <TableCell>Moderator</TableCell>
-                  <TableCell>Admin</TableCell>
-                  <TableCell>Full Profile</TableCell>
-
+                <TableRow>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {profiles.allProfileData.map((profile) => (
+                {sites.allSiteData.map((site) => (
                     <TableRow
-                      key={profile.email}
+                      key={site.id}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
-                      <TableCell component="th" scope="row">{profile.first_name}</TableCell>
-                      <TableCell>{profile.last_name}</TableCell>
-                      <TableCell>{profile.email}</TableCell>
-                      <TableCell>{profile.active ? 'yes' : 'no'}</TableCell>
-                      <TableCell>{profile.moderator ? 'yes' : 'no'}</TableCell>
-                      <TableCell>{profile.admin ? 'yes' : 'no'}</TableCell>
+                      <TableCell component="th" scope="row">{site.image}</TableCell>
+                      <TableCell>{site.name}</TableCell>
+                      <TableCell>{site.city}</TableCell>
                       <TableCell>
-                        <Link href={`/pages/admin/${profile.id}`}>
-                            Edit
+                        <Link href={`/pages/sites/${site.id}`}>
+                            View
                           </Link>
                       </TableCell>
                     </TableRow>
@@ -71,7 +59,7 @@ export default async function Admin() {
             </Table>
           </TableContainer>
         </div>
-      )} */}
+      )}
       <Link href="/">Back</Link>
 
     </div>
