@@ -35,11 +35,12 @@ export default async function Navigation() {
           <Link href={'/pages/user/update'} className='nav-link'>Update Profile</Link>
         </div>
         <div>My Tours</div>
-        <div> 
-          {profile.moderator && <Link href="/pages/moderator/dashboard">moderator</Link>}
+        {profile && <Link href="/">Home</Link>}
+        <div>
+          {profile.moderator && <Link href="/pages/moderator/dashboard">Moderator</Link>}
         </div>
         <div>
-          {profile.admin && <Link href="/pages/admin/dashboard">admin</Link>}
+          {profile.admin && <Link href="/pages/admin/dashboard">Admin</Link>}
         </div>
         <LogoutButton />
       </div>

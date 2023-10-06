@@ -1,7 +1,6 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import Link from 'next/link'
-import LogoutButton from './components/LogoutButton'
 
 export const dynamic = 'force-dynamic'
 
@@ -46,7 +45,8 @@ export default async function Index() {
 
   return (
     <div>
-      Hey, {profile.first_name}!
+      <div>Hey, {profile.first_name}!</div>
+      <Link href="/pages/sites/all-sites">sites</Link>
     </div>
   )
 }

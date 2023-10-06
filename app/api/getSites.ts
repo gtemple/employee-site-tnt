@@ -36,18 +36,18 @@ export async function getAllSites() {
 }
 
 
-export async function getTourIds() {
+export async function getSiteIds() {
   const supabase = createServerComponentClient({ cookies })
 
   const { data, error } = await supabase
-  .from('tours')
+  .from('sites')
   .select('id')
 
   if (error) {
     console.log(error);
-    return 'failed to get tour ids';
+    return 'failed to get site ids';
   }
   
   console.log(data)
-  return { tourIds: data};
+  return { siteIds: data};
 }
