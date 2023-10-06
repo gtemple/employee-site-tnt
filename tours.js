@@ -2,7 +2,9 @@
 
 const trip = {
   dayOne: {
-    
+    8: {
+      activity
+    }
   },
   dayTwo: {
 

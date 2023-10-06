@@ -2,37 +2,37 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 
 
-export async function getTourData(id: String) {
+export async function getSiteData(id: String) {
   const supabase = createServerComponentClient({ cookies });
 
   const { data, error } = await supabase
-  .from('tours')
+  .from('sites')
   .select('*')
   .eq('id', id)
 
   if (error) {
     console.log(error);
-    return 'failed to get tours';
+    return 'failed to get site';
   }
 
   console.log(data)
-  return { tourData: data};
+  return { siteData: data};
 }
 
-export async function getAllTours() {
+export async function getAllSites() {
   const supabase = createServerComponentClient({ cookies })
 
   const { data, error } = await supabase
-  .from('tours')
+  .from('sites')
   .select('*')
 
   if (error) {
     console.log(error);
-    return 'failed to get tour';
+    return 'failed to get sites';
   }
 
   console.log(data)
-  return { allTourData: data};
+  return { allSiteData: data};
 }
 
 
