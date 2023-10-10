@@ -3,6 +3,7 @@ import { cookies } from 'next/headers'
 import Link from 'next/link'
 import { getProfileData } from '@/app/api/getProfiles'
 import { getAllSites } from '@/app/api/getSites'
+import { Site } from '@app/typescript/site'
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -40,7 +41,7 @@ export default async function Admin() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {sites.allSiteData.map((site) => (
+                {sites.allSiteData.map((site: Site) => (
                     <TableRow
                       key={site.id}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
