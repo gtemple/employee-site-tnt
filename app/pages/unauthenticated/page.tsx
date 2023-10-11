@@ -10,6 +10,7 @@ export default async function Unauthenticated() {
   if (session) {
     redirect('/pages/login')
   }
+  
   return (
     <div>Please sign in</div>
     )

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { TextField, Button } from '@mui/material'
-import Unauthenticated from '@/app/unauthenticated/page'
+import Unauthenticated from '@/app/pages/unauthenticated/page'
 
 export default function UpdateUser() {
   

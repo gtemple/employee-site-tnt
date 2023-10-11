@@ -7,7 +7,7 @@ export async function getTourData(id: String) {
 
   const { data, error } = await supabase
   .from('tours')
-  .select('*')
+  .select(`*, schools (*)`)
   .eq('id', id)
 
   if (error) {
@@ -31,7 +31,7 @@ export async function getAllTours() {
     return 'failed to get tour';
   }
 
-  console.log(data)
+  console.log('tour data:', data)
   return { allTourData: data};
 }
 

@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 import Link from 'next/link'
 import { getProfileData } from '@/app/api/getProfiles'
 import { getAllSites } from '@/app/api/getSites'
-import { Site } from '@app/typescript/site'
+import Site from '@/app/typescript/site'
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
