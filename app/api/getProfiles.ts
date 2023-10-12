@@ -32,7 +32,7 @@ export async function getAllProfiles() {
   }
 
   console.log(data)
-  return { allProfileData: data};
+  return { allProfileData: data };
 }
 
 
@@ -49,5 +49,5 @@ export async function getProfileIds() {
   }
   
   console.log(data)
-  return { profileIds: data};
+  return { profileIds: data };
 }

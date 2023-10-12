@@ -1,7 +1,9 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 
-
+/*
+ALL GET REQUESTS
+*/
 export async function getSiteData(id: String) {
   const supabase = createServerComponentClient({ cookies });
 
@@ -50,4 +52,29 @@ export async function getSiteIds() {
   
   console.log(data)
   return { siteIds: data};
+}
+
+
+/*
+ALL UPDATE REQUESTS
+*/
+
+export async function updateSiteData(id: String) {
+  const supabase = createServerComponentClient({ cookies });
+
+
+
+
+  const { data, error } = await supabase
+  .from('sites')
+  .update({ name: 'Australia' })
+  .eq('id', id)
+  .select()
+
+  if (error) {
+    console.log(error);
+    return 'failed to get site';
+  }
+
+  console.log(data)
 }

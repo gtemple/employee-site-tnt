@@ -3,6 +3,7 @@ import { cookies } from 'next/headers'
 import Link from 'next/link'
 import { getProfileData } from '@/app/api/getProfiles'
 import { getAllSites } from '@/app/api/getSites'
+import { isModerator, isAdmin } from '@/app/api/authenticatePriviledges'
 import Site from '@/app/typescript/site'
 
 import Table from '@mui/material/Table';
@@ -29,6 +30,7 @@ export default async function Admin() {
 
   return (
     <div>
+      {console.log('mod:', isModerator(), 'admin:', isAdmin())}
       {sites.allSiteData?.length > 0 && (
         <div>
           <div>
