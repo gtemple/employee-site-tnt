@@ -52,8 +52,15 @@ export default async function Admin() {
                       <TableCell>
                         <Link href={`/pages/sites/${site.id}`}>
                             View
-                          </Link>
+                        </Link>
                       </TableCell>
+                        {profileData[0].moderator && (
+                          <TableCell>
+                            <Link href={`/pages/moderator/sites/${site.id}`}>
+                                Edit
+                            </Link>
+                          </TableCell>
+                        )}
                     </TableRow>
                 ))}
               </TableBody>
