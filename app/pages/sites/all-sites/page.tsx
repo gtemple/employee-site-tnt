@@ -16,7 +16,7 @@ import Paper from '@mui/material/Paper';
 
 export default async function Admin() {
   const supabase = createServerComponentClient({ cookies })
-
+  const moderator = await isModerator()
   const {
     data: { user },
   } = await supabase.auth.getUser()
@@ -30,7 +30,7 @@ export default async function Admin() {
 
   return (
     <div>
-      {console.log('mod:', isModerator(), 'admin:', isAdmin())}
+      {console.log('here -----------------', moderator)}
       {sites.allSiteData?.length > 0 && (
         <div>
           <div>

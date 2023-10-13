@@ -22,10 +22,12 @@ async function getUser() {
 
 export async function isModerator() {
   const user = await getUser();
-  return user.moderator ? true : false;
+  const moderator = user[0].moderator ? true : false;
+  return JSON.stringify(moderator);
 }
 
 export async function isAdmin() {
   const user = await getUser();
-  return user.admin ? true : false;
+  const admin = user[0].admin ? true : false;
+  return JSON.stringify(admin);
 }
