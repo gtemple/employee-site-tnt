@@ -64,7 +64,6 @@ export async function updateSiteData(id: String) {
 
 
 
-
   const { data, error } = await supabase
   .from('sites')
   .update({ name: 'Australia' })

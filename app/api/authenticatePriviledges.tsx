@@ -20,14 +20,20 @@ async function getUser() {
   return data;
 }
 
+export async function isActive() {
+  const user = await getUser();
+  const active = user[0].active ? true : false;
+  return active;
+};
+
 export async function isModerator() {
   const user = await getUser();
   const moderator = user[0].moderator ? true : false;
-  return JSON.stringify(moderator);
-}
+  return moderator;
+};
 
 export async function isAdmin() {
   const user = await getUser();
   const admin = user[0].admin ? true : false;
-  return JSON.stringify(admin);
-}
+  return admin;
+};

@@ -30,7 +30,6 @@ export default async function Admin() {
 
   return (
     <div>
-      {console.log('here -----------------', moderator)}
       {sites.allSiteData?.length > 0 && (
         <div>
           <div>

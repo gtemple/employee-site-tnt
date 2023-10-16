@@ -1,6 +1,8 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import Link from 'next/link'
+import { getProfileData } from '../api/getProfiles';
+
 import Avatar from '@mui/material/Avatar';
 import LogoutButton from './LogoutButton'
 
@@ -17,14 +19,11 @@ export default async function Navigation() {
     data: { user },
   } = await supabase.auth.getUser()
 
-  const { data, error } = await supabase
-    .from('profiles')
-    .select('*')
-    .eq('user_id', user?.id)
+  let data = await getProfileData(user?.id)
+  //@ts-ignore
+  let profile = data && data.profileData[0]
 
-  let profile = data && data[0];
   if (user) {
-    console.log(user)
     return (
       <div className='nav-bar'>
         <div>
@@ -35,7 +34,7 @@ export default async function Navigation() {
           <Link href={'/pages/user/update'} className='nav-link'>Update Profile</Link>
         </div>
         <div>My Tours</div>
-        {profile && <Link href="/">Home</Link>}
+          {profile && <Link href="/">Home</Link>}
         <div>
           {profile.moderator && <Link href="/pages/moderator/dashboard">Moderator</Link>}
         </div>
