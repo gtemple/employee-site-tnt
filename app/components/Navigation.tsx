@@ -20,7 +20,6 @@ export default async function Navigation() {
   } = await supabase.auth.getUser()
 
   let data = await getProfileData(user?.id)
-  console.log('here:', data)
   //@ts-ignore
   let profile = data && data[0]
 
@@ -34,8 +33,10 @@ export default async function Navigation() {
           </div>
           <Link href={'/pages/user/update'} className='nav-link'>Update Profile</Link>
         </div>
-        <div>My Tours</div>
           {profile && <Link href="/">Home</Link>}
+        <div>
+          {profile.active && <Link href="/pages/tours/user-tours">My Tours</Link>}
+        </div>
         <div>
           {profile.moderator && <Link href="/pages/moderator/dashboard">Moderator</Link>}
         </div>

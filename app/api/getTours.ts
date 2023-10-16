@@ -14,9 +14,24 @@ export async function getTourData(id: String) {
     console.log(error);
     return 'failed to get tours';
   }
-
   console.log(data)
   return { tourData: data};
+}
+
+export async function getToursByUserId(id: String) {
+  const supabase = createServerComponentClient({ cookies });
+
+  const { data, error } = await supabase
+  .from('tours')
+  .select(`*, schools (*)`)
+  .eq('id', id)
+
+  if (error) {
+    console.log(error);
+    return 'failed to get tours';
+  }
+  console.log('here:', data)
+  return { tourData: data };
 }
 
 export async function getAllTours() {
