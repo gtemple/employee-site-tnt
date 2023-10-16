@@ -16,7 +16,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${spartan300.className} page-layout`}>
           <Navigation />
-          {children}
+          <div className='right-panel'>
+            {children}
+          </div>
       </body>
     </html>
   )

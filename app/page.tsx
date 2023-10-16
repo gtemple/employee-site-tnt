@@ -2,6 +2,7 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { getProfileData } from './api/getProfiles'
 import Link from 'next/link'
+import './styles/dashboard.css'
 
 export const dynamic = 'force-dynamic'
 
@@ -41,10 +42,13 @@ export default async function Index() {
   }
 
   return (
-    <div>
-      <div>Hey, {profile.first_name}!</div>
-      <Link href="/pages/tours/tours">My Tours</Link>
-      <Link href="/pages/sites/all-sites">Sites</Link>
+    <div className='dash'>
+      <div className='greeting'>Hey, {profile.first_name}!</div>
+      <div className='dash-nav'>
+        <Link href="/pages/tours/tours">My Tours</Link>
+        <Link href="/pages/sites/all-sites">Sites</Link>
+        <Link href="/pages/destinations/all-destinations">Destinations</Link>
+      </div>
     </div>
   )
 }

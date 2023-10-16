@@ -1,0 +1,31 @@
+.greeting {
+  margin: 30px 0;
+  text-align: center;
+  font-size: 20px;
+}
+
+.dash-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.dash-nav *{
+  margin: 5px;
+  width: 200px;
+  padding: 20px;
+  text-decoration: none;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  color: black;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 2px;
+  border-color: black;
+}
+
+.dash-nav *:hover {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
