@@ -1,16 +1,27 @@
 //testing how I will implement my data structure for tours
 
-const trip = {
-  dayOne: {
-    8: {
-      activity
-    }
-  },
-  dayTwo: {
+const info = {
+  ad: [1, 2],
+  bus: {
+    amount: 2,
+    company: [1, 2]
+  }
+};
 
-  },
-  dayThree: {
-    
+const trip = {
+  days: {
+    1: {
+      date: 'date',
+      hotel: 1,
+      schedule: {
+        1: {
+          start: time,
+          end: time,
+          description: description,
+          id: 1
+        }
+      }
+    }
   }
 }
 
