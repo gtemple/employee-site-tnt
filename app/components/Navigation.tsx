@@ -20,8 +20,9 @@ export default async function Navigation() {
   } = await supabase.auth.getUser()
 
   let data = await getProfileData(user?.id)
+  console.log('here:', data)
   //@ts-ignore
-  let profile = data && data.profileData[0]
+  let profile = data && data[0]
 
   if (user) {
     return (

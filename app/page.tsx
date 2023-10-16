@@ -1,5 +1,6 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
+import { getProfileData } from './api/getProfiles'
 import Link from 'next/link'
 
 export const dynamic = 'force-dynamic'
@@ -11,12 +12,8 @@ export default async function Index() {
     data: { user },
   } = await supabase.auth.getUser()
 
-  const { data, error } = await supabase
-    .from('profiles')
-    .select('*')
-    .eq('user_id', user?.id)
-
-  let profile = data && data[0];
+  let data = await getProfileData(user?.id)
+  let profile = data && data[0]
 
   if (!user) {
     return (
@@ -46,7 +43,8 @@ export default async function Index() {
   return (
     <div>
       <div>Hey, {profile.first_name}!</div>
-      <Link href="/pages/sites/all-sites">sites</Link>
+      <Link href="/pages/tours/tours">My Tours</Link>
+      <Link href="/pages/sites/all-sites">Sites</Link>
     </div>
   )
 }

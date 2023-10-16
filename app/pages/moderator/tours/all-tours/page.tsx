@@ -21,9 +21,10 @@ export default async function Admin() {
   } = await supabase.auth.getUser()
   
   const tours = await getAllTours();
-  const { profileData } = await getProfileData(user?.id);
+  let data = await getProfileData(user?.id)
+  let profile = data && data[0]
 
-  if (profileData && !profileData[0].active) {
+  if (profile && !profile.active) {
     return <div>Authentication failed</div>
   }
 
@@ -32,7 +33,7 @@ export default async function Admin() {
       {tours.allTourData?.length > 0 && (
         <div>
           <div>
-            {profileData[0].first_name} {profileData[0].last_name} tours
+            {profile.first_name} {profile.last_name} tours
           </div>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">

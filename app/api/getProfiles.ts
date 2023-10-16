@@ -14,8 +14,7 @@ export async function getProfileData(userId: String | undefined) {
     return 'failed to get profile';
   }
 
-  console.log(data)
-  return { profileData: data};
+  return data;
 }
 
 export async function getAllProfiles() {

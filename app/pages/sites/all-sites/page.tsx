@@ -14,7 +14,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-export default async function Admin() {
+export default async function Sites() {
   const supabase = createServerComponentClient({ cookies })
   const moderator = await isModerator()
   const {
@@ -22,9 +22,11 @@ export default async function Admin() {
   } = await supabase.auth.getUser()
   
   const sites = await getAllSites();
-  const { profileData } = await getProfileData(user?.id);
 
-  if (profileData && !profileData[0].active) {
+  let data = await getProfileData(user?.id)
+  let profile = data && data[0]
+
+  if (profile && !profile.active) {
     return <div>Authentication failed</div>
   }
 
@@ -33,7 +35,7 @@ export default async function Admin() {
       {sites.allSiteData?.length > 0 && (
         <div>
           <div>
-            {profileData[0].first_name} {profileData[0].last_name} sites
+            {profile.first_name} {profile.last_name} sites
           </div>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -55,7 +57,7 @@ export default async function Admin() {
                             View
                         </Link>
                       </TableCell>
-                        {profileData[0].moderator && (
+                        {profile.moderator && (
                           <TableCell>
                             <Link href={`/pages/moderator/sites/${site.id}`}>
                                 Edit
