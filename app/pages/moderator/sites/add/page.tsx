@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Inactive = () => {
+const page = () => {
   return (
     <div>page</div>
   )
 }
 
-export default Inactive;
+export default page

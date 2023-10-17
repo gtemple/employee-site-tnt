@@ -2,7 +2,7 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import Link from 'next/link'
 import { getProfileData } from '@/app/api/getProfiles'
-import { getAllSites } from '@/app/api/getSites'
+import { getAllSites } from '@/app/api/sites/getSites'
 import { isModerator, isAdmin } from '@/app/api/authenticatePriviledges'
 import Site from '@/app/typescript/site'
 

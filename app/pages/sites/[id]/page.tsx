@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { getSiteData } from '@/app/api/getSites';
+import { getSiteData } from '@/app/api/sites/getSites';
 
 import Button from '@mui/material/Button';
 import UserProfile from '@/app/components/admin/UserProfile';

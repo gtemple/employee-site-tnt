@@ -12,22 +12,22 @@ const info = {
 };
 
 const trip = {
-  "days: {
-    1: {
-      date: 'date',
-      hotel: 1,
-      schedule: {
-        1: {
-          start: time,
-          end: time,
-          description: description,
-          id: 1
+  "days": {
+    "1": {
+      "date": "date",
+      "hotel": 1,
+      "schedule": {
+        "1": {
+          "start": "time",
+          "end": "time",
+          "description": "description",
+          "id": 1
         },
-        2: {
-          start: time,
-          end: time,
-          description: description,
-          id: 2
+        "2": {
+          "start": "time",
+          "end": "time",
+          "description": "description",
+          "id": 2
         }
       }
     }

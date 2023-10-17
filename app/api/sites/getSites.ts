@@ -1,5 +1,6 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
+import { isModerator } from '../authenticatePriviledges';
 
 /*
 ALL GET REQUESTS
@@ -40,6 +41,12 @@ export async function getAllSites() {
 
 export async function getSiteIds() {
   const supabase = createServerComponentClient({ cookies })
+  const writeAccess = isModerator();
+
+  if (!writeAccess) {
+    console.log('Access Denied - You are not an approved moderator')
+    return 'Access Denied - You are not an approved moderator'
+  }
 
   const { data, error } = await supabase
   .from('sites')
@@ -61,8 +68,6 @@ ALL UPDATE REQUESTS
 
 export async function updateSiteData(id: String) {
   const supabase = createServerComponentClient({ cookies });
-
-
 
   const { data, error } = await supabase
   .from('sites')

@@ -1,12 +1,16 @@
 import React from 'react';
 import Link from 'next/link';
-import { getSiteData } from '@/app/api/getSites';
+import { isModerator } from '@/app/api/authenticatePriviledges';
+import { getSiteData } from '@/app/api/sites/getSites';
+import { TextField } from '@mui/material'
 
-import Button from '@mui/material/Button';
-import UserProfile from '@/app/components/admin/UserProfile';
 
+export default async function UpdateSite({ params }) {
+  const writeAccess = isModerator();
 
-export default async function Profile({ params }) {
+  if (!writeAccess) {
+    return <div>Access Denied</div>
+  }
 
   const { siteData } = await getSiteData(params.id);
   const {
@@ -22,17 +26,28 @@ export default async function Profile({ params }) {
   return (
     <div>
       <div>
-        <div>edit site</div>
-        <div>site: {name} city: {city}
-          description: {description}
-        </div>
+        <div>Update site: {name}</div>
         <div>
-          {/* <UserProfile profile={profileData[0]} /> */}
+        <form
+          action="api/sites/update"
+          method="post"
+          className='form'
+        >
+          <TextField id="outlined-basic" label="Site Name" variant="outlined" type="text" name="name" defaultValue={name} required/>
+          <TextField
+          id="standard-textarea"
+          className='extended-field'
+          label="Description"
+          defaultValue={description}
+          multiline
+          variant="outlined"
+          />
+          <button>Update</button>
+        </form>
+
         </div>
       </div>
-      <Link href="/pages/admin/dashboard">Back</Link>
-      
-
+      <Link href="/pages/moderator/dashboard">Back</Link>
     </div>
   )
 }

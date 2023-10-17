@@ -22,6 +22,15 @@ body {
   margin: 5px 0;
 }
 
+form *{
+  margin: 5px;
+}
+
+.extended-field {
+  width: 90%;
+}
+
+
 button {
   width: 180px;
   height: 40px;
