@@ -8,7 +8,7 @@ import UserProfile from '@/app/components/admin/UserProfile';
 
 export default async function Profile({ params }) {
 
-  const { profileData } = await getProfileData(params.id);
+  const profileData = await getProfileData(params.id);
   const {
     first_name,
     last_name,

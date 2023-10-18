@@ -1,10 +1,7 @@
 "use client"
 
-import React from 'react'
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-
 
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
@@ -23,7 +20,6 @@ const style = {
   p: 4,
 };
 
-
 const UserProfile = (props) => {
   const router = useRouter();
 
@@ -37,7 +33,7 @@ const UserProfile = (props) => {
 
   const adminDesc = "Assigning someone as an admin gives them full application privledges. This includes: activating/deactivating accounts, assiging Activities Directors to tours, and and adding/editing/deleting information such as schools, tours, sites, accomodation and bus companies.";
   const moderatorDesc = "Assiging someone as moderator will allow them to edit a trips details";
-  const activeDesc = "Activating an account will allow a user to edit their profile and view upcoming and previous tours.";
+  const activeDesc = "Activating an account will allow a user to edit their profile, view sites, speeches, and view upcoming and previous tours.";
 
   const {
     first_name,
