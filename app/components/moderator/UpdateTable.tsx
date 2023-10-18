@@ -8,8 +8,8 @@ const UpdateTable = (props) => {
   const {
     name,
     description
-   } = props.destinations;
-  const site = props.site;
+   } = props.site;
+  const destinations = props.destinations;
 
   const handleChange = (event: SelectChangeEvent) => {
     setCity(event.target.value as string);
@@ -17,7 +17,7 @@ const UpdateTable = (props) => {
 
   return (
     <div>
-      {console.log('props:', name, site)}
+      {console.log('props:', name, destinations)}
       <form
         action="api/sites/update"
         method="post"
@@ -31,9 +31,9 @@ const UpdateTable = (props) => {
           label="destination"
           onChange={handleChange}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {destinations.map(destination => {
+            return <MenuItem value={destination.id}>{destination.name}</MenuItem>
+          })}
         </Select>
         <TextField
         id="standard-textarea"
