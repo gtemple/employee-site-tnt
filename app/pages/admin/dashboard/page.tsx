@@ -19,7 +19,8 @@ export default async function Admin() {
   } = await supabase.auth.getUser()
   
   const profiles = await getAllProfiles();
-  const { profileData } = await getProfileData(user?.id);
+  console.log(user)
+  const profileData = await getProfileData(user?.id);
 
   if (profileData && !profileData[0].admin) {
     return <div>Authentication failed</div>
