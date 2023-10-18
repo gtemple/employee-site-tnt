@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import UpdateTable from '@/app/components/moderator/UpdateTable';
+import SiteUpdateForm from '@/app/components/moderator/SiteUpdateForm';
 import { isModerator } from '@/app/api/authenticatePriviledges';
 import { getSiteData } from '@/app/api/sites/getSites';
 import { getAllDestinations } from '@/app/api/destinations/getDestinations';
@@ -24,7 +24,7 @@ export default async function UpdateSite({ params }) {
       <div>
         <div>Update site: {name}</div>
         <div>
-          <UpdateTable destinations={destinations} site={siteData[0]} />
+          <SiteUpdateForm destinations={destinations} site={siteData[0]} />
         </div>
       </div>
       <Link href="/pages/moderator/dashboard">Back</Link>

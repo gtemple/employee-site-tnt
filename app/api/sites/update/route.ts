@@ -23,12 +23,24 @@ export async function POST(request: Request) {
   const id = String(formData.get('id'));
   const name = String(formData.get('name'));
   const address = String(formData.get('address'));
+  const city_id = String(formData.get('city'));
+  const postal = String(formData.get('postal'));
+  const phone = String(formData.get('phone'));
+  const description = String(formData.get('description'));
   const supabase = createServerActionClient({ cookies });
 
   const { error } = await supabase
     .from('sites')
-    .update({ name, address })
+    .update({
+      name: name,
+      address: address,
+      destination_id: city_id,
+      postal: postal,
+      phone: phone,
+      description: description
+    })
     .eq('id', id)
+
 
   if (error) {
     console.log(error)

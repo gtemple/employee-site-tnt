@@ -10,7 +10,7 @@ export async function getSiteData(id: String) {
 
   const { data, error } = await supabase
   .from('sites')
-  .select('*')
+  .select(`*, destinations (*)`)
   .eq('id', id)
 
   if (error) {
