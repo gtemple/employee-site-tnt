@@ -1,12 +1,14 @@
-import React from 'react';
 import Link from 'next/link';
+import UpdateTable from '@/app/components/moderator/UpdateTable';
 import { isModerator } from '@/app/api/authenticatePriviledges';
 import { getSiteData } from '@/app/api/sites/getSites';
-import { TextField } from '@mui/material'
+import { getAllDestinations } from '@/app/api/destinations/getDestinations';
 
 
 export default async function UpdateSite({ params }) {
-  const writeAccess = isModerator();
+  const writeAccess = await isModerator();
+  const destinationData = await getAllDestinations();
+  const destinations = destinationData?.allDestinationData;
 
   if (!writeAccess) {
     return <div>Access Denied</div>
@@ -14,13 +16,7 @@ export default async function UpdateSite({ params }) {
 
   const { siteData } = await getSiteData(params.id);
   const {
-    name,
-    city,
-    address,
-    website,
-    postal,
-    phone,
-    description
+    name
   } = siteData[0]
 
   return (
@@ -28,23 +24,7 @@ export default async function UpdateSite({ params }) {
       <div>
         <div>Update site: {name}</div>
         <div>
-        <form
-          action="api/sites/update"
-          method="post"
-          className='form'
-        >
-          <TextField id="outlined-basic" label="Site Name" variant="outlined" type="text" name="name" defaultValue={name} required/>
-          <TextField
-          id="standard-textarea"
-          className='extended-field'
-          label="Description"
-          defaultValue={description}
-          multiline
-          variant="outlined"
-          />
-          <button>Update</button>
-        </form>
-
+          <UpdateTable destinations={destinations} site={siteData[0]} />
         </div>
       </div>
       <Link href="/pages/moderator/dashboard">Back</Link>
