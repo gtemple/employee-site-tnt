@@ -53,6 +53,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     )
   }
 
+  console.log(requestUrl, requestUrl.origin)
   return NextResponse.redirect(requestUrl.origin, {
     // a 301 status is required to redirect from a POST to a GET route
     status: 301,

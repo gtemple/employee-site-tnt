@@ -24,11 +24,11 @@ const SiteUpdateForm = (props) => {
   const destinations = props.destinations;
 
   const postUpdate = () => {
-    if (state.name === '' || state.name === undefined) {
-      enqueueSnackbar(
-        `Site name can't be blank`,
-        { autoHideDuration: 3000, variant: "error" }
-      );
+    if (state.name === "" || state.name === undefined) {
+      enqueueSnackbar(`Site name can't be blank`, {
+        autoHideDuration: 3000,
+        variant: "error",
+      });
       return;
     }
 
@@ -40,10 +40,10 @@ const SiteUpdateForm = (props) => {
       body: JSON.stringify(state),
     });
 
-    enqueueSnackbar(
-      `${state.name} successfully updated`,
-      { autoHideDuration: 3000, variant: "success" }
-    );
+    enqueueSnackbar(`${state.name} successfully updated`, {
+      autoHideDuration: 3000,
+      variant: "success",
+    });
 
     router.refresh();
   };

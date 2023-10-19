@@ -1,0 +1,21 @@
+.status {
+  padding: 4px;
+  border-radius: 4px;
+  color: white;
+}
+
+.active {
+  background-color: green;
+}
+
+.inactive {
+  background-color: darkred;
+}
+
+.moderator {
+  background-color: orangered;
+}
+
+.admin {
+  background-color: slateblue;
+}
