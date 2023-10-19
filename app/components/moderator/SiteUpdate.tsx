@@ -1,110 +1,136 @@
-"use client"
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Destination from '@/app/typescript/destination';
-import { TextField, MenuItem, Select, SelectChangeEvent } from '@mui/material'
-
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Destination from "@/app/typescript/destination";
+import { TextField, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import { SnackbarProvider, enqueueSnackbar } from "notistack";
 
 const SiteUpdateForm = (props) => {
   const router = useRouter();
-  const {
-    id,
-    name,
-    description,
-    address,
-    postal,
-    phone,
-    destination_id
-   } = props.site;
-  const [field, setField] = useState('')
+  const { id, name, description, address, postal, phone, destination_id } =
+    props.site;
+  const [field, setField] = useState("");
   const [state, setState] = useState({
-      'id': id,
-      'name': name,
-      'description': description,
-      'city': destination_id,
-      'address': address,
-      'postal': postal,
-      'phone': phone
-    });
+    id: id,
+    name: name,
+    description: description,
+    city: destination_id,
+    address: address,
+    postal: postal,
+    phone: phone,
+  });
 
   const destinations = props.destinations;
 
+  const checkName = () => {
+    if (name === "") {
+      return false;
+    }
+  };
+
   const postUpdate = () => {
-    fetch('/api/sites/update', {
-      method: 'POST',
+    if (!checkName()) {
+      return;
+    }
+    fetch("/api/sites/update", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(state),
-    })
+    });
     router.refresh();
-  }
-
+  };
 
   const handleChange = (event: SelectChangeEvent) => {
     setState((prevState) => ({
-      ...prevState, [field]: event.target.value
+      ...prevState,
+      [field]: event.target.value,
     }));
   };
 
   return (
     <div>
-        <TextField 
-          id="outlined-basic"
-          label="Site Name"
-          variant="outlined"
-          type="text"
-          name="name"
-          onChange={(e) => {handleChange(e), setField('name')}}
-          defaultValue={name}
-          required
-        />
-        <TextField id="outlined-basic" label="Street Address" variant="outlined" type="text" name="address" defaultValue={address} required/>
-        <Select
-          labelId="city"
-          id="city"
-          value={state.city}
-          name="city"
-          label="city"
-          onChange={(e) => {handleChange(e), setField('city')}}
-          required
-        >
-          {destinations.map((destination: Destination) => {
-            return <MenuItem value={destination.id}>{destination.name}, {destination.region}</MenuItem>
-          })}
-        </Select>
-        <TextField
-          id="outlined-basic"
-          label="Postal Code"
-          variant="outlined"
-          type="text"
-          name="postal"
-          onChange={(e) => {handleChange(e), setField('postal')}}
-          defaultValue={postal}
-          required/>
-        <TextField
-          id="outlined-basic"
-          label="Phone Number"
-          variant="outlined"
-          type="text"
-          name="phone"
-          onChange={(e) => {handleChange(e), setField('phone')}}
-          defaultValue={phone} />
+      <TextField
+        id="outlined-basic"
+        label="Site Name"
+        variant="outlined"
+        type="text"
+        name="name"
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          handleChange(e), setField("name");
+        }}
+        defaultValue={name}
+        required
+      />
+      <TextField
+        id="outlined-basic"
+        label="Street Address"
+        variant="outlined"
+        type="text"
+        name="address"
+        defaultValue={address}
+        required
+      />
+      <Select
+        labelId="city"
+        id="city"
+        value={state.city}
+        name="city"
+        label="city"
+        onChange={(e) => {
+          handleChange(e), setField("city");
+        }}
+        required
+      >
+        {destinations.map((destination: Destination) => {
+          return (
+            <MenuItem value={destination.id}>
+              {destination.name}, {destination.region}
+            </MenuItem>
+          );
+        })}
+      </Select>
+      <TextField
+        id="outlined-basic"
+        label="Postal Code"
+        variant="outlined"
+        type="text"
+        name="postal"
+        onChange={(e) => {
+          handleChange(e), setField("postal");
+        }}
+        defaultValue={postal}
+        required
+      />
+      <TextField
+        id="outlined-basic"
+        label="Phone Number"
+        variant="outlined"
+        type="text"
+        name="phone"
+        onChange={(e) => {
+          handleChange(e), setField("phone");
+        }}
+        defaultValue={phone}
+      />
 
-        <TextField
+      <TextField
         id="standard-textarea"
-        className='extended-field'
+        className="extended-field"
         label="Description"
-        name='description'
+        name="description"
         defaultValue={description}
-        onChange={(e) => {handleChange(e), setField('description')}}
+        onChange={(e) => {
+          handleChange(e), setField("description");
+        }}
         multiline
         variant="outlined"
-        />
-        <button onClick={postUpdate}>Update</button>
+      />
+      <button onClick={postUpdate}>Update</button>
     </div>
-  )
-}
+  );
+};
 
-export default SiteUpdateForm
+export default SiteUpdateForm;

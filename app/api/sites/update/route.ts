@@ -29,7 +29,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const description = body.description;
   const supabase = createServerActionClient({ cookies });
 
-  console.log('did this wooooooork', body)
 
   const { error } = await supabase
     .from('sites')
