@@ -23,6 +23,7 @@ export async function getAllDestinations() {
   const { data, error } = await supabase
   .from('destinations')
   .select('*')
+  .order('name')
 
   if (error) {
     console.log(error);

@@ -1,38 +1,41 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Destination from "@/app/typescript/destination";
 import { TextField, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { SnackbarProvider, enqueueSnackbar } from "notistack";
 
-const SiteUpdateForm = (props) => {
-  const router = useRouter();
-  const { id, name, description, address, postal, phone, destination_id } =
-    props.site;
+const SiteAdd = (props) => {
   const [field, setField] = useState("");
   const [state, setState] = useState({
-    id: id,
-    name: name,
-    description: description,
-    city: destination_id,
-    address: address,
-    postal: postal,
-    phone: phone,
+    name: "",
+    description: "",
+    city: "",
+    address: "",
+    postal: "",
+    phone: "",
   });
 
   const destinations = props.destinations;
 
-  const postUpdate = () => {
-    if (state.name === '' || state.name === undefined) {
-      enqueueSnackbar(
-        `Site name can't be blank`,
-        { autoHideDuration: 3000, variant: "error" }
-      );
+  const post = () => {
+    if (state.name === "" || state.name === undefined) {
+      enqueueSnackbar(`Site name can't be blank`, {
+        autoHideDuration: 3000,
+        variant: "error",
+      });
       return;
     }
 
-    fetch("/api/sites/update", {
+    if (state.city === "" || state.city === undefined) {
+      enqueueSnackbar(`Please select a Destination`, {
+        autoHideDuration: 3000,
+        variant: "error",
+      });
+      return;
+    }
+
+    fetch("/api/sites/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -40,12 +43,12 @@ const SiteUpdateForm = (props) => {
       body: JSON.stringify(state),
     });
 
-    enqueueSnackbar(
-      `${state.name} successfully updated`,
-      { autoHideDuration: 3000, variant: "success" }
-    );
+    console.log(state);
 
-    router.refresh();
+    enqueueSnackbar(`${state.name} was successfully added`, {
+      autoHideDuration: 3000,
+      variant: "success",
+    });
   };
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -65,24 +68,22 @@ const SiteUpdateForm = (props) => {
         label="Site Name"
         variant="outlined"
         type="text"
-        name="name"
+        name="name" // This should match the state property name
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           handleChange(e);
         }}
-        defaultValue={name}
         required
       />
+
       <TextField
         id="outlined-basic"
         label="Street Address"
         variant="outlined"
         type="text"
         name="address"
-        defaultValue={address}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           handleChange(e);
         }}
-        required
       />
       <Select
         labelId="city"
@@ -112,7 +113,6 @@ const SiteUpdateForm = (props) => {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           handleChange(e);
         }}
-        defaultValue={postal}
         required
       />
       <TextField
@@ -124,7 +124,6 @@ const SiteUpdateForm = (props) => {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           handleChange(e);
         }}
-        defaultValue={phone}
       />
 
       <TextField
@@ -132,16 +131,15 @@ const SiteUpdateForm = (props) => {
         className="extended-field"
         label="Description"
         name="description"
-        defaultValue={description}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           handleChange(e);
         }}
         multiline
         variant="outlined"
       />
-      <button onClick={postUpdate}>Update</button>
+      <button onClick={post}>Add</button>
     </div>
   );
 };
 
-export default SiteUpdateForm;
+export default SiteAdd;
