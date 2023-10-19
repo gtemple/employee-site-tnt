@@ -23,16 +23,15 @@ const SiteUpdateForm = (props) => {
 
   const destinations = props.destinations;
 
-  const checkName = () => {
-    if (name === "") {
-      return false;
-    }
-  };
-
   const postUpdate = () => {
-    if (!checkName()) {
+    if (state.name === '' || state.name === undefined) {
+      enqueueSnackbar(
+        `Site name can't be blank`,
+        { autoHideDuration: 3000, variant: "error" }
+      );
       return;
     }
+
     fetch("/api/sites/update", {
       method: "POST",
       headers: {
@@ -40,6 +39,12 @@ const SiteUpdateForm = (props) => {
       },
       body: JSON.stringify(state),
     });
+
+    enqueueSnackbar(
+      `{${state.name} successfully updated}`,
+      { autoHideDuration: 3000, variant: "success" }
+    );
+
     router.refresh();
   };
 
@@ -52,6 +57,7 @@ const SiteUpdateForm = (props) => {
 
   return (
     <div>
+      <SnackbarProvider />
       <TextField
         id="outlined-basic"
         label="Site Name"
