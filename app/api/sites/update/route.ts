@@ -1,12 +1,12 @@
 import { createServerActionClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { isModerator } from '../../authenticatePriviledges'
 
 export const dynamic = 'force-dynamic'
 
-export async function POST(request: Request) {
-  const requestUrl = new URL(request.url)
+export async function POST(req: NextRequest, res: NextResponse) {
+  const requestUrl = new URL(req.url)
   const writeAccess = await isModerator();
 
   if (!writeAccess) {
@@ -19,15 +19,17 @@ export async function POST(request: Request) {
     )
   }
 
-  const formData = await request.formData();
-  const id = String(formData.get('id'));
-  const name = String(formData.get('name'));
-  const address = String(formData.get('address'));
-  const city_id = String(formData.get('city'));
-  const postal = String(formData.get('postal'));
-  const phone = String(formData.get('phone'));
-  const description = String(formData.get('description'));
+  const body = await req.json();
+  const id = body.id;
+  const name = body.name;
+  const address = body.address;
+  const city_id = body.city;
+  const postal = body.postal;
+  const phone = body.phone;
+  const description = body.description;
   const supabase = createServerActionClient({ cookies });
+
+  console.log('did this wooooooork', body)
 
   const { error } = await supabase
     .from('sites')
@@ -40,7 +42,6 @@ export async function POST(request: Request) {
       description: description
     })
     .eq('id', id)
-
 
   if (error) {
     console.log(error)
