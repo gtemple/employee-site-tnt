@@ -45,7 +45,7 @@ const SiteUpdateForm = (props) => {
       variant: "success",
     });
 
-    router.refresh();
+    router.push(`/pages/sites/${id}`);
   };
 
   const handleChange = (event: SelectChangeEvent) => {

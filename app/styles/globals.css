@@ -2,18 +2,31 @@ body {
   margin: 0;
 }
 
+h2 {
+  font-size: 30px;
+  font-weight: 800;
+  margin: 0;
+}
+
+h4 {
+  font-size: 20px;
+  font-weight: 200;
+  margin: 0; 
+}
+
 .page-layout {
   display: flex;
 }
 
 .right-panel {
   width: 100%;
+  padding: 10px;
 }
 
 .form-field-group {
   display: flex;
   flex-direction: column;
-  margin: 10px;
+  margin: 15px;
 }
 
 .text-input {
@@ -28,6 +41,30 @@ form *{
 
 .extended-field {
   width: 90%;
+}
+
+.footer-links {
+  display: flex;
+}
+
+.back-btn {
+  margin: 5px;
+  padding: 4px 6px;
+  font-weight: 600;
+  background-color: orangered;
+  color: white;
+  border-radius: 3px;
+  text-decoration: none;
+}
+
+.edit-btn {
+  margin: 5px;
+  padding: 4px 6px;
+  font-weight: 600;
+  background-color: slateblue;
+  color: white;
+  border-radius: 3px;
+  text-decoration: none;
 }
 
 
@@ -47,3 +84,9 @@ button {
 button:hover {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
+
+.edit-btn:hover {
+  box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;}
+
+.back-btn:hover {
+  box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;}  
