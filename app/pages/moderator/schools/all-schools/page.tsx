@@ -2,9 +2,9 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { getProfileData } from "@/app/api/getProfiles";
-import { getAllSites } from "@/app/api/sites/getSites";
+import { getAllSchools } from "@/app/api/schools/getSchools";
 import { isModerator, isAdmin } from "@/app/api/authenticatePriviledges";
-import Site from "@/app/typescript/site";
+import School from "@/app/typescript/school";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -21,7 +21,7 @@ export default async function Sites() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const sites = await getAllSites();
+  const schools = await getAllSchools();
 
   let data = await getProfileData(user?.id);
   let profile = data && data[0];
@@ -32,13 +32,13 @@ export default async function Sites() {
 
   return (
     <div>
-      {sites.allSiteData?.length > 0 && (
+      {schools.allSchoolData?.length > 0 && (
         <div>
           <div>
             {profile.first_name} {profile.last_name} sites
           </div>
           {profile.moderator && (
-            <Link href={`/pages/moderator/site/add`}>Add site</Link>
+            <Link href={`/pages/moderator/schools/add`}>Add school</Link>
           )}
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -46,22 +46,21 @@ export default async function Sites() {
                 <TableRow></TableRow>
               </TableHead>
               <TableBody>
-                {sites.allSiteData.map((site: Site) => (
+                {schools.allSchoolData.map((school: School) => (
                   <TableRow
-                    key={site.id}
+                    key={school.id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <TableCell component="th" scope="row">
-                      {site.image}
-                    </TableCell>
-                    <TableCell>{site.name}</TableCell>
-                    <TableCell>{site.city}</TableCell>
+                    <TableCell>{school.name}</TableCell>
+                    <TableCell>{school.city}</TableCell>
+                    <TableCell>{school.grade}</TableCell>
+
                     <TableCell>
-                      <Link href={`/pages/sites/${site.id}`}>View</Link>
+                      <Link href={`/pages/schools/${school.id}`}>View</Link>
                     </TableCell>
                     {profile.moderator && (
                       <TableCell>
-                        <Link href={`/pages/moderator/site/${site.id}`}>
+                        <Link href={`/pages/moderator/site/${school.id}`}>
                           Edit
                         </Link>
                       </TableCell>
