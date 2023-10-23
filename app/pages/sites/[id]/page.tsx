@@ -2,12 +2,16 @@ import React from "react";
 import Link from "next/link";
 import { getSiteData } from "@/app/api/sites/getSites";
 import { isModerator } from "@/app/api/authenticatePriviledges";
+import Params from "@/app/typescript/params";
 
 import "@/app/styles/sites/site.css";
 
-export default async function Profile({ params }) {
+export default async function Profile({params}: Params) {
+  console.log('id goes here', params)
   const moderator = await isModerator();
   const { siteData } = await getSiteData(params.id);
+  console.log('heres your data', siteData)
+
   const {
     id,
     name,
@@ -19,6 +23,7 @@ export default async function Profile({ params }) {
     destinations,
     description,
   } = siteData[0];
+
 
   return (
     <>
