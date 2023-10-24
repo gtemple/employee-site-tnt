@@ -32,46 +32,54 @@ export default async function Sites() {
 
   return (
     <div>
-      {schools.allSchoolData?.length > 0 && (
-        <div>
+      {
+        //@ts-ignore
+        schools.allSchoolData?.length > 0 && (
           <div>
-            {profile.first_name} {profile.last_name} sites
-          </div>
-          {profile.moderator && (
-            <Link href={`/pages/moderator/schools/add`}>Add school</Link>
-          )}
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow></TableRow>
-              </TableHead>
-              <TableBody>
-                {schools.allSchoolData.map((school: School) => (
-                  <TableRow
-                    key={school.id}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell>{school.name}</TableCell>
-                    <TableCell>{school.boards.acronym}</TableCell>
-                    <TableCell>{school.city}</TableCell>
-                    <TableCell>{school.grade}</TableCell>
-                    <TableCell>
-                      <Link href={`/pages/moderator/schools/${school.id}`}>View</Link>
-                    </TableCell>
-                    {profile.moderator && (
+            <div>
+              {profile.first_name} {profile.last_name} sites
+            </div>
+            {profile.moderator && (
+              <Link href={`/pages/moderator/schools/add`}>Add school</Link>
+            )}
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                  <TableRow></TableRow>
+                </TableHead>
+                <TableBody>
+                  {//@ts-ignore
+                  schools.allSchoolData.map((school: School) => (
+                    <TableRow
+                      key={school.id}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell>{school.name}</TableCell>
+                      <TableCell>{school.boards.acronym}</TableCell>
+                      <TableCell>{school.city}</TableCell>
+                      <TableCell>{school.grade}</TableCell>
                       <TableCell>
-                        <Link href={`/pages/moderator/schools/edit/${school.id}`}>
-                          Edit
+                        <Link href={`/pages/moderator/schools/${school.id}`}>
+                          View
                         </Link>
                       </TableCell>
-                    )}
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
-      )}
+                      {profile.moderator && (
+                        <TableCell>
+                          <Link
+                            href={`/pages/moderator/schools/edit/${school.id}`}
+                          >
+                            Edit
+                          </Link>
+                        </TableCell>
+                      )}
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </div>
+        )
+      }
       <Link href="/">Back</Link>
     </div>
   );

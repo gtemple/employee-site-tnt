@@ -6,8 +6,9 @@ import School from "@/app/typescript/school";
 
 import "@/app/styles/sites/site.css";
 
-export default async function Profile({params}: Params) {
+export default async function School({params}: Params) {
   const moderator = await isModerator();
+  //@ts-ignore
   const { schoolData } = await getSchoolData(params.id);
 
   const {

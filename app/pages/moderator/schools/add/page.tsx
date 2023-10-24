@@ -6,6 +6,7 @@ import { getAllBoards } from '@/app/api/boards/getBoards';
 export default async function AddSchool() {
   const writeAccess = await isModerator();
   const boardData = await getAllBoards();
+  //@ts-ignore
   const boards = boardData?.allBoardData;
 
   if (!writeAccess) {

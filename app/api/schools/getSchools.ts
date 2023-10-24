@@ -15,7 +15,7 @@ export async function getSchoolData(id: String) {
 
   if (error) {
     console.log(error);
-    return 'failed to get school';
+    return null;
   }
 
   console.log(data)

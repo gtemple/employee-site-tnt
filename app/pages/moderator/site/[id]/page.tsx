@@ -9,12 +9,14 @@ import Params from '@/app/typescript/params';
 export default async function UpdateSite({ params }: Params) {
   const writeAccess = await isModerator();
   const destinationData = await getAllDestinations();
+  //@ts-ignore
   const destinations = destinationData?.allDestinationData;
 
   if (!writeAccess) {
     return <div>Access Denied</div>
   }
 
+  //@ts-ignore
   const { siteData } = await getSiteData(params.id);
   const {
     name

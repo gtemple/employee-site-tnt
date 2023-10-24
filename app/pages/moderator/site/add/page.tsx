@@ -6,6 +6,7 @@ import { getAllDestinations } from "@/app/api/destinations/getDestinations";
 export default async function AddSite() {
   const writeAccess = await isModerator();
   const destinationData = await getAllDestinations();
+  //@ts-ignore
   const destinations = destinationData?.allDestinationData;
 
   if (!writeAccess) {
