@@ -4,16 +4,18 @@ import { isModerator } from '@/app/api/authenticatePriviledges';
 import { getAllBoards } from '@/app/api/boards/getBoards';
 import { getSchoolData } from '@/app/api/schools/getSchools';
 import Params from '@/app/typescript/params';
+import School from '@/app/typescript/school';
 
 export default async function UpdateSite({ params }: Params) {
   const writeAccess = await isModerator();
   const boardData = await getAllBoards();
+  //@ts-ignore
   const boards = boardData?.allBoardData;
 
   if (!writeAccess) {
     return <div>Access Denied</div>
   }
-
+  //@ts-ignore
   const { schoolData } = await getSchoolData(params.id);
   const {
     name,
