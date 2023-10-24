@@ -5,7 +5,7 @@ import Destination from "@/app/typescript/destination";
 import { TextField, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { SnackbarProvider, enqueueSnackbar } from "notistack";
 
-const SiteAdd = (props) => {
+const SiteAdd = (props: { destinations: Destination[] }) => {
   const [field, setField] = useState("");
   const [state, setState] = useState({
     name: "",
@@ -91,6 +91,7 @@ const SiteAdd = (props) => {
         value={state.city}
         name="city"
         label="city"
+        //@ts-ignore
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           handleChange(e);
         }}
