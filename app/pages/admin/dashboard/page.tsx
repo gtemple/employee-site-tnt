@@ -1,6 +1,7 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import Link from "next/link";
+import Profile from "@/app/typescript/profile";
 import { getProfileData, getAllProfiles } from "@/app/api/getProfiles";
 
 import "@/app/styles/admin/dashboard.css";
@@ -30,63 +31,71 @@ export default async function Admin() {
 
   return (
     <div>
-      {profiles.allProfileData?.length > 0 && (
-        <div>
+      {
+        //@ts-ignore
+        profiles.allProfileData?.length > 0 && (
           <div>
-            {profileData[0].first_name} {profileData[0].last_name} admin
-            dashboard
-          </div>
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>First Name</TableCell>
-                  <TableCell>Last Name</TableCell>
-                  <TableCell>Email</TableCell>
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
-                  <TableCell>Full Profile</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {profiles.allProfileData.map((profile) => (
-                  <TableRow
-                    key={profile.email}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {profile.first_name}
-                    </TableCell>
-                    <TableCell>{profile.last_name}</TableCell>
-                    <TableCell>{profile.email}</TableCell>
-                    <TableCell>
-                      {profile.active ? (
-                        <span className="active status">active</span>
-                      ) : (
-                        <span className="inactive status">inactive</span>
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      {profile.moderator ? (
-                        <span className="moderator status">moderator</span>
-                      ) : null}
-                    </TableCell>
-                    <TableCell>
-                      {profile.admin ? (
-                        <span className="admin status">admin</span>
-                      ) : null}
-                    </TableCell>
-                    <TableCell>
-                      <Link href={`/pages/admin/${profile.id}`}>Edit</Link>
-                    </TableCell>
+            <div>
+              {profileData[0].first_name} {profileData[0].last_name} admin
+              dashboard
+            </div>
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>First Name</TableCell>
+                    <TableCell>Last Name</TableCell>
+                    <TableCell>Email</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell>Full Profile</TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
-      )}
+                </TableHead>
+                <TableBody>
+                  {
+                    //@ts-ignore
+                    profiles.allProfileData.map((profile: Profile) => (
+                      <TableRow
+                        key={profile.email}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell component="th" scope="row">
+                          {profile.first_name}
+                        </TableCell>
+                        <TableCell>{profile.last_name}</TableCell>
+                        <TableCell>{profile.email}</TableCell>
+                        <TableCell>
+                          {profile.active ? (
+                            <span className="active status">active</span>
+                          ) : (
+                            <span className="inactive status">inactive</span>
+                          )}
+                        </TableCell>
+                        <TableCell>
+                          {profile.moderator ? (
+                            <span className="moderator status">moderator</span>
+                          ) : null}
+                        </TableCell>
+                        <TableCell>
+                          {profile.admin ? (
+                            <span className="admin status">admin</span>
+                          ) : null}
+                        </TableCell>
+                        <TableCell>
+                          <Link href={`/pages/admin/${profile.id}`}>Edit</Link>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  }
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </div>
+        )
+      }
       <Link href="/">Back</Link>
     </div>
   );
