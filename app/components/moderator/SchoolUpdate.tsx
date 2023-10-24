@@ -3,10 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Board from "@/app/typescript/board";
+import School from "@/app/typescript/school";
 import { TextField, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { SnackbarProvider, enqueueSnackbar } from "notistack";
 
-const SchoolUpdateForm = (props) => {
+const SchoolUpdateForm = (props: {school: School; boards: Board[]}) => {
   const router = useRouter();
   const {
     id,
@@ -91,6 +92,7 @@ const SchoolUpdateForm = (props) => {
         value={state.board}
         name="board"
         label="board"
+        //@ts-ignore
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           handleChange(e);
         }}

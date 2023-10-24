@@ -4,6 +4,7 @@ export default interface School {
   name: string;
   grade: string;
   created_at: string;
+  teacher: string;
   address: string;
   city: string;
   phone: string;
