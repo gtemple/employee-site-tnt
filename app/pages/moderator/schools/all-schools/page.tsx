@@ -54,13 +54,12 @@ export default async function Sites() {
                     <TableCell>{school.name}</TableCell>
                     <TableCell>{school.city}</TableCell>
                     <TableCell>{school.grade}</TableCell>
-
                     <TableCell>
-                      <Link href={`/pages/schools/${school.id}`}>View</Link>
+                      <Link href={`/pages/moderator/schools/${school.id}`}>View</Link>
                     </TableCell>
                     {profile.moderator && (
                       <TableCell>
-                        <Link href={`/pages/moderator/site/${school.id}`}>
+                        <Link href={`/pages/moderator/schools/edit/${school.id}`}>
                           Edit
                         </Link>
                       </TableCell>

@@ -3,10 +3,9 @@ import SiteUpdate from '@/app/components/moderator/SiteUpdate';
 import { isModerator } from '@/app/api/authenticatePriviledges';
 import { getSiteData } from '@/app/api/sites/getSites';
 import { getAllDestinations } from '@/app/api/destinations/getDestinations';
-import Params from '@/app/typescript/params';
 
 
-export default async function UpdateSite({ params }: Params) {
+export default async function UpdateSite({ params }) {
   const writeAccess = await isModerator();
   const destinationData = await getAllDestinations();
   const destinations = destinationData?.allDestinationData;
