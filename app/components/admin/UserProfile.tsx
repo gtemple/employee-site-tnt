@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Profile from "@/app/typescript/profile";
 
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
@@ -20,7 +21,7 @@ const style = {
   p: 4,
 };
 
-const UserProfile = (props) => {
+const UserProfile = (props: { profile: Profile }) => {
   const router = useRouter();
 
   const [openModerator, setOpenModerator] = useState(false);
