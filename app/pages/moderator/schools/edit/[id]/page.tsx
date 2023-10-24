@@ -1,33 +1,33 @@
 import Link from 'next/link';
-import SiteUpdate from '@/app/components/moderator/SiteUpdate';
+import SchoolUpdate from '@/app/components/moderator/SchoolUpdate';
 import { isModerator } from '@/app/api/authenticatePriviledges';
-import { getSiteData } from '@/app/api/sites/getSites';
-import { getAllDestinations } from '@/app/api/destinations/getDestinations';
+import { getAllBoards } from '@/app/api/boards/getBoards';
+import { getSchoolData } from '@/app/api/schools/getSchools';
+import Params from '@/app/typescript/params';
 
-
-export default async function UpdateSite({ params }) {
+export default async function UpdateSite({ params }: Params) {
   const writeAccess = await isModerator();
-  const destinationData = await getAllDestinations();
-  const destinations = destinationData?.allDestinationData;
+  const boardData = await getAllBoards();
+  const boards = boardData?.allBoardData;
 
   if (!writeAccess) {
     return <div>Access Denied</div>
   }
 
-  const { siteData } = await getSiteData(params.id);
+  const { schoolData } = await getSchoolData(params.id);
   const {
-    name
-  } = siteData[0]
+    name,
+  } = schoolData[0]
 
   return (
     <div>
       <div>
         <div>Update site: {name}</div>
         <div>
-          <SiteUpdate destinations={destinations} site={siteData[0]} />
+          <SchoolUpdate boards={boards} school={schoolData[0]} />
         </div>
       </div>
-      <Link href="/pages/moderator/dashboard">Back</Link>
+      <Link href="/pages/moderator/schools/all-schools">Back</Link>
     </div>
   )
 }

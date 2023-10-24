@@ -10,7 +10,7 @@ export async function getSchoolData(id: String) {
 
   const { data, error } = await supabase
   .from('schools')
-  .select(`*`)
+  .select(`*, boards (*)`)
   .eq('id', id)
 
   if (error) {
