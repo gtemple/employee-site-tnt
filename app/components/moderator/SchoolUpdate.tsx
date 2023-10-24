@@ -2,14 +2,24 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Destination from "@/app/typescript/destination";
+import Board from "@/app/typescript/board";
 import { TextField, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { SnackbarProvider, enqueueSnackbar } from "notistack";
 
 const SchoolUpdateForm = (props) => {
   const router = useRouter();
-  const { id, name, grade, teacher, address, city, postal, phone, notes} =
-    props.school;
+  const {
+    id,
+    name,
+    grade,
+    teacher,
+    address,
+    city,
+    postal,
+    phone,
+    board,
+    notes,
+  } = props.school;
   const [field, setField] = useState("");
   const [state, setState] = useState({
     id: id,
@@ -20,10 +30,11 @@ const SchoolUpdateForm = (props) => {
     address: address,
     postal: postal,
     phone: phone,
-    notes: notes
+    board: board,
+    notes: notes,
   });
 
-  const destinations = props.destinations;
+  const boards = props.boards;
 
   const postUpdate = () => {
     if (state.name === "" || state.name === undefined) {
@@ -34,7 +45,7 @@ const SchoolUpdateForm = (props) => {
       return;
     }
 
-    fetch("/api/sites/update", {
+    fetch("/api/schools/update", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,7 +58,7 @@ const SchoolUpdateForm = (props) => {
       variant: "success",
     });
 
-    router.push(`/pages/sites/${id}`);
+    router.push(`/pages/moderator/schools/${id}`);
   };
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -74,6 +85,33 @@ const SchoolUpdateForm = (props) => {
         defaultValue={name}
         required
       />
+      <Select
+        labelId="board"
+        id="board"
+        value={state.board}
+        name="board"
+        label="board"
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          handleChange(e);
+        }}
+        required
+      >
+        {boards.map((board: Board) => {
+          return <MenuItem value={board.id}>{board.acronym}</MenuItem>;
+        })}
+      </Select>
+      <TextField
+        id="outlined-basic"
+        label="Teacher"
+        variant="outlined"
+        type="text"
+        name="teacher"
+        defaultValue={teacher}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          handleChange(e);
+        }}
+        required
+      />
       <TextField
         id="outlined-basic"
         label="Street Address"
@@ -86,25 +124,6 @@ const SchoolUpdateForm = (props) => {
         }}
         required
       />
-      <Select
-        labelId="city"
-        id="city"
-        value={state.city}
-        name="city"
-        label="city"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          handleChange(e);
-        }}
-        required
-      >
-        {destinations.map((destination: Destination) => {
-          return (
-            <MenuItem value={destination.id}>
-              {destination.name}, {destination.region}
-            </MenuItem>
-          );
-        })}
-      </Select>
       <TextField
         id="outlined-basic"
         label="Postal Code"

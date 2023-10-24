@@ -1,3 +1,4 @@
+import Board from "./board";
 export default interface School {
   id: string;
   name: string;
@@ -8,11 +9,6 @@ export default interface School {
   phone: string;
   postal: string;
   board: string;
-  boards: {
-    id: string;
-    created_at: string;
-    name: string;
-    acronym: string;
-  }
   notes: string | null;
+  boards: Board;
 }
