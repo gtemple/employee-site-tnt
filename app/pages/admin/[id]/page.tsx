@@ -6,9 +6,9 @@ import Button from '@mui/material/Button';
 import UserProfile from '@/app/components/admin/UserProfile';
 
 
-export default async function Profile({ params }) {
+export default async function Profile(props: {id: string}) {
 
-  const profileData = await getProfileData(params.id);
+  const profileData = await getProfileData(props.id);
   const {
     first_name,
     last_name,
