@@ -1,14 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
 import { getProfileData } from '@/app/api/getProfiles';
-
-import Button from '@mui/material/Button';
+import Params from '@/app/typescript/params';
 import UserProfile from '@/app/components/admin/UserProfile';
 
 
-export default async function Profile(props: {id: string}) {
+export default async function Profile({ params }: Params) {
 
-  const profileData = await getProfileData(props.id);
+  const profileData = await getProfileData(params.id);
   const {
     first_name,
     last_name,
