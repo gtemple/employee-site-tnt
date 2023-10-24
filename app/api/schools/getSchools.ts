@@ -33,7 +33,7 @@ export async function getAllSchools() {
 
   const { data, error } = await supabase
   .from('schools')
-  .select('*')
+  .select(`*, boards (*)`)
 
   if (error) {
     console.log(error);

@@ -1,8 +1,7 @@
-import Link from 'next/link';
-import SiteAdd from '@/app/components/moderator/SiteAdd';
-import { isModerator } from '@/app/api/authenticatePriviledges';
-import { getAllDestinations } from '@/app/api/destinations/getDestinations';
-
+import Link from "next/link";
+import SiteAdd from "@/app/components/moderator/SiteAdd";
+import { isModerator } from "@/app/api/authenticatePriviledges";
+import { getAllDestinations } from "@/app/api/destinations/getDestinations";
 
 export default async function AddSite() {
   const writeAccess = await isModerator();
@@ -10,7 +9,7 @@ export default async function AddSite() {
   const destinations = destinationData?.allDestinationData;
 
   if (!writeAccess) {
-    return <div>Access Denied</div>
+    return <div>Access Denied</div>;
   }
 
   return (
@@ -23,5 +22,5 @@ export default async function AddSite() {
       </div>
       <Link href="/pages/moderator/dashboard">Back</Link>
     </div>
-  )
+  );
 }

@@ -52,6 +52,7 @@ export default async function Sites() {
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell>{school.name}</TableCell>
+                    <TableCell>{school.boards.acronym}</TableCell>
                     <TableCell>{school.city}</TableCell>
                     <TableCell>{school.grade}</TableCell>
                     <TableCell>
