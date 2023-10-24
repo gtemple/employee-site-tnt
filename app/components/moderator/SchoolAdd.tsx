@@ -6,7 +6,7 @@ import Board from "@/app/typescript/board";
 import { TextField, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { SnackbarProvider, enqueueSnackbar } from "notistack";
 
-const SchoolAdd = (props) => {
+const SchoolAdd = (props: {boards: Board[]}) => {
   const router = useRouter();
   const [field, setField] = useState("");
   const [state, setState] = useState({
@@ -76,6 +76,7 @@ const SchoolAdd = (props) => {
         value={state.board}
         name="board"
         label="board"
+        //@ts-ignore
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           handleChange(e);
         }}
