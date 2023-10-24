@@ -3,10 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Destination from "@/app/typescript/destination";
+import Site from "@/app/typescript/site";
 import { TextField, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { SnackbarProvider, enqueueSnackbar } from "notistack";
 
-const SiteUpdateForm = (props) => {
+const SiteUpdateForm = (props: {destinations: Destination[]; site: Site}) => {
   const router = useRouter();
   const { id, name, description, address, postal, phone, destination_id } =
     props.site;
@@ -90,6 +91,7 @@ const SiteUpdateForm = (props) => {
         value={state.city}
         name="city"
         label="city"
+        //@ts-ignore
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           handleChange(e);
         }}

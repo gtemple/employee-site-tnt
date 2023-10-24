@@ -9,6 +9,7 @@ export default interface Site {
   website: string;
   postal: string;
   phone: string | null;
+  destination_id: string;
   destinations: Destination;
   description: string | null;
   image: string | null;
