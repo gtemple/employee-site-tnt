@@ -6,8 +6,9 @@ import Site from "@/app/typescript/site";
 
 import "@/app/styles/sites/site.css";
 
-export default async function Profile({params}: Params) {
+export default async function Profile({ params }: Params) {
   const moderator = await isModerator();
+  //@ts-ignore
   const { siteData } = await getSiteData(params.id);
 
   const {
@@ -22,25 +23,30 @@ export default async function Profile({params}: Params) {
     description,
   } = siteData[0];
 
-
   return (
     <>
-    <div>
-      <div className="site-header">
-        <div className="site-img">Placeholder for site image</div>
-        <div>
-          <h2>{name}</h2>
-          <h4>
-            {destinations.name}, {destinations.region}
-          </h4>
-        </div>
+      <div>
+        <div className="site-header">
+          <div className="site-img">Placeholder for site image</div>
+          <div>
+            <h2>{name}</h2>
+            <h4>
+              {destinations.name}, {destinations.region}
+            </h4>
+          </div>
         </div>
         <h4>About</h4>
         <div>{description}</div>
       </div>
-      <div className='footer-links'>
-        {moderator && <Link className='edit-btn' href={`/pages/moderator/site/${id}`}>Edit</Link>}
-        <Link className='back-btn' href="/pages/sites/all-sites">Back</Link>
+      <div className="footer-links">
+        {moderator && (
+          <Link className="edit-btn" href={`/pages/moderator/site/${id}`}>
+            Edit
+          </Link>
+        )}
+        <Link className="back-btn" href="/pages/sites/all-sites">
+          Back
+        </Link>
       </div>
     </>
   );

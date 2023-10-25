@@ -32,7 +32,9 @@ export default async function Sites() {
 
   return (
     <div>
-      {sites.allSiteData?.length > 0 && (
+      {
+        //@ts-ignore
+      sites.allSiteData?.length > 0 && (
         <div>
           <div>
             {profile.first_name} {profile.last_name} sites
@@ -46,7 +48,9 @@ export default async function Sites() {
                 <TableRow></TableRow>
               </TableHead>
               <TableBody>
-                {sites.allSiteData.map((site: Site) => (
+                {
+                  //@ts-ignore
+                sites.allSiteData.map((site: Site) => (
                   <TableRow
                     key={site.id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
