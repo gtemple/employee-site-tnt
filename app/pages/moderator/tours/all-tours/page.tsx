@@ -30,7 +30,9 @@ export default async function Admin() {
 
   return (
     <div>
-      {tours.allTourData?.length > 0 && (
+      {
+      //@ts-ignore
+      tours.allTourData?.length > 0 && (
         <div>
           <div>
             {profile.first_name} {profile.last_name} tours
@@ -42,7 +44,9 @@ export default async function Admin() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {tours.allTourData.map((tour: Tour) => (
+                {
+                //@ts-ignore
+                tours.allTourData.map((tour: Tour) => (
                     <TableRow
                       key={tour.id}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
