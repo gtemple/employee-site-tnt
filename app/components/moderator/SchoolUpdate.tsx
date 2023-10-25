@@ -7,7 +7,7 @@ import School from "@/app/typescript/school";
 import { TextField, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { SnackbarProvider, enqueueSnackbar } from "notistack";
 
-const SchoolUpdateForm = (props: {school: School; boards: Board[]}) => {
+const SchoolUpdateForm = (props: { school: School; boards: Board[] }) => {
   const router = useRouter();
   const {
     id,

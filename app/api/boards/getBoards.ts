@@ -2,6 +2,8 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { isModerator } from "../authenticatePriviledges";
 
+export const dynamic = "force-dynamic";
+
 export async function getBoardData(id: String) {
   const supabase = createServerComponentClient({ cookies });
 

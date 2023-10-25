@@ -48,32 +48,36 @@ export default async function Sites() {
                   <TableRow></TableRow>
                 </TableHead>
                 <TableBody>
-                  {//@ts-ignore
-                  schools.allSchoolData.map((school: School) => (
-                    <TableRow
-                      key={school.id}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell>{school.name}</TableCell>
-                      <TableCell>{school.boards.acronym}</TableCell>
-                      <TableCell>{school.city}</TableCell>
-                      <TableCell>{school.grade}</TableCell>
-                      <TableCell>
-                        <Link href={`/pages/moderator/schools/${school.id}`}>
-                          View
-                        </Link>
-                      </TableCell>
-                      {profile.moderator && (
+                  {
+                    //@ts-ignore
+                    schools.allSchoolData.map((school: School) => (
+                      <TableRow
+                        key={school.id}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell>{school.name}</TableCell>
+                        <TableCell>{school.boards.acronym}</TableCell>
+                        <TableCell>{school.city}</TableCell>
+                        <TableCell>{school.grade}</TableCell>
                         <TableCell>
-                          <Link
-                            href={`/pages/moderator/schools/edit/${school.id}`}
-                          >
-                            Edit
+                          <Link href={`/pages/moderator/schools/${school.id}`}>
+                            View
                           </Link>
                         </TableCell>
-                      )}
-                    </TableRow>
-                  ))}
+                        {profile.moderator && (
+                          <TableCell>
+                            <Link
+                              href={`/pages/moderator/schools/edit/${school.id}`}
+                            >
+                              Edit
+                            </Link>
+                          </TableCell>
+                        )}
+                      </TableRow>
+                    ))
+                  }
                 </TableBody>
               </Table>
             </TableContainer>

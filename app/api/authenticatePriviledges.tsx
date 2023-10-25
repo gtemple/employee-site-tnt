@@ -1,5 +1,7 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+
+export const dynamic = "force-dynamic";
 
 async function getUser() {
   const supabase = createServerComponentClient({ cookies });
@@ -8,13 +10,13 @@ async function getUser() {
   } = await supabase.auth.getUser();
 
   const { data, error } = await supabase
-  .from('profiles')
-  .select('*')
-  .eq('user_id', user?.id)
+    .from("profiles")
+    .select("*")
+    .eq("user_id", user?.id);
 
   if (error) {
     console.log(error);
-    return 'failed to check priviledges';
+    return "failed to check priviledges";
   }
 
   return data;
@@ -24,16 +26,16 @@ export async function isActive() {
   const user = await getUser();
   const active = user[0].active ? true : false;
   return active;
-};
+}
 
 export async function isModerator() {
   const user = await getUser();
   const moderator = user[0].moderator ? true : false;
   return moderator;
-};
+}
 
 export async function isAdmin() {
   const user = await getUser();
   const admin = user[0].admin ? true : false;
   return admin;
-};
+}

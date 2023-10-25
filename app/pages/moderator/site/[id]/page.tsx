@@ -1,10 +1,9 @@
-import Link from 'next/link';
-import SiteUpdate from '@/app/components/moderator/SiteUpdate';
-import { isModerator } from '@/app/api/authenticatePriviledges';
-import { getSiteData } from '@/app/api/sites/getSites';
-import { getAllDestinations } from '@/app/api/destinations/getDestinations';
-import Params from '@/app/typescript/params';
-
+import Link from "next/link";
+import SiteUpdate from "@/app/components/moderator/SiteUpdate";
+import { isModerator } from "@/app/api/authenticatePriviledges";
+import { getSiteData } from "@/app/api/sites/getSites";
+import { getAllDestinations } from "@/app/api/destinations/getDestinations";
+import Params from "@/app/typescript/params";
 
 export default async function UpdateSite({ params }: Params) {
   const writeAccess = await isModerator();
@@ -13,14 +12,12 @@ export default async function UpdateSite({ params }: Params) {
   const destinations = destinationData?.allDestinationData;
 
   if (!writeAccess) {
-    return <div>Access Denied</div>
+    return <div>Access Denied</div>;
   }
 
   //@ts-ignore
   const { siteData } = await getSiteData(params.id);
-  const {
-    name
-  } = siteData[0]
+  const { name } = siteData[0];
 
   return (
     <div>
@@ -32,5 +29,5 @@ export default async function UpdateSite({ params }: Params) {
       </div>
       <Link href="/pages/moderator/dashboard">Back</Link>
     </div>
-  )
+  );
 }

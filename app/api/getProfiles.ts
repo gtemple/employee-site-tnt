@@ -1,51 +1,48 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+
+export const dynamic = "force-dynamic";
 
 export async function getProfileData(userId: String | undefined) {
   const supabase = createServerComponentClient({ cookies });
 
   const { data, error } = await supabase
-  .from('profiles')
-  .select('*')
-  .eq('user_id', userId)
+    .from("profiles")
+    .select("*")
+    .eq("user_id", userId);
 
   if (error) {
     console.log(error);
-    return 'failed to get profile';
+    return "failed to get profile";
   }
 
   return data;
 }
 
 export async function getAllProfiles() {
-  const supabase = createServerComponentClient({ cookies })
+  const supabase = createServerComponentClient({ cookies });
 
-  const { data, error } = await supabase
-  .from('profiles')
-  .select('*')
+  const { data, error } = await supabase.from("profiles").select("*");
 
   if (error) {
     console.log(error);
-    return 'failed to get profile';
+    return "failed to get profile";
   }
 
-  console.log(data)
+  console.log(data);
   return { allProfileData: data };
 }
 
-
 export async function getProfileIds() {
-  const supabase = createServerComponentClient({ cookies })
+  const supabase = createServerComponentClient({ cookies });
 
-  const { data, error } = await supabase
-  .from('profiles')
-  .select('id')
+  const { data, error } = await supabase.from("profiles").select("id");
 
   if (error) {
     console.log(error);
-    return 'failed to get profile ids';
+    return "failed to get profile ids";
   }
-  
-  console.log(data)
+
+  console.log(data);
   return { profileIds: data };
 }

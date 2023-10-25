@@ -34,49 +34,53 @@ export default async function Sites() {
     <div>
       {
         //@ts-ignore
-      sites.allSiteData?.length > 0 && (
-        <div>
+        sites.allSiteData?.length > 0 && (
           <div>
-            {profile.first_name} {profile.last_name} sites
+            <div>
+              {profile.first_name} {profile.last_name} sites
+            </div>
+            {profile.moderator && (
+              <Link href={`/pages/moderator/site/add`}>Add site</Link>
+            )}
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                  <TableRow></TableRow>
+                </TableHead>
+                <TableBody>
+                  {
+                    //@ts-ignore
+                    sites.allSiteData.map((site: Site) => (
+                      <TableRow
+                        key={site.id}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell component="th" scope="row">
+                          {site.image}
+                        </TableCell>
+                        <TableCell>{site.name}</TableCell>
+                        <TableCell>{site.city}</TableCell>
+                        <TableCell>
+                          <Link href={`/pages/sites/${site.id}`}>View</Link>
+                        </TableCell>
+                        {profile.moderator && (
+                          <TableCell>
+                            <Link href={`/pages/moderator/site/${site.id}`}>
+                              Edit
+                            </Link>
+                          </TableCell>
+                        )}
+                      </TableRow>
+                    ))
+                  }
+                </TableBody>
+              </Table>
+            </TableContainer>
           </div>
-          {profile.moderator && (
-            <Link href={`/pages/moderator/site/add`}>Add site</Link>
-          )}
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow></TableRow>
-              </TableHead>
-              <TableBody>
-                {
-                  //@ts-ignore
-                sites.allSiteData.map((site: Site) => (
-                  <TableRow
-                    key={site.id}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {site.image}
-                    </TableCell>
-                    <TableCell>{site.name}</TableCell>
-                    <TableCell>{site.city}</TableCell>
-                    <TableCell>
-                      <Link href={`/pages/sites/${site.id}`}>View</Link>
-                    </TableCell>
-                    {profile.moderator && (
-                      <TableCell>
-                        <Link href={`/pages/moderator/site/${site.id}`}>
-                          Edit
-                        </Link>
-                      </TableCell>
-                    )}
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
-      )}
+        )
+      }
       <Link href="/">Back</Link>
     </div>
   );

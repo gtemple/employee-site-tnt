@@ -6,7 +6,7 @@ import Board from "@/app/typescript/board";
 import { TextField, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { SnackbarProvider, enqueueSnackbar } from "notistack";
 
-const SchoolAdd = (props: {boards: Board[]}) => {
+const SchoolAdd = (props: { boards: Board[] }) => {
   const router = useRouter();
   const [field, setField] = useState("");
   const [state, setState] = useState({
