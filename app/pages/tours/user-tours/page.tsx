@@ -1,6 +1,6 @@
 import { getToursByUserId } from '@/app/api/getTours';
 import Link from 'next/link'
-
+import Tour from '@/app/typescript/tour';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,6 +11,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 const Tours = async () => {
+  //@ts-ignore
   const { tourData } = await getToursByUserId('1');
 
   return (
@@ -24,7 +25,7 @@ const Tours = async () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {tourData.map((tour) => (
+                {tourData.map((tour: Tour) => (
                     <TableRow
                       key={tour.id}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
