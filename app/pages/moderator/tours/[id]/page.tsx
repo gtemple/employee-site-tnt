@@ -8,6 +8,7 @@ import UserProfile from '@/app/components/admin/UserProfile';
 
 export default async function Tour({ params }: ({params: {id: string}})) {
 
+  //@ts-ignore
   const { tourData } = await getTourData(params.id);
   const {
     start,
