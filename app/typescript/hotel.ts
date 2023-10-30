@@ -6,6 +6,7 @@ export default interface Hotel {
   name: string;
   address: string;
   postal: string;
+  phone: string;
   email: string;
   destination_id: string;
   destinations: Destination;
