@@ -1,6 +1,6 @@
 import Destination from "./destination";
 
-export default interface Profile {
+export default interface Hotel {
   id: string;
   created_at: string;
   name: string;
@@ -8,5 +8,5 @@ export default interface Profile {
   postal: string;
   email: string;
   destination_id: string;
-  destinations:  Destination;
+  destinations: Destination;
 }
