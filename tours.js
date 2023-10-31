@@ -1,5 +1,11 @@
 //testing how I will implement my data structure for tours
 
+/* 
+- each tour activity entry will be a widget 
+- you can selet between site, restaurant, free-time, etc.
+
+*/
+
 const info = {
   "ad": {
     "amount": 2,

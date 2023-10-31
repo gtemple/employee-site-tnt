@@ -9,7 +9,7 @@ const Dashboard = () => {
       <div><Link href='/pages/moderator/tours'>Tours</Link></div>
       <div><Link href='/pages/moderator/schools'>Schools</Link></div>
       <div><Link href='/pages/moderator/hotels'>Hotels</Link></div>
-      <div> destinations, teachers,</div>
+      <div>destinations, restaurants, teachers,</div>
     </div>
   )
 };
