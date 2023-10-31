@@ -61,19 +61,19 @@ export default async function Sites() {
                         <TableCell>{hotel.destinations.name}</TableCell>
                         <TableCell>{hotel.phone}</TableCell>
                         <TableCell>
-                          <Link href={`/pages/moderator/schools/${hotel.id}`}>
+                          <Link href={`/pages/moderator/hotels/${hotel.id}`}>
                             View
                           </Link>
                         </TableCell>
                         {profile.moderator && (
                           <TableCell>
                             <Link
-                              href={`/pages/moderator/schools/edit/${hotel.id}`}
+                              href={`/pages/moderator/hotels/edit/${hotel.id}`}
                             >
                               Edit
                             </Link>
                           </TableCell>
-                        )}s
+                        )}
                       </TableRow>
                     ))
                   }

@@ -5,7 +5,7 @@ import Params from "@/app/typescript/params";
 import Hotel from "@/app/typescript/hotel";
 import "@/app/styles/sites/site.css";
 
-export default async function School({ params }: Params) {
+export default async function Hotels({ params }: Params) {
   const moderator = await isModerator();
   //@ts-ignore
   const { hotelData } = await getHotelData(params.id);

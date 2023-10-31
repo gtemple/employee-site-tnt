@@ -5,7 +5,7 @@ import { getAllBoards } from "@/app/api/boards/getBoards";
 import { getSchoolData } from "@/app/api/schools/getSchools";
 import Params from "@/app/typescript/params";
 
-export default async function UpdateSite({ params }: Params) {
+export default async function UpdateHotel({ params }: Params) {
   const writeAccess = await isModerator();
   const boardData = await getAllBoards();
   //@ts-ignore

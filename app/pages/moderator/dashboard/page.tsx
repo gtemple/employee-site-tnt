@@ -6,9 +6,10 @@ const Dashboard = () => {
     <div>
       <div>moderator dash</div>
       <div><Link href='/pages/sites/all-sites'>Sites</Link></div>
-      <div><Link href='/pages/moderator/tours/all-tours'>Tours</Link></div>
-      <div><Link href='/pages/moderator/schools/all-schools'>Schools</Link></div>
-      <div>Hotels, destinations, teachers,</div>
+      <div><Link href='/pages/moderator/tours'>Tours</Link></div>
+      <div><Link href='/pages/moderator/schools'>Schools</Link></div>
+      <div><Link href='/pages/moderator/hotels'>Hotels</Link></div>
+      <div> destinations, teachers,</div>
     </div>
   )
 };
