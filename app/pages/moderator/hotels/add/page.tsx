@@ -16,7 +16,7 @@ export default async function AddHotel() {
   return (
     <div>
       <div>
-        <div>Add School</div>
+        <div>Add Hotell</div>
         <div>
           <HotelAdd destinations={destinations} />
         </div>
