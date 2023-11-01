@@ -9,7 +9,7 @@ export default async function Hotels({ params }: Params) {
   //@ts-ignore
   const { hotelData } = await getHotelData(params.id);
 
-  const { id, name, address, destination_id, postal, email, destinations} = hotelData[0];
+  const { id, name, address, destination_id, postal, email, destinations} = hotelData!== undefined && hotelData[0];
 
   return (
     <>
