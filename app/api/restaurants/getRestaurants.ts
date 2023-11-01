@@ -4,7 +4,6 @@ import { isModerator } from "../authenticatePriviledges";
 
 export const dynamic = "force-dynamic";
 
-
 export async function getRestaurantData(id: String) {
   const supabase = createServerComponentClient({ cookies });
 
@@ -28,7 +27,7 @@ export async function getAllRestaurants() {
 
   if (!writeAccess) {
     console.log("Access Denied - You are not an approved moderator");
-    return { error: "Access Denied - You are not an approved moderator" }
+    return { error: "Access Denied - You are not an approved moderator" };
   }
 
   const { data, error } = await supabase
