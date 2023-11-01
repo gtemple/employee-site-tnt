@@ -17,7 +17,7 @@ export async function getHotelData(id: String) {
 
   if (error) {
     console.log(error);
-    return null;
+    return { error: "failed to get hotels" };
   }
 
   console.log(data);
@@ -30,7 +30,7 @@ export async function getAllHotels() {
 
   if (!writeAccess) {
     console.log("Access Denied - You are not an approved moderator");
-    return "Access Denied - You are not an approved moderator";
+    return { error: "Access denied - you are not an approved moderator" };
   }
 
   const { data, error } = await supabase
@@ -39,7 +39,7 @@ export async function getAllHotels() {
 
   if (error) {
     console.log(error);
-    return "failed to get hotels";
+    return { error: "failed to get hotels" };
   }
 
   console.log(data);
@@ -59,7 +59,7 @@ export async function getHotelIds() {
 
   if (error) {
     console.log(error);
-    return "failed to get hotel ids";
+    return { error: "failed to get hotel ids" };
   }
 
   console.log(data);

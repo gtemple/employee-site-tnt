@@ -33,8 +33,7 @@ export default async function Sites() {
   return (
     <div>
       {
-        //@ts-ignore
-        hotels.allHotelData?.length > 0 && (
+        hotels.allHotelData && hotels.allHotelData.length > 0 && (
           <div>
             <div>
               {profile.first_name} {profile.last_name} hotels

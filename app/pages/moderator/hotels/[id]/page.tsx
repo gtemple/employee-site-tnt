@@ -2,7 +2,6 @@ import Link from "next/link";
 import { getHotelData } from "@/app/api/hotels/getHotels";
 import { isModerator } from "@/app/api/authenticatePriviledges";
 import Params from "@/app/typescript/params";
-import Hotel from "@/app/typescript/hotel";
 import "@/app/styles/sites/site.css";
 
 export default async function Hotels({ params }: Params) {

@@ -32,8 +32,7 @@ export default async function Sites() {
   return (
     <div>
       {
-        //@ts-ignore
-        restaurants.allRestaurantData?.length > 0 && (
+        restaurants.allRestaurantData && restaurants.allRestaurantData.length > 0 && (
           <div>
             <div>
               {profile.first_name} {profile.last_name} restaurants
@@ -48,7 +47,6 @@ export default async function Sites() {
                 </TableHead>
                 <TableBody>
                   {
-                    //@ts-ignore
                     restaurants.allRestaurantData.map((restaurant: Restaurant) => (
                       <TableRow
                         key={restaurant.id}

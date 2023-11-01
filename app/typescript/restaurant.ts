@@ -1,6 +1,6 @@
 import Destination from "./destination";
 
-export default interface Hotel {
+export default interface Restaurant {
   id: string;
   created_at: string;
   name: string;
