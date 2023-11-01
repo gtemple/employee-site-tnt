@@ -19,7 +19,7 @@ export async function getSiteData(id: String) {
 
   if (error) {
     console.log(error);
-    return "failed to get site";
+    return { error: "failed to get site" };
   }
 
   console.log(data);
@@ -33,7 +33,7 @@ export async function getAllSites() {
 
   if (error) {
     console.log(error);
-    return "failed to get sites";
+    return { error: "failed to get site" };
   }
 
   console.log(data);
@@ -46,37 +46,16 @@ export async function getSiteIds() {
 
   if (!writeAccess) {
     console.log("Access Denied - You are not an approved moderator");
-    return "Access Denied - You are not an approved moderator";
+    return { error: "Access Denied - You are not an approved moderator" };
   }
 
   const { data, error } = await supabase.from("sites").select("id");
 
   if (error) {
     console.log(error);
-    return "failed to get site ids";
+    return { error: "failed to get site ids" };
   }
 
   console.log(data);
   return { siteIds: data };
-}
-
-/*
-ALL UPDATE REQUESTS
-*/
-
-export async function updateSiteData(id: String) {
-  const supabase = createServerComponentClient({ cookies });
-
-  const { data, error } = await supabase
-    .from("sites")
-    .update({ name: "Australia" })
-    .eq("id", id)
-    .select();
-
-  if (error) {
-    console.log(error);
-    return "failed to get site";
-  }
-
-  console.log(data);
 }

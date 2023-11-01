@@ -1,69 +1,64 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";
 
 export async function getTourData(id: String) {
   const supabase = createServerComponentClient({ cookies });
 
   const { data, error } = await supabase
-  .from('tours')
-  .select(`*, schools (*)`)
-  .eq('id', id)
+    .from("tours")
+    .select(`*, schools (*)`)
+    .eq("id", id);
 
   if (error) {
     console.log(error);
-    return 'failed to get tours';
+    return { error: "failed to get tours" };
   }
-  console.log(data)
-  return { tourData: data};
+  console.log(data);
+  return { tourData: data };
 }
 
 export async function getToursByUserId(id: String) {
   const supabase = createServerComponentClient({ cookies });
 
   const { data, error } = await supabase
-  .from('tours')
-  .select(`*, schools (*)`)
-  .eq('id', id)
+    .from("tours")
+    .select(`*, schools (*)`)
+    .eq("id", id);
 
   if (error) {
     console.log(error);
-    return 'failed to get tours';
+    return { error: "failed to get tours" };
   }
-  console.log('here:', data)
+  console.log("here:", data);
   return { tourData: data };
 }
 
 export async function getAllTours() {
-  const supabase = createServerComponentClient({ cookies })
+  const supabase = createServerComponentClient({ cookies });
 
-  const { data, error } = await supabase
-  .from('tours')
-  .select('*')
+  const { data, error } = await supabase.from("tours").select("*");
 
   if (error) {
     console.log(error);
-    return 'failed to get tour';
+    return { error: "failed to get tour" };
   }
 
-  console.log('tour data:', data)
-  return { allTourData: data};
+  console.log("tour data:", data);
+  return { allTourData: data };
 }
 
-
 export async function getTourIds() {
-  const supabase = createServerComponentClient({ cookies })
+  const supabase = createServerComponentClient({ cookies });
 
-  const { data, error } = await supabase
-  .from('tours')
-  .select('id')
+  const { data, error } = await supabase.from("tours").select("id");
 
   if (error) {
     console.log(error);
-    return 'failed to get tour ids';
+    return { error: "failed to get tour ids" };
   }
-  
-  console.log(data)
-  return { tourIds: data};
+
+  console.log(data);
+  return { tourIds: data };
 }

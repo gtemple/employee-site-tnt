@@ -33,8 +33,7 @@ export default async function Sites() {
   return (
     <div>
       {
-        //@ts-ignore
-        schools.allSchoolData?.length > 0 && (
+        schools.allSchoolData && schools.allSchoolData.length > 0 && (
           <div>
             <div>
               {profile.first_name} {profile.last_name} sites
