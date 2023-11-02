@@ -11,7 +11,7 @@ h2 {
 h4 {
   font-size: 20px;
   font-weight: 200;
-  margin: 0; 
+  margin: 0;
 }
 
 .page-layout {
@@ -35,7 +35,7 @@ h4 {
   margin: 5px 0;
 }
 
-form *{
+form * {
   margin: 5px;
 }
 
@@ -73,7 +73,6 @@ form *{
   text-decoration: none;
 }
 
-
 button {
   width: 180px;
   height: 40px;
@@ -88,11 +87,14 @@ button {
 }
 
 button:hover {
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
 .edit-btn:hover {
-  box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;}
+  box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+}
 
 .back-btn:hover {
-  box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;}  
+  box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+}
