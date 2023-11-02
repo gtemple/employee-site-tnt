@@ -8,6 +8,7 @@ export const dynamic = "force-dynamic";
 
 export default async function Index() {
   const supabase = createServerComponentClient({ cookies });
+  console.log('hello?')
 
   const {
     data: { user },
