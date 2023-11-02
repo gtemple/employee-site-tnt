@@ -7,13 +7,14 @@ import "./styles/dashboard.css";
 export const dynamic = "force-dynamic";
 
 export default async function Index() {
+  return(<div>test</div>)
   const supabase = createServerComponentClient({ cookies });
-  console.log('hello?')
 
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
+  console.log('here is the user:', user)
   let data = await getProfileData(user?.id);
   let profile = data && data[0];
 
@@ -29,6 +30,7 @@ export default async function Index() {
   if (!profile.first_name || !profile.last_name) {
     return (
       <>
+      {}
         <div>
           Hi, {profile.first_name}! Please complete your account to gain full
           access:
