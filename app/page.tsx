@@ -7,7 +7,6 @@ import "./styles/dashboard.css";
 export const dynamic = "force-dynamic";
 
 export default async function Index() {
-  return(<div>test</div>)
   const supabase = createServerComponentClient({ cookies });
 
   const {
