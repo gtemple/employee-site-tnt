@@ -2,6 +2,8 @@ import Navigation from "@/app/components/Navigation"
 import { spartan300, spartan400  } from "./styles/fonts"
 import './styles/globals.css'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata = {
   title: 'TNT',
   description: 'Your travels made easy',
