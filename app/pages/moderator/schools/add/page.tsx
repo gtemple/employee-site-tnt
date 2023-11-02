@@ -6,7 +6,7 @@ import { getAllBoards } from "@/app/api/boards/getBoards";
 export default async function AddSchool() {
   const writeAccess = await isModerator();
   const boardData = await getAllBoards();
-  //@ts-ignore
+
   const boards = boardData?.allBoardData;
 
   if (!writeAccess) {
@@ -18,7 +18,7 @@ export default async function AddSchool() {
       <div>
         <div>Add School</div>
         <div>
-          <SchoolAdd boards={boards} />
+          {boards !== undefined && (<SchoolAdd boards={boards} />) || <div>Board Fetch Failed</div>}
         </div>
       </div>
       <Link href="/pages/moderator/dashboard">Back</Link>

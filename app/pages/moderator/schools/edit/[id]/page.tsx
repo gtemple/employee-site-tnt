@@ -13,7 +13,6 @@ export default async function UpdateHotel({ params }: Params) {
   if (!writeAccess) {
     return <div>Access Denied</div>;
   }
-  //@ts-ignore
   const { schoolData } = await getSchoolData(params.id);
   const school = schoolData && schoolData[0];
 
