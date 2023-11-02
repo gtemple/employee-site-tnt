@@ -17,14 +17,14 @@ export default async function UpdateSite({ params }: Params) {
 
   //@ts-ignore
   const { siteData } = await getSiteData(params.id);
-  const { name } = siteData[0];
+  const site = siteData && siteData[0];
 
   return (
     <div>
       <div>
-        <div>Update site: {name}</div>
+        <div>Update site: {site.name}</div>
         <div>
-          <SiteUpdate destinations={destinations} site={siteData[0]} />
+          <SiteUpdate destinations={destinations} site={site} />
         </div>
       </div>
       <Link href="/pages/moderator/dashboard">Back</Link>

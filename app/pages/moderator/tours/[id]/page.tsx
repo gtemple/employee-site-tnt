@@ -8,14 +8,13 @@ import UserProfile from "@/app/components/admin/UserProfile";
 export default async function Tour({ params }: { params: { id: string } }) {
   //@ts-ignore
   const { tourData } = await getTourData(params.id);
-  const { start, end, notes, school } = tourData[0];
+  const tour = tourData && tourData[0];
 
   return (
     <div>
       <div>
         <div>
-          {console.log("all tour data", tourData)}
-          School: {school} start: {start} end: {end}
+          School: {tour.school} start: {tour.start} end: {tour.end}
         </div>
         <div>{/* <UserProfile profile={profileData[0]} /> */}</div>
       </div>

@@ -11,21 +11,19 @@ export default async function UpdateHotel({ params }: Params) {
   if (!writeAccess) {
     return <div>Access Denied</div>;
   }
-  console.log('hello')
+  
   const destinationData = await getAllDestinations();
+  const { hotelData } = await getHotelData(params.id);
   //@ts-ignore
-  const { hotelData }= await getHotelData(params.id);
-  //@ts-ignore
-  const destinations = destinationData?.allDestinationData
-  //@ts-ignore
-  const { name } = hotelData[0];
+  const destinations = destinationData && destinationData.allDestinationData;
+  const hotel = hotelData && hotelData[0];
 
   return (
     <div>
       <div>
-        <div>Update site: {name}</div>
+        <div>Update site: {hotel.name}</div>
         <div>
-          <HotelUpdate hotel={hotelData[0]} destinations={destinations} />
+          <HotelUpdate hotel={hotel} destinations={destinations} />
         </div>
       </div>
       <Link href="/pages/moderator/hotels">Back</Link>

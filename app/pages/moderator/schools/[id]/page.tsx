@@ -11,7 +11,7 @@ export default async function School({ params }: Params) {
   //@ts-ignore
   const { schoolData } = await getSchoolData(params.id);
 
-  const { id, name, grade, address, city, teacher, notes } = schoolData[0];
+  const { id, name, grade, address, city, teacher, notes } = schoolData !== undefined && schoolData[0];
 
   return (
     <>

@@ -8,22 +8,21 @@ import Params from "@/app/typescript/params";
 export default async function UpdateHotel({ params }: Params) {
   const writeAccess = await isModerator();
   const boardData = await getAllBoards();
-  //@ts-ignore
-  const boards = boardData?.allBoardData;
+  const boards = boardData && boardData.allBoardData || []; 
 
   if (!writeAccess) {
     return <div>Access Denied</div>;
   }
   //@ts-ignore
   const { schoolData } = await getSchoolData(params.id);
-  const { name } = schoolData[0];
+  const school = schoolData && schoolData[0];
 
   return (
     <div>
       <div>
-        <div>Update site: {name}</div>
+        <div>Update site: {school.name}</div>
         <div>
-          <SchoolUpdate boards={boards} school={schoolData[0]} />
+          <SchoolUpdate boards={boards} school={school} />
         </div>
       </div>
       <Link href="/pages/moderator/schools/all-schools">Back</Link>
