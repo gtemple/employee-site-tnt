@@ -31,8 +31,7 @@ export default async function Admin() {
   return (
     <div>
       {
-        //@ts-ignore
-        tours.allTourData?.length > 0 && (
+        tours.allTourData && tours.allTourData.length > 0 && (
           <div>
             <div>
               {profile.first_name} {profile.last_name} tours
