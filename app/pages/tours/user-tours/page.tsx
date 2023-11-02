@@ -11,7 +11,6 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
 const Tours = async () => {
-  //@ts-ignore
   const { tourData } = await getToursByUserId("1");
 
   return (
