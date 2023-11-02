@@ -39,6 +39,12 @@ form *{
   margin: 5px;
 }
 
+.fetch-fail {
+  font-size: 30px;
+  font-weight: 400;
+  text-align: center;
+}
+
 .extended-field {
   width: 90%;
 }

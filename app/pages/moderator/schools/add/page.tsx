@@ -18,7 +18,7 @@ export default async function AddSchool() {
       <div>
         <div>Add School</div>
         <div>
-          {boards !== undefined && (<SchoolAdd boards={boards} />) || <div>Board Fetch Failed</div>}
+          {boards !== undefined && (<SchoolAdd boards={boards} />) || <div className='fetch-fail'>Board Fetch Failed</div>}
         </div>
       </div>
       <Link href="/pages/moderator/dashboard">Back</Link>

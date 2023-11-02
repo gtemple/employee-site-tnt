@@ -21,7 +21,7 @@ export default async function Profile({ params }: Params) {
     phone,
     destinations,
     description,
-  } = siteData[0];
+  } = siteData !== undefined && siteData[0];
 
   return (
     <>
