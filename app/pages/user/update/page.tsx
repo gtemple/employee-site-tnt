@@ -6,6 +6,7 @@ export default function UpdateUser() {
   
   return (
     <div>
+      {/* @ts-expect-error Async Server Component */}
         <Unauthenticated />
         <form
           action="api/auth/update"
