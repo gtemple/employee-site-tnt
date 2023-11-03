@@ -73,6 +73,21 @@ form * {
   text-decoration: none;
 }
 
+.delete-btn {
+  width: 80px;
+  height: 26px;
+  margin: 5px;
+  font-weight: 400;
+  font-size: 14px;
+  color: red;
+  background-color: white;
+  border-color: red;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+  text-decoration: none;
+}
+
 button {
   width: 180px;
   height: 40px;

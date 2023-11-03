@@ -1,6 +1,7 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import Link from "next/link";
+import DeleteButton from "@/app/components/moderator/DeleteButton";
 import { getProfileData } from "@/app/api/getProfiles";
 import { getAllHotels } from "@/app/api/hotels/getHotels";
 import { isModerator, isAdmin } from "@/app/api/authenticatePriviledges";
@@ -65,6 +66,7 @@ export default async function Sites() {
                           </Link>
                         </TableCell>
                         {profile.moderator && (
+                          <>
                           <TableCell>
                             <Link
                               href={`/pages/moderator/hotels/edit/${hotel.id}`}
@@ -72,6 +74,10 @@ export default async function Sites() {
                               Edit
                             </Link>
                           </TableCell>
+                          <TableCell>
+                            <DeleteButton id={hotel.id} path={'hotels'} name={hotel.name} />
+                          </TableCell>
+                          </>
                         )}
                       </TableRow>
                     ))

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import DeleteButton from "./DeleteButton";
 import Hotel from "@/app/typescript/hotel";
 import Destination from "@/app/typescript/destination";
 import { TextField, MenuItem, Select, SelectChangeEvent } from "@mui/material";
@@ -146,6 +147,7 @@ const SchoolUpdateForm = (props: { hotel: Hotel; destinations: Destination[] }) 
         variant="outlined"
       />
       <button onClick={postUpdate}>Update</button>
+      <DeleteButton id={id} path={'hotels'} name={name} />
     </div>
   );
 };

@@ -53,7 +53,7 @@ const DeleteButton = ({
   return (
     <div>
       <SnackbarProvider />
-      <button onClick={handleOpenConfirm}>Delete</button>
+      <button className='delete-btn' onClick={handleOpenConfirm}>Delete</button>
       <Modal
         open={openConfirm}
         onClose={handleCloseConfirm}
