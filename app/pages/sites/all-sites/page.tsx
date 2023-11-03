@@ -1,10 +1,11 @@
+
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { getProfileData } from "@/app/api/getProfiles";
 import { getAllSites } from "@/app/api/sites/getSites";
-import { isModerator, isAdmin } from "@/app/api/authenticatePriviledges";
 import Site from "@/app/typescript/site";
+import DeleteButton from "@/app/components/moderator/DeleteButton";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -15,8 +16,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
 export default async function Sites() {
-  const supabase = createServerComponentClient({ cookies });
-  const moderator = await isModerator();
+  const supabase = createServerComponentClient({cookies});
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -66,11 +66,16 @@ export default async function Sites() {
                           <Link href={`/pages/sites/${site.id}`}>View</Link>
                         </TableCell>
                         {profile.moderator && (
-                          <TableCell>
-                            <Link href={`/pages/moderator/site/${site.id}`}>
-                              Edit
-                            </Link>
-                          </TableCell>
+                          <>
+                            <TableCell>
+                              <Link href={`/pages/moderator/site/${site.id}`}>
+                                Edit
+                              </Link>
+                            </TableCell>
+                            <TableCell>
+                              <DeleteButton id={site.id} path={'sites'} name={site.name} />
+                            </TableCell>
+                          </>
                         )}
                       </TableRow>
                     ))
