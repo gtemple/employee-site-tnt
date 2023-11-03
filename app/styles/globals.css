@@ -35,6 +35,13 @@ h4 {
   margin: 5px 0;
 }
 
+.construction {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 400;
+  padding: 15px;
+}
+
 form * {
   margin: 5px;
 }
