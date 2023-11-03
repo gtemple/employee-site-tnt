@@ -2,6 +2,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { getProfileData } from "./api/getProfiles";
 import Link from "next/link";
+import Landing from "./components/Landing";
 import "./styles/dashboard.css";
 
 export const dynamic = "force-dynamic";
@@ -20,8 +21,7 @@ export default async function Index() {
   if (!user) {
     return (
       <>
-        <Link href="/pages/login">Login</Link>
-        <Link href="/pages/signup">Sign Up</Link>
+        <Landing />
       </>
     );
   }

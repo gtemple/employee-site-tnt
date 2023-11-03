@@ -1,0 +1,48 @@
+.landing-hero {
+  text-align: center;
+  padding: 15vw 20px 0 20px;
+  font-size: 45px;
+  font-weight: 900;
+}
+
+.landing-description {
+  text-align: center;
+  margin: 0 0 5px 0;
+}
+
+.landing-moto {
+  padding: 15px;
+  margin: 0 0 60px 0;
+  text-align: center;
+  font-size: 22px;
+}
+
+.landing-footer {
+  padding: 25px 12px;
+  margin: 20px 5px;
+  font-size: 18px;
+  text-align: center;
+  border-radius: 4px;
+  background-color: rgb(34, 44, 57);
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;}
+
+.landing-btns-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.landing-btn {
+  padding: 10px 10px 2px 10px;
+  border-radius: 3px;
+  text-decoration: none;
+  border-width: 0 0 3px 0;
+  border-style: solid;
+  border-color: orange;
+  font-size: 20px;
+  color: rgb(207, 218, 248);
+}
+
+.landing-btn:hover {
+  color: orange;
+}
