@@ -1,4 +1,5 @@
 import Link from "next/link";
+import DeleteButton from "@/app/components/moderator/DeleteButton";
 import SchoolUpdate from "@/app/components/moderator/SchoolUpdate";
 import { isModerator } from "@/app/api/authenticatePriviledges";
 import { getAllBoards } from "@/app/api/boards/getBoards";
@@ -8,7 +9,7 @@ import Params from "@/app/typescript/params";
 export default async function UpdateHotel({ params }: Params) {
   const writeAccess = await isModerator();
   const boardData = await getAllBoards();
-  const boards = boardData && boardData.allBoardData || []; 
+  const boards = (boardData && boardData.allBoardData) || [];
 
   if (!writeAccess) {
     return <div>Access Denied</div>;
@@ -25,6 +26,7 @@ export default async function UpdateHotel({ params }: Params) {
         </div>
       </div>
       <Link href="/pages/moderator/schools/all-schools">Back</Link>
+      <DeleteButton id={school.id} path={"schools"} name={school.name} />
     </div>
   );
 }

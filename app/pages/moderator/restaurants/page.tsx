@@ -1,6 +1,7 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import Link from "next/link";
+import DeleteButton from "@/app/components/moderator/DeleteButton";
 import { getProfileData } from "@/app/api/getProfiles";
 import { getAllRestaurants } from "@/app/api/restaurants/getRestaurants";
 import { isModerator } from "@/app/api/authenticatePriviledges";
@@ -31,14 +32,16 @@ export default async function Sites() {
 
   return (
     <div>
-      {
-        restaurants.allRestaurantData && restaurants.allRestaurantData.length > 0 && (
+      {restaurants.allRestaurantData &&
+        restaurants.allRestaurantData.length > 0 && (
           <div>
             <div>
               {profile.first_name} {profile.last_name} restaurants
             </div>
             {profile.moderator && (
-              <Link href={`/pages/moderator/restaurants/add`}>Add restaurant</Link>
+              <Link href={`/pages/moderator/restaurants/add`}>
+                Add restaurant
+              </Link>
             )}
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -46,8 +49,8 @@ export default async function Sites() {
                   <TableRow></TableRow>
                 </TableHead>
                 <TableBody>
-                  {
-                    restaurants.allRestaurantData.map((restaurant: Restaurant) => (
+                  {restaurants.allRestaurantData.map(
+                    (restaurant: Restaurant) => (
                       <TableRow
                         key={restaurant.id}
                         sx={{
@@ -58,28 +61,38 @@ export default async function Sites() {
                         <TableCell>{restaurant.destinations.name}</TableCell>
                         <TableCell>{restaurant.phone}</TableCell>
                         <TableCell>
-                          <Link href={`/pages/moderator/restaurants/${restaurant.id}`}>
+                          <Link
+                            href={`/pages/moderator/restaurants/${restaurant.id}`}
+                          >
                             View
                           </Link>
                         </TableCell>
                         {profile.moderator && (
-                          <TableCell>
-                            <Link
-                              href={`/pages/moderator/hotels/edit/${restaurant.id}`}
-                            >
-                              Edit
-                            </Link>
-                          </TableCell>
+                          <>
+                            <TableCell>
+                              <Link
+                                href={`/pages/moderator/hotels/edit/${restaurant.id}`}
+                              >
+                                Edit
+                              </Link>
+                            </TableCell>
+                            <TableCell>
+                              <DeleteButton
+                                id={restaurant.id}
+                                path={"restaurants"}
+                                name={restaurant.name}
+                              />
+                            </TableCell>
+                          </>
                         )}
                       </TableRow>
-                    ))
-                  }
+                    )
+                  )}
                 </TableBody>
               </Table>
             </TableContainer>
           </div>
-        )
-      }
+        )}
       <Link href="/">Back</Link>
     </div>
   );

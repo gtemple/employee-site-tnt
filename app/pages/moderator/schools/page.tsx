@@ -1,6 +1,7 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import Link from "next/link";
+import DeleteButton from "@/app/components/moderator/DeleteButton";
 import { getProfileData } from "@/app/api/getProfiles";
 import { getAllSchools } from "@/app/api/schools/getSchools";
 import { isModerator, isAdmin } from "@/app/api/authenticatePriviledges";
@@ -32,40 +33,40 @@ export default async function Sites() {
 
   return (
     <div>
-      {
-        schools.allSchoolData && schools.allSchoolData.length > 0 && (
+      {schools.allSchoolData && schools.allSchoolData.length > 0 && (
+        <div>
           <div>
-            <div>
-              {profile.first_name} {profile.last_name} sites
-            </div>
-            {profile.moderator && (
-              <Link href={`/pages/moderator/schools/add`}>Add school</Link>
-            )}
-            <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                  <TableRow></TableRow>
-                </TableHead>
-                <TableBody>
-                  {
-                    //@ts-ignore
-                    schools.allSchoolData.map((school: School) => (
-                      <TableRow
-                        key={school.id}
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
-                        <TableCell>{school.name}</TableCell>
-                        <TableCell>{school.boards.acronym}</TableCell>
-                        <TableCell>{school.city}</TableCell>
-                        <TableCell>{school.grade}</TableCell>
-                        <TableCell>
-                          <Link href={`/pages/moderator/schools/${school.id}`}>
-                            View
-                          </Link>
-                        </TableCell>
-                        {profile.moderator && (
+            {profile.first_name} {profile.last_name} sites
+          </div>
+          {profile.moderator && (
+            <Link href={`/pages/moderator/schools/add`}>Add school</Link>
+          )}
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow></TableRow>
+              </TableHead>
+              <TableBody>
+                {
+                  //@ts-ignore
+                  schools.allSchoolData.map((school: School) => (
+                    <TableRow
+                      key={school.id}
+                      sx={{
+                        "&:last-child td, &:last-child th": { border: 0 },
+                      }}
+                    >
+                      <TableCell>{school.name}</TableCell>
+                      <TableCell>{school.boards.acronym}</TableCell>
+                      <TableCell>{school.city}</TableCell>
+                      <TableCell>{school.grade}</TableCell>
+                      <TableCell>
+                        <Link href={`/pages/moderator/schools/${school.id}`}>
+                          View
+                        </Link>
+                      </TableCell>
+                      {profile.moderator && (
+                        <>
                           <TableCell>
                             <Link
                               href={`/pages/moderator/schools/edit/${school.id}`}
@@ -73,16 +74,23 @@ export default async function Sites() {
                               Edit
                             </Link>
                           </TableCell>
-                        )}
-                      </TableRow>
-                    ))
-                  }
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </div>
-        )
-      }
+                          <TableCell>
+                            <DeleteButton
+                              id={school.id}
+                              path={"schools"}
+                              name={school.name}
+                            />
+                          </TableCell>
+                        </>
+                      )}
+                    </TableRow>
+                  ))
+                }
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
+      )}
       <Link href="/">Back</Link>
     </div>
   );
