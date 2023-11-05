@@ -1,4 +1,5 @@
 import { League_Spartan } from "@next/font/google"
+import { Heebo } from "@next/font/google"
 
 
 export const spartan300 = League_Spartan({
@@ -13,5 +14,10 @@ export const spartan400 = League_Spartan({
 
 export const spartan500 = League_Spartan({
   weight: '500',
+  subsets: ['latin']
+})
+
+export const heebo800 = Heebo({
+  weight: '800',
   subsets: ['latin']
 })

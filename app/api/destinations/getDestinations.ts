@@ -13,7 +13,7 @@ export async function getDestinationData(id: String | undefined) {
 
   if (error) {
     console.log(error);
-    return "failed to get destination";
+    return { error: "failed to get destination" };
   }
 
   return data;
@@ -29,9 +29,7 @@ export async function getAllDestinations() {
 
   if (error) {
     console.log(error);
-    return "failed to get destination";
+    return { error: "failed to get destination" };
   }
-
-  console.log("Server side destinations:", data);
   return { allDestinationData: data };
 }

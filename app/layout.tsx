@@ -1,5 +1,5 @@
 import Navigation from "@/app/components/Navigation"
-import { spartan300, spartan400  } from "./styles/fonts"
+import { spartan300, spartan400, heebo800  } from "./styles/fonts"
 import './styles/globals.css'
 
 export const dynamic = 'force-dynamic'

@@ -1,10 +1,11 @@
 import Link from "next/link";
 import '@/app/styles/landing.css'
+import { heebo800 } from "../styles/fonts";
 
 const Landing = () => {
   return (
     <div className='landing'>
-      <div className='landing-hero'>Temple and Temple Tours</div>
+      <div className={`${heebo800.className} landing-hero`}>Temple and Temple Tours</div>
       <div className='landing-description'>Activities Director Site</div>
       <div className='landing-moto'>Your travels made easy.</div>
       <div className="landing-btns-container">
