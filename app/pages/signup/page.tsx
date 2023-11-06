@@ -1,8 +1,9 @@
 import Link from 'next/link'
+import '@/app/styles/signup.css'
 
 export default function Login() {
   return (
-    <div>
+    <div className='signup-container'>
       {/* <Link href="/">Back</Link>
 
       <form
@@ -35,7 +36,7 @@ export default function Login() {
         <button>Sign up</button>
       </form> */}
       <div className='construction'>Thank you for your interest in registering. This site is currently not accepting new users. If you would like to reach the developer for a demo, please contact Giordano at giordanotemple@gmail.com</div>
-      <Link href="/pages/login">Login</Link>
+      <Link className='landing-btn' href="/pages/login">Login</Link>
     </div>
   )
 }

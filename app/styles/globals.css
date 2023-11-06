@@ -29,6 +29,8 @@ h4 {
 .form-field-group {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  text-align: center;
   margin: 15px;
 }
 
@@ -43,6 +45,10 @@ h4 {
   font-size: 20px;
   font-weight: 400;
   padding: 15px;
+}
+
+.label {
+  font-size: 20px;
 }
 
 form * {
@@ -61,6 +67,21 @@ form * {
 
 .footer-links {
   display: flex;
+}
+
+.landing-btn {
+  padding: 10px 10px 2px 10px;
+  border-radius: 3px;
+  text-decoration: none;
+  border-width: 0 0 3px 0;
+  border-style: solid;
+  border-color: orange;
+  font-size: 20px;
+  color: rgb(207, 218, 248);
+}
+
+.landing-btn:hover {
+  color: orange;
 }
 
 .back-btn {
@@ -103,7 +124,7 @@ button {
   height: 40px;
   margin: 5px;
   color: white;
-  background-color: blue;
+  background-color: rgb(217, 141, 1);
   border-radius: 5px;
   border-style: hidden;
   text-transform: uppercase;

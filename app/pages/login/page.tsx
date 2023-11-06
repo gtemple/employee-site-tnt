@@ -27,7 +27,7 @@ export default async function Login() {
             className="text-form"
           >
             <div className='form-field-group'>
-              <label htmlFor="email">Email</label>
+              <label className='label' htmlFor="email">Email</label>
               <input
                 name="email"
                 placeholder="you@example.com"
@@ -36,7 +36,7 @@ export default async function Login() {
               />
             </div>
               <div className='form-field-group'>
-              <label htmlFor="password">Password</label>
+              <label className='label' htmlFor="password">Password</label>
               <input
                 type="password"
                 name="password"
@@ -48,7 +48,7 @@ export default async function Login() {
             <button>Sign In</button>
             <Messages />
           </form>
-          <Link href="/pages/signup">Sign Up</Link>
+          <Link className="landing-btn" href="/pages/signup">Sign Up</Link>
       </div>
     </div>
   )
