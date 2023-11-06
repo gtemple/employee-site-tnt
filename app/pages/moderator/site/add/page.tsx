@@ -18,10 +18,10 @@ export default async function AddSite() {
       <div>
         <div>Add Site</div>
         <div>
-          <SiteAdd destinations={destinations} />
+          {destinations !== undefined && <SiteAdd destinations={destinations} />}
         </div>
       </div>
-      <Link href="/pages/moderator/dashboard">Back</Link>
+      <Link href="/pages/moderator/dasshboard">Back</Link>
     </div>
   );
 }

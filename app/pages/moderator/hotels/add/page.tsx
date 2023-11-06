@@ -18,7 +18,7 @@ export default async function AddHotel() {
       <div>
         <div>Add Hotell</div>
         <div>
-          <HotelAdd destinations={destinations} />
+          {destinations !== undefined && <HotelAdd destinations={destinations} />}
         </div>
       </div>
       <Link href="/pages/moderator/dashboard">Back</Link>
