@@ -26,7 +26,7 @@ export default async function UpdateHotel({ params }: Params) {
           {destinations ? (
             <HotelUpdate hotel={hotel} destinations={destinations} />
           ) : (
-            <div>Failed to retrieve</div>
+            <div className='fetch-fail'>Failed to retrieve</div>
           )}
         </div>
       </div>
