@@ -11,7 +11,7 @@ export default async function UpdateHotel({ params }: Params) {
   if (!writeAccess) {
     return <div>Access Denied</div>;
   }
-  
+
   const destinationData = await getAllDestinations();
   const { hotelData } = await getHotelData(params.id);
   //@ts-ignore
@@ -23,7 +23,11 @@ export default async function UpdateHotel({ params }: Params) {
       <div>
         <div>Update site: {hotel.name}</div>
         <div>
-          <HotelUpdate hotel={hotel} destinations={destinations} />
+          {destinations ? (
+            <HotelUpdate hotel={hotel} destinations={destinations} />
+          ) : (
+            <div>Failed to retrieve</div>
+          )}
         </div>
       </div>
       <Link href="/pages/moderator/hotels">Back</Link>
