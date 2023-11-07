@@ -50,8 +50,8 @@ export default async function Index() {
     <div className="dash">
       <div className="greeting">Hey, {profile.first_name}!</div>
       <div className="dash-nav">
-        <Link href="/pages/tours/tours">My Tours</Link>
-        <Link href="/pages/sites/all-sites">Sites</Link>
+        <Link href="/pages/tours">My Tours</Link>
+        <Link href="/pages/sites">Sites</Link>
         <Link href="/pages/destinations/all-destinations">Destinations</Link>
       </div>
     </div>
