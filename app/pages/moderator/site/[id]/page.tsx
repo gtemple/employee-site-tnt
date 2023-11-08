@@ -24,7 +24,11 @@ export default async function UpdateSite({ params }: Params) {
       <div>
         <div>Update site: {site.name}</div>
         <div>
-          <SiteUpdate destinations={destinations} site={site} />
+          {destinations ? (
+            <SiteUpdate destinations={destinations} site={site} />
+          ) : (
+            <div className="fetch-fail">Failed to retrieve</div>
+          )}
         </div>
       </div>
       <Link href="/pages/moderator/dashboard">Back</Link>
