@@ -5,10 +5,6 @@ import Calendar from "react-calendar";
 import dayjs from "dayjs";
 import "@/app/styles/Calendar.css";
 
-type ValuePiece = Date | null;
-
-type Value = ValuePiece | [ValuePiece, ValuePiece];
-
 export const AddTourDay = () => {
   const [data, setData] = useState({});
   const [dateValue, setDateValue] = useState(dayjs());
@@ -44,6 +40,11 @@ export const AddTourDay = () => {
     setData((prev) => ({ ...prev, [nextDayOnTrip]: { date: nextDate } }));
   };
 
+  const deleteDay = () => {
+    const tripLength = Object.keys(data).length;
+    delete data[tripLength - 1];
+  }
+
   const handleOpenDayWidget = () => setAddDayWidget(true);
   const handleCloseDayWidget = (submit: boolean) => {
     if (!submit) {
@@ -58,11 +59,15 @@ export const AddTourDay = () => {
       <button onClick={() => console.log(data)}>test data</button>
       {/* checks to see if there is already a start date, if so gives the option to add the following day */}
       {startDateExists() ? (
-        <button onClick={addDay}>Add Day</button>
+        <div>
+          <button onClick={addDay}>Add Day</button>
+          <button onClick={deleteDay}>Delete Day</button>
+        </div>
       ) : !addDayWidget ? (
         <button onClick={handleOpenDayWidget}>Set Start Date</button>
       ) : (
         <div>
+          {/* @ts-ignore */}
           <Calendar onChange={setDateValue} value={dateValue} />
           <button onClick={() => handleCloseDayWidget(true)}>Submit</button>
           <button onClick={() => handleCloseDayWidget(false)}>Cancel</button>
