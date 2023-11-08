@@ -6,6 +6,10 @@
 
 */
 
+/*
+Step 1: focus on something simple, let's just start by being able to add the days for each tour
+*/
+
 const info = {
   "ad": {
     "amount": 2,
@@ -19,7 +23,7 @@ const info = {
 
 const trip = {
   "days": {
-    "1": {
+    "date": {
       "date": "date",
       "hotel": 1,
       "schedule": {
@@ -29,7 +33,7 @@ const trip = {
           "description": "description",
           "id": 1
         },
-        "2": {
+        "date": {
           "start": "time",
           "end": "time",
           "description": "description",

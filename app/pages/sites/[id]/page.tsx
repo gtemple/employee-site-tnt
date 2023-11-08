@@ -40,11 +40,11 @@ export default async function Profile({ params }: Params) {
       </div>
       <div className="footer-links">
         {moderator && (
-          <Link className="edit-btn" href={`/pages/moderator/site/${id}`}>
+          <Link className="edit-btn" href={`/pages/moderator/sites/${id}`}>
             Edit
           </Link>
         )}
-        <Link className="back-btn" href="/pages/sites/all-sites">
+        <Link className="back-btn" href="/pages/sites">
           Back
         </Link>
       </div>

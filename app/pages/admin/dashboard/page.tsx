@@ -22,7 +22,6 @@ export default async function Admin() {
   } = await supabase.auth.getUser();
 
   const profiles = await getAllProfiles();
-  console.log(user);
   const profileData = await getProfileData(user?.id);
 
   if (profileData && !profileData[0].admin) {

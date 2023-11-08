@@ -33,14 +33,13 @@ export default async function Sites() {
   return (
     <div>
       {
-        //@ts-ignore
-        sites.allSiteData?.length > 0 && (
+        sites.allSiteData && sites.allSiteData.length > 0 && (
           <div>
             <div>
               {profile.first_name} {profile.last_name} sites
             </div>
             {profile.moderator && (
-              <Link href={`/pages/moderator/site/add`}>Add site</Link>
+              <Link href={`/pages/moderator/sites/add`}>Add site</Link>
             )}
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -68,7 +67,7 @@ export default async function Sites() {
                         {profile.moderator && (
                           <>
                             <TableCell>
-                              <Link href={`/pages/moderator/site/${site.id}`}>
+                              <Link href={`/pages/moderator/sites/${site.id}`}>
                                 Edit
                               </Link>
                             </TableCell>

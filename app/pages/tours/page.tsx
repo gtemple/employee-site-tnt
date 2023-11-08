@@ -1,4 +1,7 @@
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 import { getToursByUserId } from "@/app/api/getTours";
+import { getProfileData } from "@/app/api/getProfiles";
 import Link from "next/link";
 import Tour from "@/app/typescript/tour";
 
@@ -11,12 +14,26 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
 const Tours = async () => {
+  const supabase = createServerComponentClient({ cookies });
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  let data = await getProfileData(user?.id);
+  let profile = data && data[0];
+
+  if (profile && !profile.active) {
+    return <div>Authentication failed</div>;
+  }
+
   const { tourData } = await getToursByUserId("1");
 
   return (
     <div>
       {tourData && tourData.length > 0 && (
         <div>
+          {profile.moderator && (
+            <Link href={`/pages/moderator/tours/add`}>Add site</Link>
+          )}
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
