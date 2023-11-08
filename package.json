@@ -16,6 +16,7 @@
     "@supabase/supabase-js": "latest",
     "autoprefixer": "^10.4.16",
     "body-parser": "^1.20.2",
+    "dayjs": "^1.11.10",
     "next": "latest",
     "notistack": "^3.0.1",
     "postcss": "^8.4.30",
