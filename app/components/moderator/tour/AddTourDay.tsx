@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import School from "@/app/typescript/school";
 import Destination from "@/app/typescript/destination";
 import Calendar from "react-calendar";
@@ -8,37 +9,54 @@ import dayjs from "dayjs";
 import { TextField, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import "@/app/styles/Calendar.css";
 
+type Itinerary = {
+  [key: number]: {
+    date: Date;
+  };
+};
+
+type Dropdown = String | Number;
+
 export const AddTourDay = (props: {
   schools: School[];
   destinations: Destination[];
 }) => {
-  const [itinerary, setItinerary] = useState({});
-  const [school, setSchool] = useState(1);
-  const [destination, setDestination] = useState(1)
+  const [itinerary, setItinerary] = useState<Itinerary>({});
+  const [school, setSchool] = useState<Dropdown>(1);
+  const [destination, setDestination] = useState<Dropdown>(1);
   const [dateValue, setDateValue] = useState(dayjs());
   const [addDayWidget, setAddDayWidget] = useState(false);
+  const [displayedItinerary, setDisplayedItinerary] = useState<JSX.Element[] | null>([]);
+
   const allSchools = props.schools;
   const allDestinations = props.destinations;
 
+  const displayItinerary = (itin: Itinerary | null) => {
+    if (!itin) {
+      return null;
+    }
+    const keys = Object.keys(itin);
+    const printedItems = keys.map((key) => (
+      <div key={key}>Day: {itin[key].date.toString()}</div>
+    ));
+    return printedItems;
+  };
+
   const startDateExists = () => {
     const keys = Object.keys(itinerary);
-    if (keys.length > 0) {
-      return true;
-    }
-    return false;
+    return keys.length > 0;
   };
 
   const startDate = () => {
     const keys = Object.keys(itinerary);
-    if (keys.length > 0) {
-      return;
+    if (keys.length === 0) {
+      setItinerary({
+        0: {
+          //@ts-ignore
+          date: dateValue,
+        },
+      });
     }
-    setItinerary({
-      0: {
-        date: dateValue,
-      },
-    });
-    return;
   };
 
   // this function adds a day to the schedule by doing the following:
@@ -51,8 +69,16 @@ export const AddTourDay = (props: {
   };
 
   const deleteDay = () => {
-    const tripLength = Object.keys(itinerary).length;
-    delete itinerary[tripLength - 1];
+    const keys = Object.keys(itinerary);
+    const lastKey = keys[keys.length - 1];
+    const lastKeyNumber = parseInt(lastKey, 10); // or const lastKeyNumber = Number(lastKey);
+    
+    if (!isNaN(lastKeyNumber)) {
+      const updatedItinerary = { ...itinerary };
+      delete updatedItinerary[lastKeyNumber];
+      setItinerary(updatedItinerary);
+    }
+    
   };
 
   const postTour = () => {
@@ -62,7 +88,7 @@ export const AddTourDay = (props: {
       itinerary: itinerary,
     };
 
-    console.log(state)
+    console.log(state);
 
     // fetch("/api/tours/add", {
     //   method: "POST",
@@ -71,6 +97,7 @@ export const AddTourDay = (props: {
     //   },
     //   body: JSON.stringify(state),
     // });
+    // router.push(`/pages/moderator/tours`);
   };
 
   const handleOpenDayWidget = () => setAddDayWidget(true);
@@ -82,21 +109,21 @@ export const AddTourDay = (props: {
     setAddDayWidget(false);
   };
 
-  const handleSchoolChange = (event: SelectChangeEvent) => {
-    const { value } = event.target;
+  const handleSchoolChange = ({target}: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = target;
     setSchool(value);
   };
 
-  const handleDestinationChange = (event: SelectChangeEvent) => {
-    const { value } = event.target;
+  const handleDestinationChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = target;
     setDestination(value);
   };
 
-  // const printDays = () => {
-  //   for (const day in itinerary) {
-  //     return <div>{itinerary[day].date}</div>;
-  //   }
-  // };
+  useEffect(() => {
+    console.log(itinerary);
+    const result = displayItinerary(itinerary);
+    setDisplayedItinerary(result);
+  }, [itinerary]);
 
   return (
     <div>
@@ -162,6 +189,7 @@ export const AddTourDay = (props: {
         </div>
       )}
       <button onClick={postTour}>Save</button>
+      <div>{displayedItinerary}</div>
     </div>
   );
 };
