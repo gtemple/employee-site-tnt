@@ -2,7 +2,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { getProfileData } from "@/app/api/getProfiles";
-import { getAllTours } from "@/app/api/getTours";
+import { getAllTours } from "@/app/api/tours/getTours";
 import Tour from "@/app/typescript/tour";
 
 import Table from "@mui/material/Table";

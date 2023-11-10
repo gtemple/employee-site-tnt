@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { getTourData } from "@/app/api/getTours";
+import { getTourData } from "@/app/api/tours/getTours";
 
 import Button from "@mui/material/Button";
 import UserProfile from "@/app/components/admin/UserProfile";

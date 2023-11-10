@@ -7,12 +7,17 @@ import { getAllRestaurants } from "@/app/api/restaurants/getRestaurants";
 import { getAllSchools } from "@/app/api/schools/getSchools";
 import { getAllSites } from "@/app/api/sites/getSites";
 
-const AddTour = () => {
-  const newDate = dayjs().hour(12);
+const AddTour = async () => {
+  const schools = await getAllSchools();
+  const destinations = await getAllDestinations();
   return (
     <div>
-      <AddTourDay />
-      {/* hours: {newDate.format('m')} total: {newDate} */}
+      {schools.allSchoolData && destinations.allDestinationData && (
+        <AddTourDay
+          schools={schools.allSchoolData}
+          destinations={destinations.allDestinationData}
+        />
+      )}
     </div>
   );
 };

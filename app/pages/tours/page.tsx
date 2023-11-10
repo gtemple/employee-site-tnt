@@ -1,6 +1,6 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import { getToursByUserId } from "@/app/api/getTours";
+import { getToursByUserId } from "@/app/api/tours/getTours";
 import { getProfileData } from "@/app/api/getProfiles";
 import Link from "next/link";
 import Tour from "@/app/typescript/tour";
