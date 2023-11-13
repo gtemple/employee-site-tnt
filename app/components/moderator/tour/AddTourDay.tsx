@@ -51,7 +51,7 @@ export const AddTourDay = (props: Props) => {
       <div>
         {/* @ts-ignore */}
           <div key={key}>Day: {itin[key].date.toString()}</div>
-          <AddTourEvent />
+          <AddTourEvent sites={props.sites} restaurants={props.restaurants} hotels={props.hotels}/>
       </div>
     ));
     return printedItems;
