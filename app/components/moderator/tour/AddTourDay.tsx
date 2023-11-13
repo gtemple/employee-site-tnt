@@ -2,12 +2,18 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+
 import School from "@/app/typescript/school";
 import Destination from "@/app/typescript/destination";
+import Hotel from "@/app/typescript/hotel";
+import Restaurant from "@/app/typescript/restaurant";
+import Site from "@/app/typescript/site";
+
 import Calendar from "react-calendar";
 import dayjs from "dayjs";
 import { TextField, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import "@/app/styles/Calendar.css";
+import { AddTourEvent } from "./AddTourEvent";
 
 type Itinerary = {
   [key: number]: {
@@ -15,12 +21,17 @@ type Itinerary = {
   };
 };
 
-type Dropdown = String | Number;
-
-export const AddTourDay = (props: {
+type Props = {
   schools: School[];
   destinations: Destination[];
-}) => {
+  hotels: Hotel[];
+  restaurants: Restaurant[];
+  sites: Site[];
+}
+
+type Dropdown = String | Number;
+
+export const AddTourDay = (props: Props) => {
   const [itinerary, setItinerary] = useState<Itinerary>({});
   const [school, setSchool] = useState<Dropdown>(1);
   const [destination, setDestination] = useState<Dropdown>(1);
@@ -37,7 +48,11 @@ export const AddTourDay = (props: {
     }
     const keys = Object.keys(itin);
     const printedItems = keys.map((key) => (
-      <div key={key}>Day: {itin[key].date.toString()}</div>
+      <div>
+        {/* @ts-ignore */}
+          <div key={key}>Day: {itin[key].date.toString()}</div>
+          <AddTourEvent />
+      </div>
     ));
     return printedItems;
   };
@@ -120,7 +135,6 @@ export const AddTourDay = (props: {
   };
 
   useEffect(() => {
-    console.log(itinerary);
     const result = displayItinerary(itinerary);
     setDisplayedItinerary(result);
   }, [itinerary]);
