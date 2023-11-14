@@ -44,6 +44,7 @@ export const AddTourEvent: React.FC<Props> = ({
     interval: string
   ) => {
     const num = Number(event.target.value as string);
+    //@ts-ignore
     const newTime = state[time].set(interval, num);
     console.log(newTime);
     setState((prev) => ({
