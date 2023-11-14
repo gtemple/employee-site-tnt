@@ -10,14 +10,15 @@ import Restaurant from "@/app/typescript/restaurant";
 import Site from "@/app/typescript/site";
 
 import Calendar from "react-calendar";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { TextField, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import "@/app/styles/Calendar.css";
+import '@/app/styles/tours/tour.css'
 import { AddTourEvent } from "./AddTourEvent";
 
 type Itinerary = {
   [key: number]: {
-    date: Date;
+    date: Dayjs;
   };
 };
 
@@ -36,6 +37,7 @@ export const AddTourDay = (props: Props) => {
   const [school, setSchool] = useState<Dropdown>(1);
   const [destination, setDestination] = useState<Dropdown>(1);
   const [dateValue, setDateValue] = useState(dayjs());
+  const [lastDateValue, setLastDateValue] = useState<Dayjs>(dayjs())
   const [addDayWidget, setAddDayWidget] = useState(false);
   const [displayedItinerary, setDisplayedItinerary] = useState<JSX.Element[] | null>([]);
 
@@ -48,10 +50,10 @@ export const AddTourDay = (props: Props) => {
     }
     const keys = Object.keys(itin);
     const printedItems = keys.map((key) => (
-      <div>
+      <div className='tour-day'>
         {/* @ts-ignore */}
-          <div key={key}>Day: {itin[key].date.toString()}</div>
-          <AddTourEvent sites={props.sites} restaurants={props.restaurants} hotels={props.hotels}/>
+          <div className='tour-date' key={key}>Day: {itin[key].date.toString()}</div>
+          <AddTourEvent sites={props.sites} restaurants={props.restaurants} hotels={props.hotels} date={lastDateValue}/>
       </div>
     ));
     return printedItems;
@@ -79,14 +81,15 @@ export const AddTourDay = (props: Props) => {
   // 2. adds the current trip length to the starting date (thus adding the next date... if start date is Nov 12th and trip length is already 3 days, 12 + 3 creates the 15th)
   const addDay = () => {
     const nextDayOnTrip = Object.keys(itinerary).length;
-    const nextDate = dayjs(dateValue).add(nextDayOnTrip, "day").toDate();
+    const nextDate = dayjs(dateValue).add(nextDayOnTrip, "day")
+    setLastDateValue(nextDate);
     setItinerary((prev) => ({ ...prev, [nextDayOnTrip]: { date: nextDate } }));
   };
 
   const deleteDay = () => {
     const keys = Object.keys(itinerary);
     const lastKey = keys[keys.length - 1];
-    const lastKeyNumber = parseInt(lastKey, 10); // or const lastKeyNumber = Number(lastKey);
+    const lastKeyNumber = parseInt(lastKey, 10);
     
     if (!isNaN(lastKeyNumber)) {
       const updatedItinerary = { ...itinerary };

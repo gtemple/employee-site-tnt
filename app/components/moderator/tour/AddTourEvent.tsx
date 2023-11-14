@@ -1,75 +1,60 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import Site from "@/app/typescript/site";
-import Hotel from "@/app/typescript/hotel";
-import Restaurant from "@/app/typescript/restaurant";
-
+import React, { useState, useEffect } from "react";
+import dayjs, { Dayjs } from "dayjs";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Site from "@/app/typescript/site";
+import Hotel from "@/app/typescript/hotel";
+import Restaurant from "@/app/typescript/restaurant";
 
-/*
-NOTES:
- - Will start by giving the option of what kind of event with a dropdown (restaurant, site, hotel, other)
- - Next: give dropdown
- - add timestamps
-    - check for conflicts with existing events
-    - nice to have: have google maps calculte the distance between the 2 events to help operations understand plausability
- - option to change default text
-
-*/
 
 type Props = {
   sites: Site[];
   hotels: Hotel[];
   restaurants: Restaurant[];
+  date: Dayjs;
 };
 
-type Options = Site[] | Hotel[] | Restaurant[];
+type Option = Site | Hotel | Restaurant;
 
-export const AddTourEvent = (props: Props) => {
-  const sites = props.sites;
-  const hotels = props.hotels;
-  const restaurants = props.restaurants;
-
-  const [event, setEvent] = useState("Site");
-  const [options, setOptions] = useState<string | Options>("");
-  const [selection, setSelection] = useState("");
+export const AddTourEvent: React.FC<Props> = ({ sites, hotels, restaurants, date }) => {
+  const [selectedEvent, setSelectedEvent] = useState("Site");
+  const [options, setOptions] = useState<Array<Option>>(sites);
+  const [printedOptions, setPrintedOptions] = useState<React.ReactNode>('');
 
   const handleChange = (event: SelectChangeEvent) => {
-    setEvent(event.target.value as string);
+    setSelectedEvent(event.target.value as string);
   };
 
   const optionsCheck = (option: string) => {
     if (option === "Site") {
       setOptions(sites);
-    }
-    if (option === "Restaurant") {
+    } else if (option === "Restaurant") {
       setOptions(restaurants);
-    }
-    if (option === "Hotel") {
+    } else if (option === "Hotel") {
       setOptions(hotels);
     }
   };
 
-  const printOptions = (array: Options) => {
+  const printOptions = (array: Option[]) => {
     return (
       <Box sx={{ minWidth: 120 }}>
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">{event}</InputLabel>
+          <InputLabel id="demo-simple-select-label">{selectedEvent}</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={event}
-            label="Event"
+            value={selectedEvent}
+            label="Selection"
             onChange={handleChange}
           >
-            2<MenuItem value="Hotel">Hotel</MenuItem>
-            <MenuItem value="Restaurant">Restaurant</MenuItem>
-            <MenuItem value="Site">Site</MenuItem>
+            {array.map((arrayOption) => (
+              <MenuItem key={arrayOption.id} value={arrayOption.id}>
+                {arrayOption.name}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Box>
@@ -77,10 +62,9 @@ export const AddTourEvent = (props: Props) => {
   };
 
   useEffect(() => {
-    optionsCheck(event);
-    let printedOptions = printOptions(options);
-    console.log(options);
-  }, [event]);
+    optionsCheck(selectedEvent);
+    setPrintedOptions(printOptions(options));
+  }, [selectedEvent, options]);
 
   return (
     <div>
@@ -90,7 +74,7 @@ export const AddTourEvent = (props: Props) => {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={event}
+            value={selectedEvent}
             label="Event"
             onChange={handleChange}
           >
@@ -98,6 +82,7 @@ export const AddTourEvent = (props: Props) => {
             <MenuItem value="Restaurant">Restaurant</MenuItem>
             <MenuItem value="Site">Site</MenuItem>
           </Select>
+          {printedOptions}
         </FormControl>
       </Box>
     </div>
