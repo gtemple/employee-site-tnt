@@ -36,8 +36,8 @@ export const AddTourDay = (props: Props) => {
   const [itinerary, setItinerary] = useState<Itinerary>({});
   const [school, setSchool] = useState<Dropdown>(1);
   const [destination, setDestination] = useState<Dropdown>(1);
-  const [dateValue, setDateValue] = useState(dayjs());
-  const [lastDateValue, setLastDateValue] = useState<Dayjs>(dayjs())
+  const [dateValue, setDateValue] = useState(dayjs().startOf('day'));
+  const [lastDateValue, setLastDateValue] = useState<Dayjs>(dayjs().startOf('day'))
   const [addDayWidget, setAddDayWidget] = useState(false);
   const [displayedItinerary, setDisplayedItinerary] = useState<JSX.Element[] | null>([]);
 
@@ -52,7 +52,7 @@ export const AddTourDay = (props: Props) => {
     const printedItems = keys.map((key) => (
       <div className='tour-day'>
         {/* @ts-ignore */}
-          <div className='tour-date' key={key}>Day: {itin[key].date.toString()}</div>
+          <div className='tour-date' key={key}>{dayjs(itin[key].date).format('dddd, MMMM D – YYYY')}</div>
           <AddTourEvent sites={props.sites} restaurants={props.restaurants} hotels={props.hotels} date={lastDateValue}/>
       </div>
     ));
@@ -81,7 +81,7 @@ export const AddTourDay = (props: Props) => {
   // 2. adds the current trip length to the starting date (thus adding the next date... if start date is Nov 12th and trip length is already 3 days, 12 + 3 creates the 15th)
   const addDay = () => {
     const nextDayOnTrip = Object.keys(itinerary).length;
-    const nextDate = dayjs(dateValue).add(nextDayOnTrip, "day")
+    const nextDate = dayjs(dateValue).add(nextDayOnTrip, "day").startOf('day')
     setLastDateValue(nextDate);
     setItinerary((prev) => ({ ...prev, [nextDayOnTrip]: { date: nextDate } }));
   };

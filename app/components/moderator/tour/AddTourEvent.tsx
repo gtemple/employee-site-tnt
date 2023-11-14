@@ -9,7 +9,6 @@ import Site from "@/app/typescript/site";
 import Hotel from "@/app/typescript/hotel";
 import Restaurant from "@/app/typescript/restaurant";
 
-
 type Props = {
   sites: Site[];
   hotels: Hotel[];
@@ -19,21 +18,46 @@ type Props = {
 
 type Option = Site | Hotel | Restaurant;
 
-export const AddTourEvent: React.FC<Props> = ({ sites, hotels, restaurants, date }) => {
-  const [selectedEvent, setSelectedEvent] = useState("Site");
+export const AddTourEvent: React.FC<Props> = ({
+  sites,
+  hotels,
+  restaurants,
+  date,
+}) => {
+  const [selectedEvent, setSelectedEvent] = useState("site");
   const [options, setOptions] = useState<Array<Option>>(sites);
-  const [printedOptions, setPrintedOptions] = useState<React.ReactNode>('');
+  const [state, setState] = useState({
+    type: "site",
+    id: 1,
+    start: date.startOf("d"),
+    end: date.startOf("d"),
+  });
+  const [printedOptions, setPrintedOptions] = useState<React.ReactNode>("");
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelectedEvent(event.target.value as string);
   };
 
+  const handleTimeChange = (
+    event: SelectChangeEvent,
+    time: string,
+    interval: string
+  ) => {
+    const num = Number(event.target.value as string);
+    const newTime = state[time].set(interval, num);
+    console.log(newTime);
+    setState((prev) => ({
+      ...prev,
+      [time]: newTime,
+    }));
+  };
+
   const optionsCheck = (option: string) => {
-    if (option === "Site") {
+    if (option === "site") {
       setOptions(sites);
-    } else if (option === "Restaurant") {
+    } else if (option === "restaurant") {
       setOptions(restaurants);
-    } else if (option === "Hotel") {
+    } else if (option === "hotel") {
       setOptions(hotels);
     }
   };
@@ -61,6 +85,34 @@ export const AddTourEvent: React.FC<Props> = ({ sites, hotels, restaurants, date
     );
   };
 
+  const displayHours = () => {
+    const hoursArray = [];
+    let n = 0;
+    while (n <= 23) {
+      hoursArray.push(
+        <MenuItem key={n} value={n}>
+          {n}
+        </MenuItem>
+      );
+      n++;
+    }
+    return hoursArray;
+  };
+
+  const displayMinutes = () => {
+    const minutesArray = [];
+    let n = 0;
+    while (n <= 55) {
+      minutesArray.push(
+        <MenuItem key={n} value={n}>
+          {n}
+        </MenuItem>
+      );
+      n += 5;
+    }
+    return minutesArray;
+  };
+
   useEffect(() => {
     optionsCheck(selectedEvent);
     setPrintedOptions(printOptions(options));
@@ -69,6 +121,7 @@ export const AddTourEvent: React.FC<Props> = ({ sites, hotels, restaurants, date
   return (
     <div>
       <Box sx={{ minWidth: 120 }}>
+        <div>{date.format("H:m")}</div>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Event</InputLabel>
           <Select
@@ -78,12 +131,58 @@ export const AddTourEvent: React.FC<Props> = ({ sites, hotels, restaurants, date
             label="Event"
             onChange={handleChange}
           >
-            <MenuItem value="Hotel">Hotel</MenuItem>
-            <MenuItem value="Restaurant">Restaurant</MenuItem>
-            <MenuItem value="Site">Site</MenuItem>
+            <MenuItem value="hotel">Hotel</MenuItem>
+            <MenuItem value="restaurant">Restaurant</MenuItem>
+            <MenuItem value="site">Site</MenuItem>
           </Select>
+
           {printedOptions}
+          <InputLabel id="demo-simple-select-label">Start Time</InputLabel>
         </FormControl>
+        <div>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={state.start.format("H")}
+            onChange={(e) => handleTimeChange(e, "start", "hour")}
+          >
+            {displayHours()}
+          </Select>
+          :
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={state.start.format("m")}
+            label=""
+            onChange={(e) => {
+              handleTimeChange(e, "start", "minute");
+            }}
+          >
+            {displayMinutes()}
+          </Select>
+        </div>
+        <div>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={state.end.format("H")}
+            onChange={(e) => handleTimeChange(e, "end", "hour")}
+          >
+            {displayHours()}
+          </Select>
+          :
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={state.end.format("m")}
+            label=""
+            onChange={(e) => {
+              handleTimeChange(e, "end", "minute");
+            }}
+          >
+            {displayMinutes()}
+          </Select>
+        </div>
       </Box>
     </div>
   );
