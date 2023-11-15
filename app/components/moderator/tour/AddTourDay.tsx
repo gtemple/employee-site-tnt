@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { SnackbarProvider, enqueueSnackbar } from "notistack";
 
 import School from "@/app/typescript/school";
 import Destination from "@/app/typescript/destination";
@@ -59,6 +60,13 @@ export const AddTourDay = ({
   const allDestinations = destinations;
 
   const checkEventConflict = (event: Event): boolean => {
+    if (event.start > event.end) {
+      enqueueSnackbar(`Start time must be earlier than end time`, {
+        autoHideDuration: 3000,
+        variant: "error",
+      });
+      return;
+    }
     const dayItinerary = itinerary[Number(event.day)];
     return false;
   };
@@ -199,6 +207,7 @@ export const AddTourDay = ({
 
   return (
     <div>
+      <SnackbarProvider />
       <button onClick={() => console.log(itinerary, allSchools)}>
         test data
       </button>
