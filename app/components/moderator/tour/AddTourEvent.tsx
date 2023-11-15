@@ -14,6 +14,13 @@ type Props = {
   hotels: Hotel[];
   restaurants: Restaurant[];
   date: Dayjs;
+  day: string;
+  saveEvent: (event: {
+    type: string;
+    id: number;
+    start: Dayjs;
+    end: Dayjs;
+  }) => void;
 };
 
 type Option = Site | Hotel | Restaurant;
@@ -23,12 +30,15 @@ export const AddTourEvent: React.FC<Props> = ({
   hotels,
   restaurants,
   date,
+  day,
+  saveEvent,
 }) => {
   const [selectedEvent, setSelectedEvent] = useState("site");
   const [options, setOptions] = useState<Array<Option>>(sites);
   const [state, setState] = useState({
     type: "site",
     id: 1,
+    day: day,
     start: date.startOf("d"),
     end: date.startOf("d"),
   });
@@ -114,6 +124,10 @@ export const AddTourEvent: React.FC<Props> = ({
     return minutesArray;
   };
 
+  // const saveEvent = () => {
+  //   setItinerary((prev) => ({...prev, state.start: state}))
+  // }
+
   useEffect(() => {
     optionsCheck(selectedEvent);
     setPrintedOptions(printOptions(options));
@@ -122,7 +136,6 @@ export const AddTourEvent: React.FC<Props> = ({
   return (
     <div>
       <Box sx={{ minWidth: 120 }}>
-        <div>{date.format("H:m")}</div>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Event</InputLabel>
           <Select
@@ -136,7 +149,6 @@ export const AddTourEvent: React.FC<Props> = ({
             <MenuItem value="restaurant">Restaurant</MenuItem>
             <MenuItem value="site">Site</MenuItem>
           </Select>
-
           {printedOptions}
           <InputLabel id="demo-simple-select-label">Start Time</InputLabel>
         </FormControl>
@@ -184,6 +196,13 @@ export const AddTourEvent: React.FC<Props> = ({
             {displayMinutes()}
           </Select>
         </div>
+        <button
+          onClick={() => {
+            saveEvent(state);
+          }}
+        >
+          Save
+        </button>
       </Box>
     </div>
   );

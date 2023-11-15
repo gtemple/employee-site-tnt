@@ -13,7 +13,7 @@ import Calendar from "react-calendar";
 import dayjs, { Dayjs } from "dayjs";
 import { TextField, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import "@/app/styles/Calendar.css";
-import '@/app/styles/tours/tour.css'
+import "@/app/styles/tours/tour.css";
 import { AddTourEvent } from "./AddTourEvent";
 
 type Itinerary = {
@@ -22,53 +22,89 @@ type Itinerary = {
   };
 };
 
+type Event = {
+  type: string;
+  id: number;
+  day: string;
+  start: Dayjs;
+  end: Dayjs;
+};
+
 type Props = {
   schools: School[];
   destinations: Destination[];
   hotels: Hotel[];
   restaurants: Restaurant[];
   sites: Site[];
-}
+};
 
 type Dropdown = String | Number;
 
-export const AddTourDay = (props: Props) => {
+export const AddTourDay = ({
+  schools,
+  destinations,
+  hotels,
+  restaurants,
+  sites,
+}: Props) => {
   const [itinerary, setItinerary] = useState<Itinerary>({});
   const [school, setSchool] = useState<Dropdown>(1);
   const [destination, setDestination] = useState<Dropdown>(1);
-  const [dateValue, setDateValue] = useState(dayjs().startOf('day'));
-  const [lastDateValue, setLastDateValue] = useState<Dayjs>(dayjs().startOf('day'))
+  const [dateValue, setDateValue] = useState(dayjs().startOf("day"));
+  const [lastDateValue, setLastDateValue] = useState<Dayjs>(
+    dayjs().startOf("day")
+  );
   const [addDayWidget, setAddDayWidget] = useState(false);
-  const [displayedItinerary, setDisplayedItinerary] = useState<JSX.Element[] | null>([]);
+  const [displayedItinerary, setDisplayedItinerary] = useState<
+    JSX.Element[] | null
+  >([]);
 
-  const allSchools = props.schools;
-  const allDestinations = props.destinations;
+  const allSchools = schools;
+  const allDestinations = destinations;
+
+  const checkEventConflict = (event: Event): boolean => {
+    const dayItinerary = itinerary[Number(event.day)]
+    console.log("current day=", event);
+    console.log('days itinerary:', dayItinerary)
+    return true;
+  };
+
+  const saveEvent = (event: Event) => {
+    if (checkEventConflict(event)) {
+      console.log('post event')
+    }
+  };
 
   const displayItinerary = (itin: Itinerary | null) => {
     if (!itin) {
       return null;
     }
-    const keys = Object.keys(itin);
-    const printedItems = keys.map((key) => (
-      <div className='tour-day'>
-        {/* @ts-ignore */}
-          <div className='tour-date' key={key}>{dayjs(itin[key].date).format('dddd, MMMM D – YYYY')}</div>
-          <AddTourEvent sites={props.sites} restaurants={props.restaurants} hotels={props.hotels} date={lastDateValue}/>
+    const printedItems = Object.keys(itin).map((key) => (
+      <div className="tour-day" key={key}>
+        <div className="tour-date">
+          {/* @ts-ignore */}
+          {dayjs(itin[key].date).format("dddd, MMMM D – YYYY")}
+        </div>
+        <AddTourEvent
+          sites={sites}
+          restaurants={restaurants}
+          hotels={hotels}
+          date={lastDateValue}
+          day={key}
+          saveEvent={saveEvent}
+        />
       </div>
     ));
     return printedItems;
   };
 
-  const startDateExists = () => {
-    const keys = Object.keys(itinerary);
-    return keys.length > 0;
-  };
+  const startDateExists = () => Object.keys(itinerary).length > 0;
 
   const startDate = () => {
     const keys = Object.keys(itinerary);
     if (keys.length === 0) {
       setItinerary({
-        0: {
+        1: {
           //@ts-ignore
           date: dateValue,
         },
@@ -81,22 +117,24 @@ export const AddTourDay = (props: Props) => {
   // 2. adds the current trip length to the starting date (thus adding the next date... if start date is Nov 12th and trip length is already 3 days, 12 + 3 creates the 15th)
   const addDay = () => {
     const nextDayOnTrip = Object.keys(itinerary).length;
-    const nextDate = dayjs(dateValue).add(nextDayOnTrip, "day").startOf('day')
+    const nextDate = dayjs(dateValue).add(nextDayOnTrip, "day").startOf("day");
     setLastDateValue(nextDate);
-    setItinerary((prev) => ({ ...prev, [nextDayOnTrip]: { date: nextDate } }));
+    setItinerary((prev) => ({
+      ...prev,
+      [nextDayOnTrip + 1]: { date: nextDate },
+    }));
   };
 
   const deleteDay = () => {
     const keys = Object.keys(itinerary);
-    const lastKey = keys[keys.length - 1];
+    const lastKey = keys[keys.length];
     const lastKeyNumber = parseInt(lastKey, 10);
-    
+
     if (!isNaN(lastKeyNumber)) {
       const updatedItinerary = { ...itinerary };
       delete updatedItinerary[lastKeyNumber];
       setItinerary(updatedItinerary);
     }
-    
   };
 
   const postTour = () => {
@@ -127,12 +165,16 @@ export const AddTourDay = (props: Props) => {
     setAddDayWidget(false);
   };
 
-  const handleSchoolChange = ({target}: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSchoolChange = ({
+    target,
+  }: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = target;
     setSchool(value);
   };
 
-  const handleDestinationChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDestinationChange = ({
+    target,
+  }: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = target;
     setDestination(value);
   };
