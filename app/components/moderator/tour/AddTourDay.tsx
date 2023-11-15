@@ -8,6 +8,7 @@ import Destination from "@/app/typescript/destination";
 import Hotel from "@/app/typescript/hotel";
 import Restaurant from "@/app/typescript/restaurant";
 import Site from "@/app/typescript/site";
+import Event from "@/app/typescript/event";
 
 import Calendar from "react-calendar";
 import dayjs, { Dayjs } from "dayjs";
@@ -19,15 +20,10 @@ import { AddTourEvent } from "./AddTourEvent";
 type Itinerary = {
   [key: number]: {
     date: Dayjs;
+    schedule: {
+      [key: string]: Event;
+    };
   };
-};
-
-type Event = {
-  type: string;
-  id: number;
-  day: string;
-  start: Dayjs;
-  end: Dayjs;
 };
 
 type Props = {
@@ -63,16 +59,30 @@ export const AddTourDay = ({
   const allDestinations = destinations;
 
   const checkEventConflict = (event: Event): boolean => {
-    const dayItinerary = itinerary[Number(event.day)]
-    console.log("current day=", event);
-    console.log('days itinerary:', dayItinerary)
-    return true;
+    const dayItinerary = itinerary[Number(event.day)];
+    return false;
   };
 
   const saveEvent = (event: Event) => {
+    const itineraryDaySchedule = itinerary[Number(event.day)].schedule;
+    const eventKey =
+      event.type + "_" + event.id + "_" + event.start.format("HH:mm");
+
     if (checkEventConflict(event)) {
-      console.log('post event')
+      console.log("post event");
     }
+
+    itineraryDaySchedule[eventKey] = event;
+
+    setItinerary((prev) => ({
+      ...prev,
+      [event.day]: {
+        date: itinerary[Number(event.day)].date,
+        schedule: itineraryDaySchedule,
+      },
+    }));
+    console.log("formatted date---", eventKey);
+    console.log("days itinerary:", itinerary);
   };
 
   const displayItinerary = (itin: Itinerary | null) => {
@@ -105,8 +115,8 @@ export const AddTourDay = ({
     if (keys.length === 0) {
       setItinerary({
         1: {
-          //@ts-ignore
           date: dateValue,
+          schedule: {},
         },
       });
     }
@@ -121,7 +131,10 @@ export const AddTourDay = ({
     setLastDateValue(nextDate);
     setItinerary((prev) => ({
       ...prev,
-      [nextDayOnTrip + 1]: { date: nextDate },
+      [nextDayOnTrip + 1]: {
+        date: nextDate,
+        schedule: {},
+      },
     }));
   };
 

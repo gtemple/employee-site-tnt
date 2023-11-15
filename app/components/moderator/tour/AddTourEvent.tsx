@@ -18,6 +18,7 @@ type Props = {
   saveEvent: (event: {
     type: string;
     id: number;
+    day: string;
     start: Dayjs;
     end: Dayjs;
   }) => void;
