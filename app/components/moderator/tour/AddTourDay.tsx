@@ -60,15 +60,43 @@ export const AddTourDay = ({
   const allDestinations = destinations;
 
   const checkEventConflict = (event: Event): boolean => {
-    if (event.start > event.end) {
-      enqueueSnackbar(`Start time must be earlier than end time`, {
-        autoHideDuration: 3000,
-        variant: "error",
-      });
-      return;
+    const start = event.start;
+    const end = event.end;
+    //@ts-ignore
+    const dayEntry = itinerary[event.day];  
+    const scheduleDay = dayEntry.schedule;
+    const scheduleDayKeys = Object.keys(scheduleDay);
+  
+    if (scheduleDayKeys.length === 0) {
+      return true;
     }
-    const dayItinerary = itinerary[Number(event.day)];
-    return false;
+  
+    for (const key of scheduleDayKeys) {
+      const activity = scheduleDay[key];
+      if (activity.start <= start && activity.end >= start) {
+        enqueueSnackbar(`There is already an activity at this time`, {
+          autoHideDuration: 3000,
+          variant: "error",
+        });
+        return false;
+      }
+    }
+  
+    return true;
+  };
+
+  const checkifEventTimeIsValid = (event: Event): boolean => {
+    if (event.start > event.end) {
+      enqueueSnackbar(
+        `Your activity start time must be earlier than its end time`,
+        {
+          autoHideDuration: 3000,
+          variant: "error",
+        }
+      );
+      return false;
+    }
+    return true;
   };
 
   const saveEvent = (event: Event) => {
@@ -76,8 +104,12 @@ export const AddTourDay = ({
     const eventKey =
       event.type + "_" + event.id + "_" + event.start.format("HH:mm");
 
-    if (checkEventConflict(event)) {
-      console.log("post event");
+    if (!checkifEventTimeIsValid(event)) {
+      return;
+    }
+
+    if (!checkEventConflict(event)) {
+      return;
     }
 
     itineraryDaySchedule[eventKey] = event;
