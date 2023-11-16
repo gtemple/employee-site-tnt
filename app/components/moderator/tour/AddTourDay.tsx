@@ -13,19 +13,12 @@ import Event from "@/app/typescript/event";
 
 import Calendar from "react-calendar";
 import dayjs, { Dayjs } from "dayjs";
-import { TextField, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import { MenuItem, Select } from "@mui/material";
 import "@/app/styles/Calendar.css";
 import "@/app/styles/tours/tour.css";
 import { AddTourEvent } from "./AddTourEvent";
-
-type Itinerary = {
-  [key: number]: {
-    date: Dayjs;
-    schedule: {
-      [key: string]: Event;
-    };
-  };
-};
+import PrintTourDay from "./PrintTourDay";
+import { Itinerary }from "@/app/typescript/itinerary";
 
 type Props = {
   schools: School[];
@@ -63,14 +56,14 @@ export const AddTourDay = ({
     const start = event.start;
     const end = event.end;
     //@ts-ignore
-    const dayEntry = itinerary[event.day];  
+    const dayEntry = itinerary[event.day];
     const scheduleDay = dayEntry.schedule;
     const scheduleDayKeys = Object.keys(scheduleDay);
-  
+
     if (scheduleDayKeys.length === 0) {
       return true;
     }
-  
+
     for (const key of scheduleDayKeys) {
       const activity = scheduleDay[key];
       if (activity.start <= start && activity.end >= start) {
@@ -81,7 +74,7 @@ export const AddTourDay = ({
         return false;
       }
     }
-  
+
     return true;
   };
 
@@ -130,19 +123,23 @@ export const AddTourDay = ({
       return null;
     }
     const printedItems = Object.keys(itin).map((key) => (
-      <div className="tour-day" key={key}>
-        <div className="tour-date">
-          {/* @ts-ignore */}
-          {dayjs(itin[key].date).format("dddd, MMMM D – YYYY")}
+      <div>
+        <div className="tour-day" key={key}>
+          <div className="tour-date">
+            {/* @ts-ignore */}
+            {dayjs(itin[key].date).format("dddd, MMMM D – YYYY")}
+          </div>
+          <AddTourEvent
+            sites={sites}
+            restaurants={restaurants}
+            hotels={hotels}
+            date={lastDateValue}
+            day={key}
+            saveEvent={saveEvent}
+          />
         </div>
-        <AddTourEvent
-          sites={sites}
-          restaurants={restaurants}
-          hotels={hotels}
-          date={lastDateValue}
-          day={key}
-          saveEvent={saveEvent}
-        />
+        {/* @ts-ignore */}
+        <PrintTourDay itinerary={itinerary[key]} />
       </div>
     ));
     return printedItems;
@@ -240,9 +237,6 @@ export const AddTourDay = ({
   return (
     <div>
       <SnackbarProvider />
-      <button onClick={() => console.log(itinerary, allSchools)}>
-        test data
-      </button>
       <Select
         labelId="destination"
         id="destination"

@@ -8,6 +8,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Site from "@/app/typescript/site";
 import Hotel from "@/app/typescript/hotel";
 import Restaurant from "@/app/typescript/restaurant";
+import Event from "@/app/typescript/event";
 
 type Props = {
   sites: Site[];
@@ -15,13 +16,7 @@ type Props = {
   restaurants: Restaurant[];
   date: Dayjs;
   day: string;
-  saveEvent: (event: {
-    type: string;
-    id: number;
-    day: string;
-    start: Dayjs;
-    end: Dayjs;
-  }) => void;
+  saveEvent: (event: Event) => void;
 };
 
 type Option = Site | Hotel | Restaurant;
@@ -125,10 +120,6 @@ export const AddTourEvent: React.FC<Props> = ({
     return minutesArray;
   };
 
-  // const saveEvent = () => {
-  //   setItinerary((prev) => ({...prev, state.start: state}))
-  // }
-
   useEffect(() => {
     optionsCheck(selectedEvent);
     setPrintedOptions(printOptions(options));
@@ -202,7 +193,7 @@ export const AddTourEvent: React.FC<Props> = ({
             saveEvent(state);
           }}
         >
-          Save
+          Add
         </button>
       </Box>
     </div>
