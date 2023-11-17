@@ -19,6 +19,13 @@ type Props = {
   saveEvent: (event: Event) => void;
 };
 
+type State = {
+  activity: string | Option,
+  day: string,
+  start: Dayjs,
+  end: Dayjs,
+}
+
 type Option = Site | Hotel | Restaurant;
 
 export const AddTourEvent: React.FC<Props> = ({
@@ -30,9 +37,9 @@ export const AddTourEvent: React.FC<Props> = ({
   saveEvent,
 }) => {
   const [selectedEvent, setSelectedEvent] = useState("site");
-  const [activity, setActivity] = useState(sites[0].name)
+  const [activity, setActivity] = useState<string | Option>(sites[0].name)
   const [options, setOptions] = useState<Array<Option>>(sites);
-  const [state, setState] = useState({
+  const [state, setState] = useState<State>({
     activity: sites[0],
     day: day,
     start: date.startOf("d"),
@@ -49,7 +56,7 @@ export const AddTourEvent: React.FC<Props> = ({
     console.log(event.target.value);
     setState((prev) => ({
       ...prev,
-      activity: event.target.value
+      activity: options[event.target.value]
     }))
   };
 
@@ -85,14 +92,14 @@ export const AddTourEvent: React.FC<Props> = ({
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={activity.name}
+            value={0}
             label="Selection"
             onChange={(event) => handleActivityChange(event)}
           >
-            {array.map((arrayOption) => (
+            {array.map((arrayOption, i) => (
               <MenuItem
                 key={`${arrayOption.id}-${arrayOption.name}`}
-                value={arrayOption}
+                value={i}
               >
                 {arrayOption.name}
               </MenuItem>
@@ -135,7 +142,7 @@ export const AddTourEvent: React.FC<Props> = ({
     optionsCheck(selectedEvent);
     setPrintedOptions(printOptions(options));
     console.log('state:::', state)
-  }, [selectedEvent, options]);
+  }, [selectedEvent, options, activity]);
 
   return (
     <div>
@@ -154,14 +161,14 @@ export const AddTourEvent: React.FC<Props> = ({
             <MenuItem value="site">Site</MenuItem>
           </Select>
           {printedOptions}
-          <InputLabel id="demo-simple-select-label">Start Time</InputLabel>
         </FormControl>
         <div>
+        <InputLabel id="demo-simple-select-label">Start Time</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={state.start.format("H")}
-            label={activity.name}
+            label=""
             onChange={(e) => handleTimeChange(e, "start", "hour")}
           >
             {displayHours()}
