@@ -51,12 +51,12 @@ export const AddTourEvent: React.FC<Props> = ({
     setSelectedEvent(event.target.value as string);
   };
 
-  const handleActivityChange = (event: SelectChangeEvent<Option>) => {
+  const handleActivityChange = (event: SelectChangeEvent) => {
     setActivity(event.target.value);
     console.log(event.target.value);
     setState((prev) => ({
       ...prev,
-      activity: options[event.target.value]
+      activity: options[Number(event.target.value)]
     }))
   };
 
@@ -92,14 +92,14 @@ export const AddTourEvent: React.FC<Props> = ({
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={0}
+            value={'0'}
             label="Selection"
             onChange={(event) => handleActivityChange(event)}
           >
             {array.map((arrayOption, i) => (
               <MenuItem
                 key={`${arrayOption.id}-${arrayOption.name}`}
-                value={i}
+                value={i.toString()}
               >
                 {arrayOption.name}
               </MenuItem>
@@ -210,6 +210,7 @@ export const AddTourEvent: React.FC<Props> = ({
         </div>
         <button
           onClick={() => {
+            // @ts-ignore
             saveEvent(state);
           }}
         >
