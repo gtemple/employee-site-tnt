@@ -9,6 +9,7 @@ export default interface Restaurant {
   phone: string;
   email: string;
   capacity: number;
+  short_desc: string | null;
   destination_id: string;
   destinations: Destination;
 }

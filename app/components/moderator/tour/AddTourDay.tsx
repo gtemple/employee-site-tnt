@@ -95,7 +95,7 @@ export const AddTourDay = ({
   const saveEvent = (event: Event) => {
     const itineraryDaySchedule = itinerary[Number(event.day)].schedule;
     const eventKey =
-      event.type + "_" + event.id + "_" + event.start.format("HH:mm");
+      event.activity.name + "_" + event.start.format("HH:mm");
 
     if (!checkifEventTimeIsValid(event)) {
       return;

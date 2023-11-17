@@ -12,5 +12,6 @@ export default interface Site {
   destination_id: string;
   destinations: Destination;
   description: string | null;
+  short_desc: string | null;
   image: string | null;
 }

@@ -15,7 +15,7 @@ const PrintTourDay = ({ itinerary }: Props) => {
       const activity = itinerary.schedule[key];
       return (
         <div key={key}>
-          {activity.id}, start: {dayjs(activity.start).format('HH:mm')}, end: {dayjs(activity.end).format('HH:mm')}
+          {activity.activity.name} start: {dayjs(activity.start).format('HH:mm')}, end: {dayjs(activity.end).format('HH:mm')}
         </div>
       );
     });

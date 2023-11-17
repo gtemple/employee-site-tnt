@@ -30,10 +30,10 @@ export const AddTourEvent: React.FC<Props> = ({
   saveEvent,
 }) => {
   const [selectedEvent, setSelectedEvent] = useState("site");
+  const [activity, setActivity] = useState(sites[0].name)
   const [options, setOptions] = useState<Array<Option>>(sites);
   const [state, setState] = useState({
-    type: "site",
-    id: 1,
+    activity: sites[0],
     day: day,
     start: date.startOf("d"),
     end: date.startOf("d"),
@@ -44,6 +44,15 @@ export const AddTourEvent: React.FC<Props> = ({
     setSelectedEvent(event.target.value as string);
   };
 
+  const handleActivityChange = (event: SelectChangeEvent<Option>) => {
+    setActivity(event.target.value);
+    console.log(event.target.value);
+    setState((prev) => ({
+      ...prev,
+      activity: event.target.value
+    }))
+  };
+
   const handleTimeChange = (
     event: SelectChangeEvent,
     time: string,
@@ -52,7 +61,6 @@ export const AddTourEvent: React.FC<Props> = ({
     const num = Number(event.target.value as string);
     //@ts-ignore
     const newTime = state[time].set(interval, num);
-    console.log(newTime);
     setState((prev) => ({
       ...prev,
       [time]: newTime,
@@ -77,12 +85,15 @@ export const AddTourEvent: React.FC<Props> = ({
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={selectedEvent}
+            value={activity.name}
             label="Selection"
-            onChange={handleChange}
+            onChange={(event) => handleActivityChange(event)}
           >
             {array.map((arrayOption) => (
-              <MenuItem key={arrayOption.id} value={arrayOption.id}>
+              <MenuItem
+                key={`${arrayOption.id}-${arrayOption.name}`}
+                value={arrayOption}
+              >
                 {arrayOption.name}
               </MenuItem>
             ))}
@@ -123,6 +134,7 @@ export const AddTourEvent: React.FC<Props> = ({
   useEffect(() => {
     optionsCheck(selectedEvent);
     setPrintedOptions(printOptions(options));
+    console.log('state:::', state)
   }, [selectedEvent, options]);
 
   return (
@@ -149,6 +161,7 @@ export const AddTourEvent: React.FC<Props> = ({
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={state.start.format("H")}
+            label={activity.name}
             onChange={(e) => handleTimeChange(e, "start", "hour")}
           >
             {displayHours()}

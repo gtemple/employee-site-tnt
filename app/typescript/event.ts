@@ -1,8 +1,8 @@
 import  { Dayjs } from "dayjs";
+import Site from "./site";
 
 export default interface Event {
-  id: number;
-  type: string;
+  activity: Site,
   day: string;
   start: Dayjs;
   end: Dayjs;
