@@ -20,11 +20,11 @@ type Props = {
 };
 
 type State = {
-  activity: string | Option,
-  day: string,
-  start: Dayjs,
-  end: Dayjs,
-}
+  activity: string | Option;
+  day: string;
+  start: Dayjs;
+  end: Dayjs;
+};
 
 type Option = Site | Hotel | Restaurant;
 
@@ -36,8 +36,8 @@ export const AddTourEvent: React.FC<Props> = ({
   day,
   saveEvent,
 }) => {
-  const [selectedEvent, setSelectedEvent] = useState("site");
-  const [activity, setActivity] = useState<string | Option>(sites[0].name)
+  const [selectedEvent, setSelectedEvent] = useState("Site");
+  const [activity, setActivity] = useState<string>("0");
   const [options, setOptions] = useState<Array<Option>>(sites);
   const [state, setState] = useState<State>({
     activity: sites[0],
@@ -53,11 +53,10 @@ export const AddTourEvent: React.FC<Props> = ({
 
   const handleActivityChange = (event: SelectChangeEvent) => {
     setActivity(event.target.value);
-    console.log(event.target.value);
     setState((prev) => ({
       ...prev,
-      activity: options[Number(event.target.value)]
-    }))
+      activity: options[Number(event.target.value)],
+    }));
   };
 
   const handleTimeChange = (
@@ -75,11 +74,11 @@ export const AddTourEvent: React.FC<Props> = ({
   };
 
   const optionsCheck = (option: string) => {
-    if (option === "site") {
+    if (option === "Site") {
       setOptions(sites);
-    } else if (option === "restaurant") {
+    } else if (option === "Restaurant") {
       setOptions(restaurants);
-    } else if (option === "hotel") {
+    } else if (option === "Hotel") {
       setOptions(hotels);
     }
   };
@@ -92,9 +91,10 @@ export const AddTourEvent: React.FC<Props> = ({
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={'0'}
+            value={activity}
             label="Selection"
             onChange={(event) => handleActivityChange(event)}
+            className="activity-input-b"
           >
             {array.map((arrayOption, i) => (
               <MenuItem
@@ -141,81 +141,88 @@ export const AddTourEvent: React.FC<Props> = ({
   useEffect(() => {
     optionsCheck(selectedEvent);
     setPrintedOptions(printOptions(options));
-    console.log('state:::', state)
   }, [selectedEvent, options, activity]);
 
   return (
-    <div>
+    <div className="add-event">
+      <div className="activity-title">Add an Activity</div>
       <Box sx={{ minWidth: 120 }}>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Event</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={selectedEvent}
-            label="Event"
-            onChange={handleChange}
-          >
-            <MenuItem value="hotel">Hotel</MenuItem>
-            <MenuItem value="restaurant">Restaurant</MenuItem>
-            <MenuItem value="site">Site</MenuItem>
-          </Select>
-          {printedOptions}
+        <FormControl>
+          <div className="activity-container">
+            <InputLabel id="demo-simple-select-label">Event</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={selectedEvent}
+              label="Event"
+              onChange={handleChange}
+              className="activity-input-a"
+            >
+              <MenuItem value="Hotel">Hotel</MenuItem>
+              <MenuItem value="Restaurant">Restaurant</MenuItem>
+              <MenuItem value="Site">Site</MenuItem>
+            </Select>
+            {printedOptions}
+          </div>
         </FormControl>
-        <div>
-        <InputLabel id="demo-simple-select-label">Start Time</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={state.start.format("H")}
-            label=""
-            onChange={(e) => handleTimeChange(e, "start", "hour")}
-          >
-            {displayHours()}
-          </Select>
-          :
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={state.start.format("m")}
-            label=""
-            onChange={(e) => {
-              handleTimeChange(e, "start", "minute");
+        <div className='activity-container-bottom'>
+            <div className="time-container">
+              <div className="time-label">Start</div>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={state.start.format("H")}
+                label=""
+                onChange={(e) => handleTimeChange(e, "start", "hour")}
+                className="time-input"
+              >
+                {displayHours()}
+              </Select>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={state.start.format("m")}
+                onChange={(e) => {
+                  handleTimeChange(e, "start", "minute");
+                }}
+                className="time-input"
+              >
+                {displayMinutes()}
+              </Select>
+            </div>
+            <div className="time-container">
+              <div className="time-label">End</div>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={state.end.format("H")}
+                onChange={(e) => handleTimeChange(e, "end", "hour")}
+                className="time-input"
+              >
+                {displayHours()}
+              </Select>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={state.end.format("m")}
+                onChange={(e) => {
+                  handleTimeChange(e, "end", "minute");
+                }}
+                className="time-input"
+              >
+                {displayMinutes()}
+              </Select>
+            </div>
+          <button
+            className="add-btn"
+            onClick={() => {
+              // @ts-ignore
+              saveEvent(state);
             }}
           >
-            {displayMinutes()}
-          </Select>
+            Add
+          </button>
         </div>
-        <div>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={state.end.format("H")}
-            onChange={(e) => handleTimeChange(e, "end", "hour")}
-          >
-            {displayHours()}
-          </Select>
-          :
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={state.end.format("m")}
-            label=""
-            onChange={(e) => {
-              handleTimeChange(e, "end", "minute");
-            }}
-          >
-            {displayMinutes()}
-          </Select>
-        </div>
-        <button
-          onClick={() => {
-            // @ts-ignore
-            saveEvent(state);
-          }}
-        >
-          Add
-        </button>
       </Box>
     </div>
   );

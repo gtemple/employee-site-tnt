@@ -18,7 +18,9 @@ import "@/app/styles/Calendar.css";
 import "@/app/styles/tours/tour.css";
 import { AddTourEvent } from "./AddTourEvent";
 import PrintTourDay from "./PrintTourDay";
-import { Itinerary }from "@/app/typescript/itinerary";
+import { Itinerary } from "@/app/typescript/itinerary";
+
+import "@/app/styles/tours/tour.css";
 
 type Props = {
   schools: School[];
@@ -79,7 +81,7 @@ export const AddTourDay = ({
   };
 
   const checkifEventTimeIsValid = (event: Event): boolean => {
-    if (event.start > event.end) {
+    if (event.start > event.end || event.start === event.end) {
       enqueueSnackbar(
         `Your activity start time must be earlier than its end time`,
         {
@@ -94,8 +96,7 @@ export const AddTourDay = ({
 
   const saveEvent = (event: Event) => {
     const itineraryDaySchedule = itinerary[Number(event.day)].schedule;
-    const eventKey =
-      event.activity.name + "_" + event.start.format("HH:mm");
+    const eventKey = event.activity.name + "_" + event.start.format("HH:mm");
 
     if (!checkifEventTimeIsValid(event)) {
       return;
@@ -177,7 +178,7 @@ export const AddTourDay = ({
 
   const deleteDay = () => {
     const keys = Object.keys(itinerary);
-    const lastKey = keys[keys.length];
+    const lastKey = keys[keys.length - 1];
     const lastKeyNumber = parseInt(lastKey, 10);
 
     if (!isNaN(lastKeyNumber)) {
@@ -185,6 +186,8 @@ export const AddTourDay = ({
       delete updatedItinerary[lastKeyNumber];
       setItinerary(updatedItinerary);
     }
+
+    console.log(itinerary)
   };
 
   const postTour = () => {
@@ -237,56 +240,73 @@ export const AddTourDay = ({
   return (
     <div>
       <SnackbarProvider />
-      <Select
-        labelId="destination"
-        id="destination"
-        value={destination}
-        name="destination"
-        label="destination"
-        //@ts-ignore
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          handleDestinationChange(e);
-        }}
-        required
-      >
-        {allDestinations &&
-          allDestinations.map((destination: Destination) => {
-            return (
-              <MenuItem key={destination.id} value={destination.id}>
-                {destination.name}, {destination.region}
-              </MenuItem>
-            );
-          })}
-      </Select>
-      <Select
-        labelId="school"
-        id="school"
-        value={school}
-        name="school"
-        label="school"
-        //@ts-ignore
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          handleSchoolChange(e);
-        }}
-        required
-      >
-        {allSchools &&
-          allSchools.map((school: School) => {
-            return (
-              <MenuItem key={school.id} value={school.id}>
-                {school.name}
-              </MenuItem>
-            );
-          })}
-      </Select>
+      <div className="select-tool">
+        <div className="select-title">Destination</div>
+        <Select
+          labelId="destination"
+          id="destination"
+          value={destination}
+          name="destination"
+          label="destination"
+          className="select-options"
+          //@ts-ignore
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            handleDestinationChange(e);
+          }}
+          required
+        >
+          {allDestinations &&
+            allDestinations.map((destination: Destination) => {
+              return (
+                <MenuItem key={destination.id} value={destination.id}>
+                  {destination.name}, {destination.region}
+                </MenuItem>
+              );
+            })}
+        </Select>
+      </div>
+      <div className="select-tool">
+        <div className="select-title">School</div>
+        <Select
+          labelId="school"
+          id="school"
+          value={school}
+          name="school"
+          label="school"
+          className="select-options"
+          //@ts-ignore
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            handleSchoolChange(e);
+          }}
+          required
+        >
+          {allSchools &&
+            allSchools.map((school: School) => {
+              return (
+                <MenuItem key={school.id} value={school.id}>
+                  {school.name}
+                </MenuItem>
+              );
+            })}
+        </Select>
+      </div>
       {/* checks to see if there is already a start date, if so gives the option to add the following day */}
       {startDateExists() ? (
         <div>
-          <button onClick={addDay}>Add Day</button>
-          <button onClick={deleteDay}>Delete Day</button>
+          <button className="add-btn2" onClick={addDay}>
+            Add Day
+          </button>
+          <button className="delete-btn2" onClick={deleteDay}>
+            Delete Day
+          </button>
+          <button className="save-btn" onClick={postTour}>
+            Save
+          </button>
         </div>
       ) : !addDayWidget ? (
-        <button onClick={handleOpenDayWidget}>Set Start Date</button>
+        <button className="add-btn2" onClick={handleOpenDayWidget}>
+          Set Start Date
+        </button>
       ) : (
         <div>
           {/* @ts-ignore */}
@@ -295,7 +315,6 @@ export const AddTourDay = ({
           <button onClick={() => handleCloseDayWidget(false)}>Cancel</button>
         </div>
       )}
-      <button onClick={postTour}>Save</button>
       <div>{displayedItinerary}</div>
     </div>
   );
