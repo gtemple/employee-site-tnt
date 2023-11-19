@@ -1,21 +1,47 @@
-"use client"
+"use client";
 
-import { ItineraryDay } from "@/app/typescript/itinerary"
+import { ItineraryDay } from "@/app/typescript/itinerary";
 import Event from "@/app/typescript/event";
 import dayjs from "dayjs";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 type Props = {
   itinerary: ItineraryDay;
-}
+  deleteEvent: (event: Event) => void;
+};
 
-const PrintTourDay = ({ itinerary }: Props) => {
+const PrintTourDay = ({ itinerary, deleteEvent }: Props) => {
   const printActivities = () => {
     const activitiesKeys = Object.keys(itinerary.schedule);
-    return activitiesKeys.map((key: string) => {
+
+    // Sort activities by start time
+    const sortedActivitiesKeys = activitiesKeys.sort((a, b) => {
+      const activityA = itinerary.schedule[a];
+      const activityB = itinerary.schedule[b];
+      return dayjs(activityA.start).diff(dayjs(activityB.start));
+    });
+
+    return sortedActivitiesKeys.map((key: string) => {
       const activity = itinerary.schedule[key];
       return (
-        <div key={key}>
-          {activity.activity.name} start: {dayjs(activity.start).format('HH:mm')}, end: {dayjs(activity.end).format('HH:mm')}
+        <div className="activity" key={key}>
+          <div className="time-display">
+            {dayjs(activity.start).format("HH:mm")} -{" "}
+            {dayjs(activity.end).format("HH:mm")}
+          </div>
+          <div>
+            <div className="activity-name">{activity.activity.name}</div>
+            <div>{activity.activity.short_desc}</div>
+          </div>
+          <div className="delete-section">
+            <div
+              onClick={() => {
+                deleteEvent(activity);
+              }}
+            >
+              <DeleteIcon />
+            </div>
+          </div>
         </div>
       );
     });
@@ -29,4 +55,4 @@ const PrintTourDay = ({ itinerary }: Props) => {
   );
 };
 
-export default PrintTourDay
+export default PrintTourDay;

@@ -119,6 +119,10 @@ export const AddTourDay = ({
     console.log("days itinerary:", itinerary);
   };
 
+  const deleteEvent = (event: Event) => {
+    console.log(event);
+  }
+
   const displayItinerary = (itin: Itinerary | null) => {
     if (!itin) {
       return null;
@@ -140,7 +144,7 @@ export const AddTourDay = ({
           />
         </div>
         {/* @ts-ignore */}
-        <PrintTourDay itinerary={itinerary[key]} />
+        <PrintTourDay deleteEvent={deleteEvent} itinerary={itinerary[key]} />
       </div>
     ));
     return printedItems;
