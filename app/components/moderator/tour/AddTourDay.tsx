@@ -97,6 +97,7 @@ export const AddTourDay = ({
   const saveEvent = (event: Event) => {
     const itineraryDaySchedule = itinerary[Number(event.day)].schedule;
     const eventKey = event.activity.name + "_" + event.start.format("HH:mm");
+    console.log('here is your event', event)
 
     if (!checkifEventTimeIsValid(event)) {
       return;
@@ -115,8 +116,6 @@ export const AddTourDay = ({
         schedule: itineraryDaySchedule,
       },
     }));
-    console.log("formatted date---", eventKey);
-    console.log("days itinerary:", itinerary);
   };
 
   const deleteEvent = (event: Event) => {

@@ -9,6 +9,8 @@ import Site from "@/app/typescript/site";
 import Hotel from "@/app/typescript/hotel";
 import Restaurant from "@/app/typescript/restaurant";
 import Event from "@/app/typescript/event";
+import Sites from "@/app/pages/sites/page";
+import { SatelliteSharp } from "@mui/icons-material";
 
 type Props = {
   sites: Site[];
@@ -47,16 +49,28 @@ export const AddTourEvent: React.FC<Props> = ({
   });
   const [printedOptions, setPrintedOptions] = useState<React.ReactNode>("");
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setSelectedEvent(event.target.value as string);
+  const handleChange = async (event: SelectChangeEvent) => {
+    const selectedValue = event.target.value as string;
+    const optionsArray = optionsCheck(selectedValue);
+    setSelectedEvent(selectedValue);
+    await optionsCheck(selectedValue);
+    //@ts-ignore
+    updateState(0, optionsArray);
+  };
+
+  const updateState = (index: number, optionsArray: Option[]) => {
+    const selectedOption = optionsArray[index];
+    console.log("here are the options:", selectedOption);
+    setActivity(index.toString());
+    setState((prev) => ({
+      ...prev,
+      activity: selectedOption,
+    }));
   };
 
   const handleActivityChange = (event: SelectChangeEvent) => {
-    setActivity(event.target.value);
-    setState((prev) => ({
-      ...prev,
-      activity: options[Number(event.target.value)],
-    }));
+    const selectedIndex = Number(event.target.value);
+    updateState(selectedIndex, options);
   };
 
   const handleTimeChange = (
@@ -73,14 +87,18 @@ export const AddTourEvent: React.FC<Props> = ({
     }));
   };
 
-  const optionsCheck = (option: string) => {
-    if (option === "Site") {
+  const optionsCheck = (selectedEvent: string) => {
+    if (selectedEvent === "Site") {
       setOptions(sites);
-    } else if (option === "Restaurant") {
+      return sites;
+    } else if (selectedEvent === "Restaurant") {
       setOptions(restaurants);
-    } else if (option === "Hotel") {
+      return restaurants;
+    } else if (selectedEvent === "Hotel") {
       setOptions(hotels);
+      return hotels;
     }
+    console.log("broken", selectedEvent, typeof selectedEvent);
   };
 
   const printOptions = (array: Option[]) => {
@@ -165,54 +183,54 @@ export const AddTourEvent: React.FC<Props> = ({
             {printedOptions}
           </div>
         </FormControl>
-        <div className='activity-container-bottom'>
-            <div className="time-container">
-              <div className="time-label">Start</div>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={state.start.format("H")}
-                label=""
-                onChange={(e) => handleTimeChange(e, "start", "hour")}
-                className="time-input"
-              >
-                {displayHours()}
-              </Select>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={state.start.format("m")}
-                onChange={(e) => {
-                  handleTimeChange(e, "start", "minute");
-                }}
-                className="time-input"
-              >
-                {displayMinutes()}
-              </Select>
-            </div>
-            <div className="time-container">
-              <div className="time-label">End</div>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={state.end.format("H")}
-                onChange={(e) => handleTimeChange(e, "end", "hour")}
-                className="time-input"
-              >
-                {displayHours()}
-              </Select>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={state.end.format("m")}
-                onChange={(e) => {
-                  handleTimeChange(e, "end", "minute");
-                }}
-                className="time-input"
-              >
-                {displayMinutes()}
-              </Select>
-            </div>
+        <div className="activity-container-bottom">
+          <div className="time-container">
+            <div className="time-label">Start</div>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={state.start.format("H")}
+              label=""
+              onChange={(e) => handleTimeChange(e, "start", "hour")}
+              className="time-input"
+            >
+              {displayHours()}
+            </Select>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={state.start.format("m")}
+              onChange={(e) => {
+                handleTimeChange(e, "start", "minute");
+              }}
+              className="time-input"
+            >
+              {displayMinutes()}
+            </Select>
+          </div>
+          <div className="time-container">
+            <div className="time-label">End</div>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={state.end.format("H")}
+              onChange={(e) => handleTimeChange(e, "end", "hour")}
+              className="time-input"
+            >
+              {displayHours()}
+            </Select>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={state.end.format("m")}
+              onChange={(e) => {
+                handleTimeChange(e, "end", "minute");
+              }}
+              className="time-input"
+            >
+              {displayMinutes()}
+            </Select>
+          </div>
           <button
             className="add-btn"
             onClick={() => {

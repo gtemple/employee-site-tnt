@@ -49,7 +49,6 @@ const PrintTourDay = ({ itinerary, deleteEvent }: Props) => {
 
   return (
     <div>
-      <h3>PrintTourDay</h3>
       {printActivities()}
     </div>
   );
