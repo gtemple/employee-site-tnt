@@ -162,9 +162,8 @@ export const AddTourEvent: React.FC<Props> = ({
   }, [selectedEvent, options, activity]);
 
   return (
-    <div className="add-event">
-      <div className="activity-title">Add an Activity</div>
-      <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ minWidth: 120 }}>
+      <div className="add-event">
         <FormControl>
           <div className="activity-container">
             <InputLabel id="demo-simple-select-label">Event</InputLabel>
@@ -241,7 +240,7 @@ export const AddTourEvent: React.FC<Props> = ({
             Add
           </button>
         </div>
-      </Box>
-    </div>
+      </div>
+    </Box>
   );
 };

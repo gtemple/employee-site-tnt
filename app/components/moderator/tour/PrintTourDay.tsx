@@ -26,11 +26,11 @@ const PrintTourDay = ({ itinerary, deleteEvent }: Props) => {
       return (
         <div className="activity" key={key}>
           <div className="time-display">
-            {dayjs(activity.start).format("HH:mm")} -{" "}
-            {dayjs(activity.end).format("HH:mm")}
+            {dayjs(activity.start).format("HH:mm")} - {dayjs(activity.end).format("HH:mm")}
           </div>
-          <div>
+          <div className='activity-text'>
             <div className="activity-name">{activity.activity.name}</div>
+            <div className='activity-address'>{activity.activity.address} - {activity.activity.phone}</div>
             <div>{activity.activity.short_desc}</div>
           </div>
           <div className="delete-section">

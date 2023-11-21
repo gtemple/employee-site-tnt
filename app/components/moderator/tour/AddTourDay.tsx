@@ -94,10 +94,14 @@ export const AddTourDay = ({
     return true;
   };
 
+  // creates key name for activity to be placed in object
+  const dateKeyFormatter = (eventName: string, date: Dayjs) => {
+    return (eventName + '_' + date.format("HH:mm"));
+  }
+
   const saveEvent = (event: Event) => {
     const itineraryDaySchedule = itinerary[Number(event.day)].schedule;
-    const eventKey = event.activity.name + "_" + event.start.format("HH:mm");
-    console.log('here is your event', event)
+    const eventKey = dateKeyFormatter(event.activity.name, event.start);
 
     if (!checkifEventTimeIsValid(event)) {
       return;
@@ -118,9 +122,17 @@ export const AddTourDay = ({
     }));
   };
 
-  const deleteEvent = (event: Event) => {
-    console.log(event);
-  }
+  const deleteEvent = (activity: Event) => {
+    const activityName = activity.activity.name;
+    const startTime = activity.start;
+    const day = Number(activity.day);
+    const key = dateKeyFormatter(activityName, startTime);
+    console.log(key)
+
+    const updatedItinerary = { ...itinerary };
+    delete updatedItinerary[day].schedule[key];
+    setItinerary(updatedItinerary);
+  };
 
   const displayItinerary = (itin: Itinerary | null) => {
     if (!itin) {
@@ -130,8 +142,10 @@ export const AddTourDay = ({
       <div>
         <div className="tour-day" key={key}>
           <div className="tour-date">
-            {/* @ts-ignore */}
-            {dayjs(itin[key].date).format("dddd, MMMM D – YYYY")}
+            <div className="current-date">
+              {/* @ts-ignore */}
+              {dayjs(itin[key].date).format("dddd, MMMM D – YYYY")}
+            </div>
           </div>
           <AddTourEvent
             sites={sites}
@@ -190,7 +204,7 @@ export const AddTourDay = ({
       setItinerary(updatedItinerary);
     }
 
-    console.log(itinerary)
+    console.log(itinerary);
   };
 
   const postTour = () => {
