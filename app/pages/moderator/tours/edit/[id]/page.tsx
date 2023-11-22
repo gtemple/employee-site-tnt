@@ -8,7 +8,7 @@ import { getTourData } from "@/app/api/tours/getTours";
 
 import { AddTourDay } from "@/app/components/moderator/tour/AddTourDay";
 
-export const EditTour = async ({ params }: Params) => {
+export default async function({ params }: Params) {
   try {
     // Make all async calls concurrently using Promise.all
     const [schools, destinations, hotels, restaurants, sites] =
@@ -46,5 +46,3 @@ export const EditTour = async ({ params }: Params) => {
     return <div>Error fetching data</div>;
   }
 };
-
-export default EditTour;
