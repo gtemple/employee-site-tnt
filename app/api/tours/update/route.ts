@@ -20,22 +20,27 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }
 
   const body = await req.json();
-  const start = body.start
-  const end = body.end
-  const itinerary = body.itinerary
-  const school_id = body.school
-  const students = body.students
-  const destination_id = body.destination
+  console.log("heres the data:", body);
+  const id = body.id;
+  const start = body.start;
+  const end = body.end;
+  const itinerary = body.itinerary;
+  const school_id = body.school;
+  const students = body.students;
+  const destination_id = body.destination;
   const supabase = createServerActionClient({ cookies });
 
-  const { error } = await supabase.from("tours").insert({
-    start: start,
-    end: end,
-    destination_id: destination_id,
-    school_id: school_id,
-    students: students,
-    itinerary: itinerary
-  });
+  const { error } = await supabase
+    .from("tours")
+    .update({
+      start: start,
+      end: end,
+      destination_id: destination_id,
+      school_id: school_id,
+      students: students,
+      itinerary: itinerary,
+    })
+    .eq("id", id);
 
   if (error) {
     console.log(error);

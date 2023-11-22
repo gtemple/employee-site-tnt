@@ -48,7 +48,7 @@ const Tours = async () => {
                     <TableCell component="th" scope="row">
                       {tour.schools.name}
                     </TableCell>
-                    <TableCell>{tour.destination}</TableCell>
+                    <TableCell>{tour.destinations.name}</TableCell>
                     <TableCell>{tour.start}</TableCell>
                     <TableCell>{tour.end}</TableCell>
                     <TableCell>

@@ -32,8 +32,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const notes = body.notes;
   const supabase = createServerActionClient({ cookies });
 
-  console.log('hi')
-
   const { error } = await supabase
     .from('schools')
     .update({

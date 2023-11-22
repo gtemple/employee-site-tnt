@@ -14,6 +14,12 @@ import Event from "@/app/typescript/event";
 import Calendar from "react-calendar";
 import dayjs, { Dayjs } from "dayjs";
 import { MenuItem, Select } from "@mui/material";
+import {
+  Unstable_NumberInput as NumberInput,
+  NumberInputProps,
+  numberInputClasses,
+} from "@mui/base/Unstable_NumberInput";
+import { styled } from "@mui/system";
 import "@/app/styles/Calendar.css";
 import "@/app/styles/tours/tour.css";
 import { AddTourEvent } from "./AddTourEvent";
@@ -21,6 +27,156 @@ import PrintTourDay from "./PrintTourDay";
 import { Itinerary } from "@/app/typescript/itinerary";
 
 import "@/app/styles/tours/tour.css";
+import Tour from "@/app/typescript/tour";
+
+const blue = {
+  100: "#DAECFF",
+  200: "#80BFFF",
+  400: "#3399FF",
+  500: "#007FFF",
+  600: "#0072E5",
+  700: "#0059B2",
+};
+
+const grey = {
+  50: "#F3F6F9",
+  100: "#E5EAF2",
+  200: "#DAE2ED",
+  300: "#C7D0DD",
+  400: "#B0B8C4",
+  500: "#9DA8B7",
+  600: "#6B7A90",
+  700: "#434D5B",
+  800: "#303740",
+  900: "#1C2025",
+};
+
+const StyledInputRoot = styled("div")(
+  ({ theme }) => `
+  border-radius: 8px;
+  color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
+  background: ${theme.palette.mode === "dark" ? grey[900] : "#fff"};
+  border: 1px solid ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
+  box-shadow: 0px 2px 4px ${
+    theme.palette.mode === "dark" ? "rgba(0,0,0, 0.5)" : "rgba(0,0,0, 0.05)"
+  };
+  display: grid;
+  grid-template-columns: 1fr 19px;
+  grid-template-rows: 1fr 1fr;
+  overflow: hidden;
+  column-gap: 8px;
+  padding: 4px;
+  width: 150px;
+
+  &.${numberInputClasses.focused} {
+    border-color: ${blue[400]};
+    box-shadow: 0 0 0 3px ${
+      theme.palette.mode === "dark" ? blue[700] : blue[200]
+    };
+  }
+
+  &:hover {
+    border-color: ${blue[400]};
+  }
+
+  // firefox
+  &:focus-visible {
+    outline: 0;
+  }
+`
+);
+
+const StyledInputElement = styled("input")(
+  ({ theme }) => `
+  font-size: 0.875rem;
+  font-family: inherit;
+  font-weight: 400;
+  width: 100px;
+  line-height: 1.5;
+  grid-column: 1/2;
+  grid-row: 1/3;
+  color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
+  background: inherit;
+  border: none;
+  border-radius: inherit;
+  padding: 8px 12px;
+  outline: 0;
+`
+);
+
+const StyledButton = styled("button")(
+  ({ theme }) => `
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  appearance: none;
+  padding: 0;
+  width: 19px;
+  height: 19px;
+  font-family: system-ui, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1;
+  box-sizing: border-box;
+  background: ${theme.palette.mode === "dark" ? grey[900] : "#fff"};
+  border: 0;
+  color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 120ms;
+
+  &:hover {
+    background: ${theme.palette.mode === "dark" ? grey[800] : grey[50]};
+    border-color: ${theme.palette.mode === "dark" ? grey[600] : grey[300]};
+    cursor: pointer;
+  }
+
+  &.${numberInputClasses.incrementButton} {
+    grid-column: 2/3;
+    grid-row: 1/2;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border: 1px solid;
+    border-bottom: 0;
+    border-color: ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
+    background: ${theme.palette.mode === "dark" ? grey[900] : grey[50]};
+    color: ${theme.palette.mode === "dark" ? grey[200] : grey[900]};
+
+    &:hover {
+      cursor: pointer;
+      color: #FFF;
+      background: ${theme.palette.mode === "dark" ? blue[600] : blue[500]};
+      border-color: ${theme.palette.mode === "dark" ? blue[400] : blue[600]};
+    }
+  }
+
+  &.${numberInputClasses.decrementButton} {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border: 1px solid;
+    border-color: ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
+    background: ${theme.palette.mode === "dark" ? grey[900] : grey[50]};
+    color: ${theme.palette.mode === "dark" ? grey[200] : grey[900]};
+  }
+
+  &:hover {
+    cursor: pointer;
+    color: #FFF;
+    background: ${theme.palette.mode === "dark" ? blue[600] : blue[500]};
+    border-color: ${theme.palette.mode === "dark" ? blue[400] : blue[600]};
+  }
+
+  & .arrow {
+    transform: translateY(-1px);
+  }
+
+  & .arrow {
+    transform: translateY(-1px);
+  }
+`
+);
 
 type Props = {
   schools: School[];
@@ -28,6 +184,7 @@ type Props = {
   hotels: Hotel[];
   restaurants: Restaurant[];
   sites: Site[];
+  tour: Tour | null;
 };
 
 type Dropdown = String | Number;
@@ -38,19 +195,28 @@ export const AddTourDay = ({
   hotels,
   restaurants,
   sites,
+  tour,
 }: Props) => {
-  const [itinerary, setItinerary] = useState<Itinerary>({});
-  const [school, setSchool] = useState<Dropdown>(1);
-  const [destination, setDestination] = useState<Dropdown>(1);
-  const [dateValue, setDateValue] = useState(dayjs().startOf("day"));
-  const [lastDateValue, setLastDateValue] = useState<Dayjs>(
-    dayjs().startOf("day")
+  const [itinerary, setItinerary] = useState<Itinerary>(
+    //@ts-ignore
+    tour ? tour.itinerary : {}
+  );
+  const [school, setSchool] = useState<Dropdown>(tour ? tour.school_id : 0);
+  const [students, setStudents] = useState<number | undefined>(tour ? tour.students : 0);
+  const [destination, setDestination] = useState<Dropdown>(
+    tour ? tour.destination_id : 1
+  );
+  const [dateValue, setDateValue] = useState(
+    tour ? tour.start : dayjs().startOf("day")
+  );
+  const [lastDateValue, setLastDateValue] = useState(
+    tour ? tour.end : dayjs().startOf("day")
   );
   const [addDayWidget, setAddDayWidget] = useState(false);
   const [displayedItinerary, setDisplayedItinerary] = useState<
     JSX.Element[] | null
   >([]);
-
+  const router = useRouter();
   const allSchools = schools;
   const allDestinations = destinations;
 
@@ -96,8 +262,8 @@ export const AddTourDay = ({
 
   // creates key name for activity to be placed in object
   const dateKeyFormatter = (eventName: string, date: Dayjs) => {
-    return (eventName + '_' + date.format("HH:mm"));
-  }
+    return eventName + "_" + date.format("HH:mm");
+  };
 
   const saveEvent = (event: Event) => {
     const itineraryDaySchedule = itinerary[Number(event.day)].schedule;
@@ -127,7 +293,6 @@ export const AddTourDay = ({
     const startTime = activity.start;
     const day = Number(activity.day);
     const key = dateKeyFormatter(activityName, startTime);
-    console.log(key)
 
     const updatedItinerary = { ...itinerary };
     delete updatedItinerary[day].schedule[key];
@@ -151,7 +316,7 @@ export const AddTourDay = ({
             sites={sites}
             restaurants={restaurants}
             hotels={hotels}
-            date={lastDateValue}
+            date={dayjs(lastDateValue)}
             day={key}
             saveEvent={saveEvent}
           />
@@ -163,7 +328,9 @@ export const AddTourDay = ({
     return printedItems;
   };
 
-  const startDateExists = () => Object.keys(itinerary).length > 0;
+  const startDateExists = () => {
+    return itinerary && Object.keys(itinerary).length > 0;
+  };
 
   const startDate = () => {
     const keys = Object.keys(itinerary);
@@ -203,27 +370,28 @@ export const AddTourDay = ({
       delete updatedItinerary[lastKeyNumber];
       setItinerary(updatedItinerary);
     }
-
-    console.log(itinerary);
   };
 
   const postTour = () => {
     const state = {
+      start: dateValue,
+      end: lastDateValue,
       school: school,
+      students: students,
       destination: destination,
       itinerary: itinerary,
+      id: tour ? tour.id : null,
     };
 
-    console.log(state);
-
-    // fetch("/api/tours/add", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(state),
-    // });
-    // router.push(`/pages/moderator/tours`);
+    const fetchPath = state.id ? 'update' : 'add'
+    fetch(`/api/tours/${fetchPath}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(state),
+    });
+    router.refresh();
   };
 
   const handleOpenDayWidget = () => setAddDayWidget(true);
@@ -250,63 +418,89 @@ export const AddTourDay = ({
   };
 
   useEffect(() => {
-    const result = displayItinerary(itinerary);
-    setDisplayedItinerary(result);
+  const result = displayItinerary(itinerary);
+  setDisplayedItinerary(result);
   }, [itinerary]);
 
   return (
     <div>
       <SnackbarProvider />
-      <div className="select-tool">
-        <div className="select-title">Destination</div>
-        <Select
-          labelId="destination"
-          id="destination"
-          value={destination}
-          name="destination"
-          label="destination"
-          className="select-options"
-          //@ts-ignore
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            handleDestinationChange(e);
-          }}
-          required
-        >
-          {allDestinations &&
-            allDestinations.map((destination: Destination) => {
-              return (
-                <MenuItem key={destination.id} value={destination.id}>
-                  {destination.name}, {destination.region}
-                </MenuItem>
-              );
-            })}
-        </Select>
+      <div className="select-row">
+        <div className="select-tool">
+          <div className="select-title">Destination</div>
+          <Select
+            labelId="destination"
+            id="destination"
+            value={destination}
+            name="destination"
+            label="destination"
+            className="select-options"
+            //@ts-ignore
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              handleDestinationChange(e);
+            }}
+            required
+          >
+            {allDestinations &&
+              allDestinations.map((destination: Destination) => {
+                return (
+                  <MenuItem key={destination.id} value={destination.id}>
+                    {destination.name}, {destination.region}
+                  </MenuItem>
+                );
+              })}
+          </Select>
+        </div>
+        <div className="select-tool">
+          <div className="select-title">School</div>
+          <Select
+            labelId="school"
+            id="school"
+            value={school}
+            name="school"
+            label="school"
+            className="select-options"
+            //@ts-ignore
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              handleSchoolChange(e);
+            }}
+            required
+          >
+            {allSchools &&
+              allSchools.map((school: School) => {
+                return (
+                  <MenuItem key={school.id} value={school.id}>
+                    {school.name}
+                  </MenuItem>
+                );
+              })}
+          </Select>
+        </div>
+        <div>
+          <span>Number of Students</span>
+          <NumberInput
+            aria-label="Demo number input"
+            placeholder="Type a number…"
+            value={students}
+            slots={{
+              root: StyledInputRoot,
+              input: StyledInputElement,
+              incrementButton: StyledButton,
+              decrementButton: StyledButton,
+            }}
+            slotProps={{
+              incrementButton: {
+                children: "▴",
+              },
+              decrementButton: {
+                children: "▾",
+              },
+            }}
+            onChange={(event, val) => setStudents(val)}
+          />
+        </div>
       </div>
-      <div className="select-tool">
-        <div className="select-title">School</div>
-        <Select
-          labelId="school"
-          id="school"
-          value={school}
-          name="school"
-          label="school"
-          className="select-options"
-          //@ts-ignore
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            handleSchoolChange(e);
-          }}
-          required
-        >
-          {allSchools &&
-            allSchools.map((school: School) => {
-              return (
-                <MenuItem key={school.id} value={school.id}>
-                  {school.name}
-                </MenuItem>
-              );
-            })}
-        </Select>
-      </div>
+      <div>{displayedItinerary}</div>
       {/* checks to see if there is already a start date, if so gives the option to add the following day */}
       {startDateExists() ? (
         <div>
@@ -332,7 +526,6 @@ export const AddTourDay = ({
           <button onClick={() => handleCloseDayWidget(false)}>Cancel</button>
         </div>
       )}
-      <div>{displayedItinerary}</div>
     </div>
   );
 };

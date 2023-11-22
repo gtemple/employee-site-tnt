@@ -24,7 +24,7 @@ export async function getToursByUserId(id: String) {
 
   const { data, error } = await supabase
     .from("tours")
-    .select(`*, schools (*)`)
+    .select(`*, schools (*), destinations (*)`)
     .eq("id", id);
 
   if (error) {
@@ -38,7 +38,7 @@ export async function getToursByUserId(id: String) {
 export async function getAllTours() {
   const supabase = createServerComponentClient({ cookies });
 
-  const { data, error } = await supabase.from("tours").select("*");
+  const { data, error } = await supabase.from("tours").select(`*,  schools (*), destinations (*)`);
 
   if (error) {
     console.log(error);

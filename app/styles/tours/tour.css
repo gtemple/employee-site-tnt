@@ -7,6 +7,13 @@
   padding: 8px 0;
 }
 
+.select-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  align-items: center;
+}
+
 .select-tool {
   margin: 15px 0 15px 5px;
 }
