@@ -2,6 +2,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { getToursByUserId } from "@/app/api/tours/getTours";
 import { getProfileData } from "@/app/api/getProfiles";
+import dayjs from "dayjs";
 import Link from "next/link";
 import Tour from "@/app/typescript/tour";
 
@@ -49,8 +50,8 @@ const Tours = async () => {
                       {tour.schools.name}
                     </TableCell>
                     <TableCell>{tour.destinations.name}</TableCell>
-                    <TableCell>{tour.start}</TableCell>
-                    <TableCell>{tour.end}</TableCell>
+                    <TableCell>{dayjs(tour.start).format("DD/MM/YYYY")}</TableCell>
+                    <TableCell>{dayjs(tour.end).format("DD/MM/YYYY")}</TableCell>
                     <TableCell>
                       <Link href={`/pages/tours/${tour.id}`}>View</Link>
                     </TableCell>
