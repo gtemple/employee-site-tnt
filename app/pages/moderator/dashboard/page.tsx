@@ -1,26 +1,20 @@
 import React from "react";
 import Link from "next/link";
+import "@/app/styles/moderator/dash.css";
 
 const Dashboard = () => {
   return (
-    <div>
-      <div>moderator dash</div>
-      <div>
+    <div className='moderator-container'>
+      <div className="moderator-title">Moderator Dashboard</div>
+
+      <div className="moderator-dash">
         <Link href="/pages/sites/all-sites">Sites</Link>
-      </div>
-      <div>
         <Link href="/pages/moderator/restaurants">Restaurants</Link>
-      </div>
-      <div>
         <Link href="/pages/moderator/tours">Tours</Link>
-      </div>
-      <div>
         <Link href="/pages/moderator/schools">Schools</Link>
-      </div>
-      <div>
         <Link href="/pages/moderator/hotels">Hotels</Link>
+        <div>to be added: destinations, teachers</div>
       </div>
-      <div>destinations, teachers</div>
     </div>
   );
 };

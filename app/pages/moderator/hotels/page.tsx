@@ -43,7 +43,7 @@ export default async function Sites() {
               <Link href={`/pages/moderator/hotels/add`}>Add Hotel</Link>
             )}
             <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                 <TableHead>
                   <TableRow></TableRow>
                 </TableHead>
