@@ -157,13 +157,19 @@
 }
 
 .site-label {
-  color: yellow;
+  border-left-width: 3px;
+  border-left-style: solid;
+  border-left-color: yellow;
 }
 
 .restaurant-label {
-  color: purple;
+  border-left-width: 3px;
+  border-left-style: solid;
+  border-left-color: purple;
 }
 
 .hotel-label {
-  color: grey;
+  border-left-width: 3px;
+  border-left-style: solid;
+  border-left-color: grey;
 }

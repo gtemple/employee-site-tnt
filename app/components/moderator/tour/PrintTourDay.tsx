@@ -35,10 +35,9 @@ const PrintTourDay = ({ itinerary, deleteEvent }: Props) => {
 
     return sortedActivitiesKeys.map((key: string) => {
       const activity = itinerary.schedule[key];
-      console.log(activity);
-      // const activityLabel =  activityStyle()
+      const activityLabel = "activity " + activityStyle(activity.type);
       return (
-        <div className="activity" key={key}>
+        <div className={activityLabel} key={key}>
           <div className="time-display">
             {dayjs(activity.start).format("HH:mm")} -{" "}
             {dayjs(activity.end).format("HH:mm")}

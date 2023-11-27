@@ -9,8 +9,6 @@ import Site from "@/app/typescript/site";
 import Hotel from "@/app/typescript/hotel";
 import Restaurant from "@/app/typescript/restaurant";
 import Event from "@/app/typescript/event";
-import Sites from "@/app/pages/sites/page";
-import { SatelliteSharp } from "@mui/icons-material";
 
 type Props = {
   sites: Site[];
@@ -24,6 +22,7 @@ type Props = {
 type State = {
   activity: string | Option;
   day: string;
+  type: string;
   start: Dayjs;
   end: Dayjs;
 };
@@ -44,6 +43,7 @@ export const AddTourEvent: React.FC<Props> = ({
   const [state, setState] = useState<State>({
     activity: sites[0],
     day: day,
+    type: 'site',
     start: date.startOf("d"),
     end: date.startOf("d"),
   });
@@ -55,22 +55,23 @@ export const AddTourEvent: React.FC<Props> = ({
     setSelectedEvent(selectedValue);
     await optionsCheck(selectedValue);
     //@ts-ignore
-    updateState(0, optionsArray);
+    updateState(0, optionsArray, selectedValue);
   };
-
-  const updateState = (index: number, optionsArray: Option[]) => {
-    const selectedOption = optionsArray[index];
-    console.log("here are the options:", selectedOption);
+  
+  const updateState = async (index: number, optionsArray: Option[], selectedValue: string) => {
+    const selectedOption = await optionsArray[index];
     setActivity(index.toString());
     setState((prev) => ({
       ...prev,
       activity: selectedOption,
+      type: selectedValue.toLowerCase()
     }));
   };
 
   const handleActivityChange = (event: SelectChangeEvent) => {
+    const selectedValue = event.target.value as string;
     const selectedIndex = Number(event.target.value);
-    updateState(selectedIndex, options);
+    updateState(selectedIndex, options, selectedValue);
   };
 
   const handleTimeChange = (
@@ -98,7 +99,6 @@ export const AddTourEvent: React.FC<Props> = ({
       setOptions(hotels);
       return hotels;
     }
-    console.log("broken", selectedEvent, typeof selectedEvent);
   };
 
   const printOptions = (array: Option[]) => {
