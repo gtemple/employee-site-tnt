@@ -15,7 +15,24 @@
   padding: 7px 0 0 10px;
 }
 
-.nav-link{
+.nav-link {
   color: red;
   text-decoration: none;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-menu * {
+  text-decoration: none;
+  padding: 6px;
+  border-radius: 4px;
+  color: rgb(148, 178, 226);
+
+  &:hover {
+    color: rgb(97, 144, 221);
+    background-color: rgb(42, 51, 67);
+  }
 }

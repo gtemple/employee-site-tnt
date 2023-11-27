@@ -155,3 +155,15 @@
   padding: 10px;
   background-color: rgb(63, 82, 111);
 }
+
+.site-label {
+  color: yellow;
+}
+
+.restaurant-label {
+  color: purple;
+}
+
+.hotel-label {
+  color: grey;
+}
