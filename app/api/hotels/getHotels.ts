@@ -35,7 +35,8 @@ export async function getAllHotels() {
 
   const { data, error } = await supabase
     .from("hotels")
-    .select(`*, destinations (*)`);
+    .select(`*, destinations (*)`)
+    .order("name");
 
   if (error) {
     console.log(error);

@@ -29,7 +29,10 @@ export async function getAllBoards() {
     return { error: "Access Denied - You are not an approved moderator" };
   }
 
-  const { data, error } = await supabase.from("boards").select("*");
+  const { data, error } = await supabase
+    .from("boards")
+    .select("*")
+    .order("name");
 
   if (error) {
     console.log(error);

@@ -32,7 +32,8 @@ export async function getAllRestaurants() {
 
   const { data, error } = await supabase
     .from("restaurants")
-    .select(`*, destinations (*)`);
+    .select(`*, destinations (*)`)
+    .order("name");
 
   if (error) {
     console.log(error);

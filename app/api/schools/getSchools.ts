@@ -35,7 +35,8 @@ export async function getAllSchools() {
 
   const { data, error } = await supabase
     .from("schools")
-    .select(`*, boards (*)`);
+    .select(`*, boards (*)`)
+    .order("name");
 
   if (error) {
     console.log(error);

@@ -29,7 +29,10 @@ export async function getSiteData(id: String) {
 export async function getAllSites() {
   const supabase = createServerComponentClient({ cookies });
 
-  const { data, error } = await supabase.from("sites").select("*");
+  const { data, error } = await supabase
+    .from("sites")
+    .select("*")
+    .order("name");
 
   if (error) {
     console.log(error);
