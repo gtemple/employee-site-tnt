@@ -18,7 +18,7 @@ export default async function Navigation() {
   } = await supabase.auth.getUser();
 
   let data = await getProfileData(user?.id);
-  let profile = data && data[0];
+  let profile = Array.isArray(data) && data[0];
 
   if (user) {
     return (
