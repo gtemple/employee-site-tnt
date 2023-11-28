@@ -1,5 +1,6 @@
 import Destination from "./destination";
 import School from "./school";
+import Profile from "./profile";
 import { Itinerary } from "./itinerary";
 import { Dayjs } from "dayjs";
 export default interface Tour {
@@ -11,6 +12,8 @@ export default interface Tour {
   schedule: Itinerary;
   destination_id: string;
   notes: string;
+  profile_id: string;
+  profiles: Profile;
   schools: School;
   destinations: Destination
 }

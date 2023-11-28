@@ -20,12 +20,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }
 
   const body = await req.json();
-  console.log("heres the data:", body);
   const id = body.id;
   const start = body.start;
   const end = body.end;
   const itinerary = body.itinerary;
   const school_id = body.school;
+  const profile_id = body.profile
   const students = body.students;
   const destination_id = body.destination;
   const supabase = createServerActionClient({ cookies });
@@ -37,6 +37,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       end: end,
       destination_id: destination_id,
       school_id: school_id,
+      profile_id: profile_id,
       students: students,
       itinerary: itinerary,
     })

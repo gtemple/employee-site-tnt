@@ -13,7 +13,7 @@ export async function getProfileData(userId: String | undefined) {
 
   if (error) {
     console.log(error);
-    return "failed to get profile";
+    return { error: "failed to get profile" };
   }
 
   return data;
@@ -26,23 +26,26 @@ export async function getAllProfiles() {
 
   if (error) {
     console.log(error);
-    return "failed to get profile";
+    return { error: "failed to get profiles" };
   }
 
   console.log(data);
   return { allProfileData: data };
 }
 
-export async function getProfileIds() {
+export async function getAllActiveProfiles() {
   const supabase = createServerComponentClient({ cookies });
 
-  const { data, error } = await supabase.from("profiles").select("id");
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("active", true);
 
   if (error) {
     console.log(error);
-    return "failed to get profile ids";
+    return { error: "failed to get profiles" };
   }
 
   console.log(data);
-  return { profileIds: data };
+  return { allProfileData: data };
 }

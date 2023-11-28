@@ -26,7 +26,7 @@ const Tours = async () => {
     return <div>Authentication failed</div>;
   }
 
-  const { tourData } = await getToursByUserId("1");
+  const { tourData } = await getToursByUserId(profile.id);
 
   return (
     <div>

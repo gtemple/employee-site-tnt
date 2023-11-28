@@ -10,6 +10,7 @@ import Hotel from "@/app/typescript/hotel";
 import Restaurant from "@/app/typescript/restaurant";
 import Site from "@/app/typescript/site";
 import Event from "@/app/typescript/event";
+import Profile from "@/app/typescript/profile";
 
 import Calendar from "react-calendar";
 import dayjs, { Dayjs } from "dayjs";
@@ -19,6 +20,7 @@ import {
   NumberInputProps,
   numberInputClasses,
 } from "@mui/base/Unstable_NumberInput";
+import Autocomplete from '@mui/material/Autocomplete';
 import { styled } from "@mui/system";
 import "@/app/styles/Calendar.css";
 import "@/app/styles/tours/tour.css";
@@ -184,10 +186,11 @@ type Props = {
   hotels: Hotel[];
   restaurants: Restaurant[];
   sites: Site[];
+  profiles: Profile[];
   tour: Tour | null;
 };
 
-type Dropdown = String | Number;
+type Dropdown = String | Number | null;
 
 export const AddTourDay = ({
   schools,
@@ -195,6 +198,7 @@ export const AddTourDay = ({
   hotels,
   restaurants,
   sites,
+  profiles,
   tour,
 }: Props) => {
   const [itinerary, setItinerary] = useState<Itinerary>(
@@ -202,6 +206,7 @@ export const AddTourDay = ({
     tour ? tour.itinerary : {}
   );
   const [school, setSchool] = useState<Dropdown>(tour ? tour.school_id : 0);
+  const [profile, setProfile] = useState<Dropdown>(tour ? tour.profile_id : null);
   const [students, setStudents] = useState<number | undefined>(tour ? tour.students : 0);
   const [destination, setDestination] = useState<Dropdown>(
     tour ? tour.destination_id : 1
@@ -216,9 +221,12 @@ export const AddTourDay = ({
   const [displayedItinerary, setDisplayedItinerary] = useState<
     JSX.Element[] | null
   >([]);
+
   const router = useRouter();
   const allSchools = schools;
   const allDestinations = destinations;
+  const allProfiles = profiles;
+
 
   const checkEventConflict = (event: Event): boolean => {
     const start = event.start;
@@ -377,6 +385,7 @@ export const AddTourDay = ({
       start: dateValue,
       end: lastDateValue,
       school: school,
+      profile: profile,
       students: students,
       destination: destination,
       itinerary: itinerary,
@@ -408,6 +417,13 @@ export const AddTourDay = ({
   }: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = target;
     setSchool(value);
+  };
+
+  const handleProfileChange = ({
+    target,
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = target;
+    setProfile(value);
   };
 
   const handleDestinationChange = ({
@@ -498,6 +514,31 @@ export const AddTourDay = ({
             }}
             onChange={(event, val) => setStudents(val)}
           />
+        </div>
+        <div className="select-tool">
+          <div className="select-title">Profile</div>
+          <Select
+            labelId="profile"
+            id="profile"
+            value={profile}
+            name="profile"
+            label="profile"
+            className="select-options"
+            //@ts-ignore
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              handleProfileChange(e);
+            }}
+            required
+          >
+            {allProfiles &&
+              allProfiles.map((profile: Profile) => {
+                return (
+                  <MenuItem key={profile.id} value={profile.id}>
+                    {profile.first_name} {profile.last_name}
+                  </MenuItem>
+                );
+              })}
+          </Select>
         </div>
       </div>
       <div>{displayedItinerary}</div>

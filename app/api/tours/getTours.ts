@@ -24,21 +24,23 @@ export async function getToursByUserId(id: String) {
 
   const { data, error } = await supabase
     .from("tours")
-    .select(`*, schools (*), destinations (*)`)
-    .eq("id", id);
+    .select(`*, schools (*), destinations (*), profiles (*)`)
+    .eq("profiles_id", id);
 
   if (error) {
     console.log(error);
     return { error: "failed to get tours" };
   }
-  console.log("here:", data);
+
   return { tourData: data };
 }
 
 export async function getAllTours() {
   const supabase = createServerComponentClient({ cookies });
 
-  const { data, error } = await supabase.from("tours").select(`*,  schools (*), destinations (*)`);
+  const { data, error } = await supabase
+    .from("tours")
+    .select(`*,  schools (*), destinations (*), profiles(*)`);
 
   if (error) {
     console.log(error);

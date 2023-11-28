@@ -19,7 +19,7 @@ const ModeratorTours = async () => {
     data: { user },
   } = await supabase.auth.getUser();
   let data = await getProfileData(user?.id);
-  let profile = data && data[0];
+  let profile = Array.isArray(data) && data[0];
 
   if (profile && !profile.active) {
     return <div>Authentication failed</div>;
@@ -32,7 +32,7 @@ const ModeratorTours = async () => {
       {allTourData && allTourData.length > 0 && (
         <div>
           {profile.moderator && (
-            <Link href={`/pages/moderator/tours/add`}>Add site</Link>
+            <Link href={`/pages/moderator/tours/add`}>Add tour</Link>
           )}
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -56,8 +56,14 @@ const ModeratorTours = async () => {
                       {dayjs(tour.end).format("DD/MM/YYYY")}
                     </TableCell>
                     <TableCell>
+                      {tour.profile_id
+                        ? `${tour.profiles.first_name} ${tour.profiles.last_name}`
+                        : "unassigned"}
+                    </TableCell>
+                    <TableCell>
                       <Link href={`/pages/tours/${tour.id}`}>View</Link>
                     </TableCell>
+
                     <TableCell>
                       <Link href={`/pages/moderator/tours/edit/${tour.id}`}>
                         Edit

@@ -20,12 +20,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }
 
   const body = await req.json();
-  const start = body.start
-  const end = body.end
-  const itinerary = body.itinerary
-  const school_id = body.school
-  const students = body.students
-  const destination_id = body.destination
+  const start = body.start;
+  const end = body.end;
+  const itinerary = body.itinerary;
+  const school_id = body.school;
+  const profile_id = body.profile;
+  const students = body.students;
+  const destination_id = body.destination;
   const supabase = createServerActionClient({ cookies });
 
   const { error } = await supabase.from("tours").insert({
@@ -33,8 +34,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
     end: end,
     destination_id: destination_id,
     school_id: school_id,
+    profile_id: profile_id,
     students: students,
-    itinerary: itinerary
+    itinerary: itinerary,
   });
 
   if (error) {
