@@ -24,6 +24,11 @@ export default async function Sites() {
   const destinations = await getAllDestinations();
 
   let data = await getProfileData(user?.id);
+
+  if ("error" in data) {
+    return <div>Error: {data.error}</div>;
+  }
+  
   let profile = data && data[0];
 
   if (profile && !profile.active) {
