@@ -32,7 +32,10 @@ const ModeratorTours = async () => {
       {allTourData && allTourData.length > 0 && (
         <div>
           {profile.moderator && (
-            <Link href={`/pages/moderator/tours/add`}>Add tour</Link>
+            <div className='page-nav'>
+              <Link href={`/pages/moderator/tours/add`}>Add tour</Link>
+              <Link href="/">Back</Link>
+            </div>
           )}
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -76,7 +79,6 @@ const ModeratorTours = async () => {
           </TableContainer>
         </div>
       )}
-      <Link href="/">Back</Link>
     </div>
   );
 };

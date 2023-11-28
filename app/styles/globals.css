@@ -154,3 +154,24 @@ button:hover {
   font-size: 20px;
   font-weight: 600;
 }
+
+.page-nav {
+  display: flex;
+  gap: 20px;
+}
+
+.page-nav > * {
+  color: rgb(207, 218, 248);
+  padding: 6px;
+  margin: 2px 0 8px 0;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 18px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 3px;
+  &:hover {
+    color: rgb(97, 144, 221);
+    background-color: rgb(42, 51, 67);
+  }
+}
