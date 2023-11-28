@@ -24,6 +24,12 @@ export default async function Admin() {
   const profiles = await getAllProfiles();
   const profileData = await getProfileData(user?.id);
 
+  if ("error" in profileData) {
+    // Handle the case where there's an error
+    console.error(`Error fetching profile data: ${profileData.error}`);
+    return <div>Error loading profile data</div>;
+  }
+
   if (profileData && !profileData[0].admin) {
     return <div>Authentication failed</div>;
   }
