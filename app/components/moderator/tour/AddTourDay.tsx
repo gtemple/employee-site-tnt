@@ -186,7 +186,7 @@ type Props = {
   hotels: Hotel[];
   restaurants: Restaurant[];
   sites: Site[];
-  profiles: Profile[];
+  profiles: Profile[] | null | undefined;
   tour: Tour | null;
 };
 
@@ -205,7 +205,7 @@ export const AddTourDay = ({
     //@ts-ignore
     tour ? tour.itinerary : {}
   );
-  const [school, setSchool] = useState<Dropdown>(tour ? tour.school_id : 0);
+  const [school, setSchool] = useState<Dropdown>(tour ? tour.school_id : 1);
   const [profile, setProfile] = useState<Dropdown>(tour ? tour.profile_id : null);
   const [students, setStudents] = useState<number | undefined>(tour ? tour.students : 0);
   const [destination, setDestination] = useState<Dropdown>(
@@ -516,7 +516,7 @@ export const AddTourDay = ({
           />
         </div>
         <div className="select-tool">
-          <div className="select-title">Profile</div>
+          <div className="select-title">Activities Director</div>
           <Select
             labelId="profile"
             id="profile"
@@ -528,7 +528,6 @@ export const AddTourDay = ({
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               handleProfileChange(e);
             }}
-            required
           >
             {allProfiles &&
               allProfiles.map((profile: Profile) => {

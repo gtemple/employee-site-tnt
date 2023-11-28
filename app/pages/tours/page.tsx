@@ -20,6 +20,11 @@ const Tours = async () => {
     data: { user },
   } = await supabase.auth.getUser();
   let data = await getProfileData(user?.id);
+
+  if ("error" in data) {
+    return <div>Error: {data.error}</div>;
+  }
+
   let profile = data && data[0];
 
   if (profile && !profile.active) {
@@ -50,8 +55,12 @@ const Tours = async () => {
                       {tour.schools.name}
                     </TableCell>
                     <TableCell>{tour.destinations.name}</TableCell>
-                    <TableCell>{dayjs(tour.start).format("DD/MM/YYYY")}</TableCell>
-                    <TableCell>{dayjs(tour.end).format("DD/MM/YYYY")}</TableCell>
+                    <TableCell>
+                      {dayjs(tour.start).format("DD/MM/YYYY")}
+                    </TableCell>
+                    <TableCell>
+                      {dayjs(tour.end).format("DD/MM/YYYY")}
+                    </TableCell>
                     <TableCell>
                       <Link href={`/pages/tours/${tour.id}`}>View</Link>
                     </TableCell>

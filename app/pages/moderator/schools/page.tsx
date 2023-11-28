@@ -25,6 +25,7 @@ export default async function Sites() {
   const schools = await getAllSchools();
 
   let data = await getProfileData(user?.id);
+  //@ts-ignore
   let profile = data && data[0];
 
   if (profile && !profile.active) {
