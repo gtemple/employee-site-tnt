@@ -16,7 +16,7 @@ export default async function Index() {
 
   console.log('here is the user:', user)
   let data = await getProfileData(user?.id);
-  let profile = data && data[0];
+  let profile = Array.isArray(data) && data[0];
 
   if (!user) {
     return (

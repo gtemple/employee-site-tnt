@@ -34,7 +34,7 @@ const ModeratorTours = async () => {
           {profile.moderator && (
             <div className='page-nav'>
               <Link href={`/pages/moderator/tours/add`}>Add tour</Link>
-              <Link href="/">Back</Link>
+              <Link href="/pages/moderator/dashboard">Back</Link>
             </div>
           )}
           <TableContainer component={Paper}>
