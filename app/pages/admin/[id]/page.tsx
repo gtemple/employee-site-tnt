@@ -6,8 +6,14 @@ import UserProfile from "@/app/components/admin/UserProfile";
 
 export default async function Profile({ params }: Params) {
   const profileData = await getProfileData(params.id);
+  if ("error" in profileData) {
+    // Handle the case where there's an error
+    console.error(`Error fetching profile data: ${profileData.error}`);
+    return <div>Error loading profile data</div>;
+  }
+
   const { first_name, last_name, user_id, admin, moderator, email, active } =
-    profileData[0];
+  profileData[0];
 
   return (
     <div>

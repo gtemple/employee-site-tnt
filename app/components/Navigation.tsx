@@ -35,7 +35,7 @@ export default async function Navigation() {
         <div className="nav-menu">
           {profile && <Link href="/">Home</Link>}
           {profile.active && (
-            <Link href="/pages/tours/user-tours">My Tours</Link>
+            <Link href="/pages/tours/">My Tours</Link>
           )}
           {profile.moderator && (
             <Link href="/pages/moderator/dashboard">Moderator</Link>
