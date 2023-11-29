@@ -1,6 +1,7 @@
 import { createServerActionClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
+import { getUser } from '@/app/api/authenticatePriviledges'
 
 export const dynamic = 'force-dynamic'
 
