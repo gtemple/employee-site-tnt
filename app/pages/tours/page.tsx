@@ -5,6 +5,7 @@ import { getProfileData } from "@/app/api/getProfiles";
 import dayjs from "dayjs";
 import Link from "next/link";
 import Tour from "@/app/typescript/tour";
+import "@/app/styles/tours/tour.css";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -33,8 +34,22 @@ const Tours = async () => {
 
   const { tourData } = await getToursByUserId(profile.id);
 
+  if (!tourData) {
+    return (
+      <div className="no-tours">
+        <div>You do not currently have any tours scheduled.</div>
+        <Link className="request" href="/">
+          Request a tour
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div>
+      <div className="page-nav">
+        <Link href="/">Back</Link>
+      </div>
       {tourData && tourData.length > 0 && (
         <div>
           {profile.moderator && (
@@ -71,7 +86,6 @@ const Tours = async () => {
           </TableContainer>
         </div>
       )}
-      <Link href="/">Back</Link>
     </div>
   );
 };
