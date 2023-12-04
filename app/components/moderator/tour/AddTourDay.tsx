@@ -20,7 +20,7 @@ import {
   NumberInputProps,
   numberInputClasses,
 } from "@mui/base/Unstable_NumberInput";
-import Autocomplete from '@mui/material/Autocomplete';
+import Autocomplete from "@mui/material/Autocomplete";
 import { styled } from "@mui/system";
 import "@/app/styles/Calendar.css";
 import "@/app/styles/tours/tour.css";
@@ -206,8 +206,15 @@ export const AddTourDay = ({
     tour ? tour.itinerary : {}
   );
   const [school, setSchool] = useState<Dropdown>(tour ? tour.school_id : 1);
-  const [profile, setProfile] = useState<Dropdown>(tour ? tour.profile_id : null);
-  const [students, setStudents] = useState<number | undefined>(tour ? tour.students : 0);
+  const [profile, setProfile] = useState<Dropdown>(
+    tour ? tour.profile_id : null
+  );
+  const [students, setStudents] = useState<number | undefined>(
+    tour ? tour.students : 0
+  );
+  const [request, setRequest] = useState(
+    tour ? tour.requests.requested : false
+  );
   const [destination, setDestination] = useState<Dropdown>(
     tour ? tour.destination_id : 1
   );
@@ -226,7 +233,6 @@ export const AddTourDay = ({
   const allSchools = schools;
   const allDestinations = destinations;
   const allProfiles = profiles;
-
 
   const checkEventConflict = (event: Event): boolean => {
     const start = event.start;
@@ -389,10 +395,14 @@ export const AddTourDay = ({
       students: students,
       destination: destination,
       itinerary: itinerary,
+      requests: {
+        availabe: request,
+        requested: tour ? tour.requests.requested : [],
+      },
       id: tour ? tour.id : null,
     };
 
-    const fetchPath = state.id ? 'update' : 'add'
+    const fetchPath = state.id ? "update" : "add";
     fetch(`/api/tours/${fetchPath}`, {
       method: "POST",
       headers: {
@@ -433,9 +443,16 @@ export const AddTourDay = ({
     setDestination(value);
   };
 
+  const handleRequestChange = ({
+    target,
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = target;
+    setRequest(value);
+  };
+
   useEffect(() => {
-  const result = displayItinerary(itinerary);
-  setDisplayedItinerary(result);
+    const result = displayItinerary(itinerary);
+    setDisplayedItinerary(result);
   }, [itinerary]);
 
   return (
@@ -539,6 +556,33 @@ export const AddTourDay = ({
               })}
           </Select>
         </div>
+      </div>
+      <div className="select-tool">
+        <div className="select-title">Available for request</div>
+        <Select
+          labelId="request"
+          id="request"
+          value={request}
+          name="request"
+          label="Available"
+          className="select-options"
+          //@ts-ignore
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            handleRequestChange(e);
+          }}
+          required
+        >
+          {/* @ts-ignore */}
+
+          <MenuItem value={true}>
+            Yes
+          </MenuItem>
+          {/* @ts-ignore */}
+
+          <MenuItem value={false}>
+            No
+          </MenuItem>
+        </Select>
       </div>
       <div>{displayedItinerary}</div>
       {/* checks to see if there is already a start date, if so gives the option to add the following day */}
