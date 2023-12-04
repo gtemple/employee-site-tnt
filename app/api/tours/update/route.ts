@@ -27,6 +27,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const school_id = body.school;
   const profile_id = body.profile
   const students = body.students;
+  const available = body.available;
+  const requested = body.requested;
   const destination_id = body.destination;
   const supabase = createServerActionClient({ cookies });
 
@@ -39,6 +41,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
       school_id: school_id,
       profile_id: profile_id,
       students: students,
+      available: body.available,
+      requested: body.requested,
       itinerary: itinerary,
     })
     .eq("id", id);

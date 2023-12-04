@@ -35,6 +35,24 @@ export async function getToursByUserId(id: String) {
   return { tourData: data };
 }
 
+export async function getToursByAvailability() {
+  const supabase = createServerComponentClient({ cookies });
+
+  const { data, error } = await supabase
+    .from("tours")
+    .select(`*, schools (*), destinations (*), profiles (*)`)
+   .eq("available", "true");
+
+    console.log(data)
+
+  if (error) {
+    console.log(error);
+    return { error: "failed to get tours" };
+  }
+
+  return { tourData: data };
+}
+
 export async function getAllTours() {
   const supabase = createServerComponentClient({ cookies });
 

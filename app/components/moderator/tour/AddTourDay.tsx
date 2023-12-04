@@ -212,9 +212,7 @@ export const AddTourDay = ({
   const [students, setStudents] = useState<number | undefined>(
     tour ? tour.students : 0
   );
-  const [request, setRequest] = useState(
-    tour ? tour.requests.requested : false
-  );
+  const [request, setRequest] = useState(tour ? tour.requested : "false");
   const [destination, setDestination] = useState<Dropdown>(
     tour ? tour.destination_id : 1
   );
@@ -395,12 +393,12 @@ export const AddTourDay = ({
       students: students,
       destination: destination,
       itinerary: itinerary,
-      requests: {
-        availabe: request,
-        requested: tour ? tour.requests.requested : [],
-      },
+      available: request,
+      requested: tour ? tour.requested : [],
       id: tour ? tour.id : null,
     };
+
+    console.log(state)
 
     const fetchPath = state.id ? "update" : "add";
     fetch(`/api/tours/${fetchPath}`, {
@@ -574,14 +572,10 @@ export const AddTourDay = ({
         >
           {/* @ts-ignore */}
 
-          <MenuItem value={true}>
-            Yes
-          </MenuItem>
+          <MenuItem value={true}>Yes</MenuItem>
           {/* @ts-ignore */}
 
-          <MenuItem value={false}>
-            No
-          </MenuItem>
+          <MenuItem value={false}>No</MenuItem>
         </Select>
       </div>
       <div>{displayedItinerary}</div>

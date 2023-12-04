@@ -26,8 +26,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const school_id = body.school;
   const profile_id = body.profile;
   const students = body.students;
+  const available = body.available;
+  const requested = body.requested;
   const destination_id = body.destination;
   const supabase = createServerActionClient({ cookies });
+
+  console.log('availability:', available)
 
   const { error } = await supabase.from("tours").insert({
     start: start,
@@ -36,6 +40,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
     school_id: school_id,
     profile_id: profile_id,
     students: students,
+    requested: requested,
+    available: available,
     itinerary: itinerary,
   });
 

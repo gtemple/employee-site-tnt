@@ -4,6 +4,7 @@ import { getProfileData } from "./api/getProfiles";
 import Link from "next/link";
 import Landing from "./components/Landing";
 import "./styles/dashboard.css";
+import AvailableTours from "./components/AvailableTours";
 
 export const dynamic = "force-dynamic";
 
@@ -54,6 +55,7 @@ export default async function Index() {
         <Link href="/pages/sites">Sites</Link>
         <Link href="/pages/destinations/all-destinations">Destinations</Link>
       </div>
+      <div><AvailableTours /></div>
     </div>
   );
 }
