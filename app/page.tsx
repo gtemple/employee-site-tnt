@@ -1,6 +1,7 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { getProfileData } from "./api/getProfiles";
+import { getToursByAvailability } from "@/app/api/tours/getTours";
 import Link from "next/link";
 import Landing from "./components/Landing";
 import "./styles/dashboard.css";
@@ -15,7 +16,6 @@ export default async function Index() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  console.log('here is the user:', user)
   let data = await getProfileData(user?.id);
   let profile = Array.isArray(data) && data[0];
 
@@ -30,10 +30,9 @@ export default async function Index() {
   if (!profile.first_name || !profile.last_name) {
     return (
       <>
-      {}
         <div>
           Hi, {profile.first_name}! Please complete your account to gain full
-          access:
+          access
         </div>
       </>
     );
@@ -47,6 +46,9 @@ export default async function Index() {
     );
   }
 
+  const { tourData } = await getToursByAvailability();
+ {console.log('dattaaa!!', tourData)}
+
   return (
     <div className="dash">
       <div className="greeting">Hey, {profile.first_name}!</div>
@@ -55,7 +57,7 @@ export default async function Index() {
         <Link href="/pages/sites">Sites</Link>
         <Link href="/pages/destinations/all-destinations">Destinations</Link>
       </div>
-      <div><AvailableTours /></div>
+      <div><AvailableTours profile={profile} tours={tourData} /></div>
     </div>
   );
 }

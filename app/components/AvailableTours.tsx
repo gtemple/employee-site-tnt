@@ -1,10 +1,11 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import { getToursByAvailability } from "@/app/api/tours/getTours";
-import { getProfileData } from "@/app/api/getProfiles";
+"use client";
+
+import { useState } from "react";
 import dayjs from "dayjs";
 import Link from "next/link";
 import Tour from "@/app/typescript/tour";
+import Profile from "../typescript/profile";
+
 import "@/app/styles/tours/tour.css";
 
 import Table from "@mui/material/Table";
@@ -14,27 +15,35 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
 
-const AvailableTours = async () => {
-  const supabase = createServerComponentClient({ cookies });
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  let data = await getProfileData(user?.id);
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import { SnackbarProvider, enqueueSnackbar } from "notistack";
 
-  if ("error" in data) {
-    return <div>Error: {data.error}</div>;
-  }
+type Props = {
+  profile: Profile;
+  tours: Tour[] | undefined;
+};
 
-  let profile = data && data[0];
+type RequestProfile =
+  | {
+      id: string;
+      first_name: string;
+      last_name: string;
+    }
+  | string;
+
+const AvailableTours = ({ profile, tours }: Props) => {
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpen = () => setOpenModal(true);
+  const handleClose = () => setOpenModal(false);
 
   if (profile && !profile.active) {
     return <div>Authentication failed</div>;
   }
 
-  const { tourData } = await getToursByAvailability();
-
-  if (!tourData) {
+  if (!tours) {
     return (
       <div className="no-tours">
         <div>There are currently no available tours to request.</div>
@@ -42,23 +51,29 @@ const AvailableTours = async () => {
     );
   }
 
+  const postRequest = (tourId: string, requested: RequestProfile[]) => {
+    requested.push({
+      id: profile.id,
+      first_name: profile.first_name,
+      last_name: profile.last_name,
+    });
+
+    console.log(requested);
+  };
+
   return (
     <div>
-      <div className="page-nav">
-        <Link href="/">Back</Link>
-      </div>
-      {tourData && tourData.length > 0 && (
+      <SnackbarProvider />
+      <div>Looking for work? Request one of the available tours below!</div>
+      {tours && tours.length > 0 && (
         <div>
-          {profile.moderator && (
-            <Link href={`/pages/moderator/tours/add`}>Add site</Link>
-          )}
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow></TableRow>
               </TableHead>
               <TableBody>
-                {tourData.map((tour: Tour) => (
+                {tours.map((tour: Tour) => (
                   <TableRow
                     key={tour.id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -75,6 +90,40 @@ const AvailableTours = async () => {
                     </TableCell>
                     <TableCell>
                       <Link href={`/pages/tours/${tour.id}`}>View</Link>
+                    </TableCell>
+                    <TableCell>
+                      <Button onClick={handleOpen}>Request</Button>
+                      <Modal
+                        open={openModal}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                        className="modal"
+                      >
+                        <Box className="modal-child">
+                          <div>
+                            By submitting your request you are confirming your
+                            availability for these dates. Do you want to
+                            continue?
+                          </div>
+                          <Button
+                            onClick={() => {
+                              enqueueSnackbar(
+                                `${tour.schools.name} tour successfully requested.`,
+                                { autoHideDuration: 3000, variant: "success" }
+                              );
+                              postRequest(tour.id, tour.requested);
+                              handleClose();
+                            }}
+                            className="mui-btn"
+                          >
+                            Confirm
+                          </Button>
+                          <Button onClick={handleClose} className="mui-btn">
+                            Cancel
+                          </Button>
+                        </Box>
+                      </Modal>
                     </TableCell>
                   </TableRow>
                 ))}
