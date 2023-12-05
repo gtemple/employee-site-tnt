@@ -193,3 +193,17 @@
   border-left-style: solid;
   border-left-color: grey;
 }
+
+.requested {
+  background-color: green;
+  color: white;
+  &:hover {
+    color: black;
+  }
+}
+
+.green-underline{
+  border-bottom-color: green;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+}

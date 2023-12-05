@@ -199,7 +199,7 @@ export const AddTourDay = ({
   restaurants,
   sites,
   profiles,
-  tour,
+  tour
 }: Props) => {
   const [itinerary, setItinerary] = useState<Itinerary>(
     //@ts-ignore
@@ -398,7 +398,7 @@ export const AddTourDay = ({
       id: tour ? tour.id : null,
     };
 
-    console.log(state)
+    console.log(state);
 
     const fetchPath = state.id ? "update" : "add";
     fetch(`/api/tours/${fetchPath}`, {
@@ -446,6 +446,17 @@ export const AddTourDay = ({
   }: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = target;
     setRequest(value);
+  };
+
+  const checkRequests = (id: string, requests: {id: string, first_name:string, last_name: string}[] | undefined) => {
+    let className = 'no-request';
+        requests?.forEach((request) => {
+          if (request.id === id) {
+            className = 'requested';
+          }
+        })
+
+    return className;
   };
 
   useEffect(() => {
@@ -531,7 +542,7 @@ export const AddTourDay = ({
           />
         </div>
         <div className="select-tool">
-          <div className="select-title">Activities Director</div>
+          <div className="select-title">Activities Director*</div>
           <Select
             labelId="profile"
             id="profile"
@@ -546,11 +557,14 @@ export const AddTourDay = ({
           >
             {allProfiles &&
               allProfiles.map((profile: Profile) => {
-                return (
-                  <MenuItem key={profile.id} value={profile.id}>
-                    {profile.first_name} {profile.last_name}
-                  </MenuItem>
-                );
+                if (profile.active) {
+                  let requestClass = checkRequests(profile.id, tour?.requested);
+                  return (
+                    <MenuItem key={profile.id} value={profile.id} className={requestClass}>
+                      {profile.first_name} {profile.last_name}
+                    </MenuItem>
+                  );
+                }
               })}
           </Select>
         </div>
@@ -578,6 +592,7 @@ export const AddTourDay = ({
           <MenuItem value={false}>No</MenuItem>
         </Select>
       </div>
+      <div>*ADs highlighted in <span className='green-underline'>GREEN</span> have requested to be the guide on this tour.</div>
       <div>{displayedItinerary}</div>
       {/* checks to see if there is already a start date, if so gives the option to add the following day */}
       {startDateExists() ? (

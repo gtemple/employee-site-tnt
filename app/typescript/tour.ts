@@ -14,7 +14,7 @@ export default interface Tour {
   notes: string;
   profile_id: string;
   available: boolean;
-  requested: string[];
+  requested: {id: string, first_name:string, last_name: string}[];
   profiles: Profile;
   schools: School;
   destinations: Destination
