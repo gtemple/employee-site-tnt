@@ -199,7 +199,7 @@ export const AddTourDay = ({
   restaurants,
   sites,
   profiles,
-  tour
+  tour,
 }: Props) => {
   const [itinerary, setItinerary] = useState<Itinerary>(
     //@ts-ignore
@@ -448,13 +448,18 @@ export const AddTourDay = ({
     setRequest(value);
   };
 
-  const checkRequests = (id: string, requests: {id: string, first_name:string, last_name: string}[] | undefined) => {
-    let className = 'no-request';
-        requests?.forEach((request) => {
-          if (request.id === id) {
-            className = 'requested';
-          }
-        })
+  const checkRequests = (
+    id: string,
+    requests:
+      | { id: string; first_name: string; last_name: string }[]
+      | undefined
+  ) => {
+    let className = "no-request";
+    requests?.forEach((request) => {
+      if (request.id === id) {
+        className = "requested";
+      }
+    });
 
     return className;
   };
@@ -560,7 +565,11 @@ export const AddTourDay = ({
                 if (profile.active) {
                   let requestClass = checkRequests(profile.id, tour?.requested);
                   return (
-                    <MenuItem key={profile.id} value={profile.id} className={requestClass}>
+                    <MenuItem
+                      key={profile.id}
+                      value={profile.id}
+                      className={requestClass}
+                    >
                       {profile.first_name} {profile.last_name}
                     </MenuItem>
                   );
@@ -591,8 +600,11 @@ export const AddTourDay = ({
 
           <MenuItem value={false}>No</MenuItem>
         </Select>
+        <div>
+          *ADs highlighted in <span className="green-underline">GREEN</span>{" "}
+          have requested to be the guide on this tour.
+        </div>
       </div>
-      <div>*ADs highlighted in <span className='green-underline'>GREEN</span> have requested to be the guide on this tour.</div>
       <div>{displayedItinerary}</div>
       {/* checks to see if there is already a start date, if so gives the option to add the following day */}
       {startDateExists() ? (

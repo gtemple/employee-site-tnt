@@ -25,7 +25,7 @@ export async function getToursByUserId(id: String) {
   const { data, error } = await supabase
     .from("tours")
     .select(`*, schools (*), destinations (*), profiles (*)`)
-    .eq("profiles_id", id);
+    .eq("profile_id", id);
 
   if (error) {
     console.log(error);
