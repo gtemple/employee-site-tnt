@@ -58,7 +58,15 @@ const AvailableTours = ({ profile, tours }: Props) => {
       last_name: profile.last_name,
     });
 
-    console.log(requested);
+    const postData = { id: tourId, requested: requested };
+
+    fetch(`/api/tours/update/requested`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postData),
+    });
   };
 
   return (
