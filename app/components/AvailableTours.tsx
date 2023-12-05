@@ -111,7 +111,7 @@ const AvailableTours = ({ profile, tours }: Props) => {
                         <Box className="modal-child">
                           <div>
                             By submitting your request you are confirming your
-                            availability for these dates. Do you want to
+                            availability for these dates. You will not be able to cancel your request. Do you want to
                             continue?
                           </div>
                           <Button

@@ -31,7 +31,7 @@ export default async function UpdateUser() {
     <div>
       <div>
         <div>
-          <UserUpdate profile={currentProfile} postUpdate={postUpdate} />
+          {/* <UserUpdate profile={currentProfile} postUpdate={postUpdate} /> */}
         </div>
       </div>
       <Link href="/">Back</Link>
