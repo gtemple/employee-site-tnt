@@ -3,8 +3,7 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 import { getProfileData } from "../api/getProfiles";
 
-import Avatar from "@mui/material/Avatar";
-import LogoutButton from "./LogoutButton";
+import { UserMenu } from "./tools/UserMenu";
 
 import "../styles/nav.css";
 
@@ -23,26 +22,18 @@ export default async function Navigation() {
   if (user) {
     return (
       <div className="nav-bar">
-        <div>
-          <div className="nav-profile">
-            <Avatar>P</Avatar>
-            <div className="nav-name">{profile.first_name}</div>
-          </div>
-          <Link href={"/pages/user/update"} className="nav-link">
-            Update Profile
-          </Link>
-        </div>
+        <div>TEMPLE & TEMPLE TOURS</div>
         <div className="nav-menu">
           {profile && <Link href="/">Home</Link>}
-          {profile.active && (
-            <Link href="/pages/tours/">My Tours</Link>
-          )}
+          {profile.active && <Link href="/pages/tours/">My Tours</Link>}
           {profile.moderator && (
             <Link href="/pages/moderator/dashboard">Moderator</Link>
           )}
           {profile.admin && <Link href="/pages/admin/dashboard">Admin</Link>}
         </div>
-        <LogoutButton />
+        <div>
+          <UserMenu profile={profile}/>
+        </div>
       </div>
     );
   }

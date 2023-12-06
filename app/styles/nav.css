@@ -1,14 +1,19 @@
 .nav-bar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   position: relative;
-  width: 250px;
+  width: 100vw;
   padding: 13px;
   background-color: rgb(21, 26, 34);
-  font-size: 25px;
+  font-size: 22px;
   font-weight: 600;
+  color: rgb(148, 178, 226);
 }
 
 .nav-profile {
   display: flex;
+  
 }
 
 .nav-name {
@@ -22,12 +27,11 @@
 
 .nav-menu {
   display: flex;
-  flex-direction: column;
 }
 
 .nav-menu * {
   text-decoration: none;
-  padding: 6px;
+  padding: 0 6px;
   border-radius: 4px;
   color: rgb(148, 178, 226);
 

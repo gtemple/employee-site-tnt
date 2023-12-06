@@ -47,7 +47,6 @@ export default async function Index() {
   }
 
   const { tourData } = await getToursByAvailability();
- {console.log('dattaaa!!', tourData)}
 
   return (
     <div className="dash">
