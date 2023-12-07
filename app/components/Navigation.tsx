@@ -3,6 +3,8 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 import { getProfileData } from "../api/getProfiles";
 
+import Image from "next/image";
+
 import { UserMenu } from "./tools/UserMenu";
 
 import "../styles/nav.css";
@@ -22,7 +24,14 @@ export default async function Navigation() {
   if (user) {
     return (
       <div className="nav-bar">
-        <div>TEMPLE & TEMPLE TOURS</div>
+        <div>
+        <Image
+          src="/public/images/temple-logo.png"
+          width={400}
+          height={50}
+          alt="Temple and Temple Tours"
+        />
+        </div>
         <div className="nav-menu">
           {profile && <Link href="/">Home</Link>}
           {profile.active && <Link href="/pages/tours/">My Tours</Link>}
@@ -32,7 +41,7 @@ export default async function Navigation() {
           {profile.admin && <Link href="/pages/admin/dashboard">Admin</Link>}
         </div>
         <div>
-          <UserMenu profile={profile}/>
+          <UserMenu profile={profile} />
         </div>
       </div>
     );
