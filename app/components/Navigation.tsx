@@ -26,9 +26,9 @@ export default async function Navigation() {
       <div className="nav-bar">
         <div>
         <Image
-          src="/public/images/temple-logo.png"
-          width={400}
-          height={50}
+          src="/images/temple-logo.png"
+          width={300}
+          height={33}
           alt="Temple and Temple Tours"
         />
         </div>
