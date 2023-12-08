@@ -1,4 +1,5 @@
 import Navigation from "@/app/components/Navigation"
+import ModeratorNavigation from "./components/ModeratorNavigation"
 import { spartan300, spartan400, heebo800  } from "./styles/fonts"
 import './styles/globals.css'
 
@@ -18,6 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${spartan300.className} page-layout`}>
           <Navigation />
+          <ModeratorNavigation />
           <div className='right-panel'>
             {children}
           </div>

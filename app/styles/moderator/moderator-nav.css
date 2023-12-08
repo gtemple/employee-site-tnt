@@ -1,0 +1,23 @@
+
+.moderator-dash {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 4px 20px;
+  background-color: rgb(75, 99, 134);
+  border-radius: 3px;
+  border-bottom-style: solid;
+  border-bottom-color: rgb(161, 191, 240);
+}
+
+.moderator-dash > * {
+  text-decoration: none;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 1px;
+  color: rgb(161, 191, 240);
+
+  &:hover {
+    color: rgb(97, 144, 221);
+    background-color: rgb(42, 51, 67);
+  }
+}

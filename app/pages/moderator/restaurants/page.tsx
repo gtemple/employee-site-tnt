@@ -28,7 +28,7 @@ export default async function Sites() {
   if ("error" in data) {
     return <div>Error: {data.error}</div>;
   }
-  
+
   let profile = data && data[0];
 
   if (profile && !profile.active) {
@@ -40,13 +40,13 @@ export default async function Sites() {
       {restaurants.allRestaurantData &&
         restaurants.allRestaurantData.length > 0 && (
           <div>
-            <div>
-              {profile.first_name} {profile.last_name} restaurants
-            </div>
             {profile.moderator && (
-              <Link href={`/pages/moderator/restaurants/add`}>
-                Add restaurant
-              </Link>
+              <div className="page-nav">
+                <Link href={`/pages/moderator/restaurants/add`}>
+                  Add restaurant
+                </Link>
+                <Link href="/">Back</Link>
+              </div>
             )}
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -98,7 +98,7 @@ export default async function Sites() {
             </TableContainer>
           </div>
         )}
-      <Link href="/">Back</Link>
+      
     </div>
   );
 }
