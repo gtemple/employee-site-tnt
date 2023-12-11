@@ -36,11 +36,11 @@ export default async function Sites() {
     <div>
       {schools.allSchoolData && schools.allSchoolData.length > 0 && (
         <div>
-          <div>
-            {profile.first_name} {profile.last_name} sites
-          </div>
           {profile.moderator && (
-            <Link href={`/pages/moderator/schools/add`}>Add school</Link>
+            <div className="page-nav">
+              <Link href={`/pages/moderator/schools/add`}>Add school</Link>
+              <Link href="/">Back</Link>
+            </div>
           )}
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -92,7 +92,6 @@ export default async function Sites() {
           </TableContainer>
         </div>
       )}
-      <Link href="/">Back</Link>
     </div>
   );
 }

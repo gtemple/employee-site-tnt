@@ -41,11 +41,12 @@ export default async function Sites() {
       {
         hotels.allHotelData && hotels.allHotelData.length > 0 && (
           <div>
-            <div>
-              {profile.first_name} {profile.last_name} hotels
-            </div>
             {profile.moderator && (
+            <div className="page-nav">
+      <Link href="/">Back</Link>
+
               <Link href={`/pages/moderator/hotels/add`}>Add Hotel</Link>
+              </div>
             )}
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -93,7 +94,6 @@ export default async function Sites() {
           </div>
         )
       }
-      <Link href="/">Back</Link>
     </div>
   );
 }

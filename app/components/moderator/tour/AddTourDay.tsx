@@ -398,8 +398,6 @@ export const AddTourDay = ({
       id: tour ? tour.id : null,
     };
 
-    console.log(state);
-
     const fetchPath = state.id ? "update" : "add";
     fetch(`/api/tours/${fetchPath}`, {
       method: "POST",
@@ -408,6 +406,12 @@ export const AddTourDay = ({
       },
       body: JSON.stringify(state),
     });
+
+    enqueueSnackbar(`Tour successfully updated`, {
+      autoHideDuration: 3000,
+      variant: "success",
+    });
+
     router.refresh();
   };
 

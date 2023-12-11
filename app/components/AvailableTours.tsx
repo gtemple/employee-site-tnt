@@ -72,7 +72,7 @@ const AvailableTours = ({ profile, tours }: Props) => {
   return (
     <div>
       <SnackbarProvider />
-      <div>Looking for work? Request one of the available tours below!</div>
+      <h3>Looking for work? Request one of the available tours below!</h3>
       {tours && tours.length > 0 && (
         <div>
           <TableContainer component={Paper}>
