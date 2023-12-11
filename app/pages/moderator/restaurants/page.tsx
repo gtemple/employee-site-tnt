@@ -49,7 +49,11 @@ export default async function Sites() {
               </div>
             )}
             <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <Table
+                sx={{ minWidth: 650 }}
+                aria-label="a dense table"
+                className="Table"
+              >
                 <TableHead>
                   <TableRow></TableRow>
                 </TableHead>
@@ -98,7 +102,6 @@ export default async function Sites() {
             </TableContainer>
           </div>
         )}
-      
     </div>
   );
 }
