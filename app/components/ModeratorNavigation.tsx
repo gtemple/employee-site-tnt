@@ -7,7 +7,8 @@ const ModeratorNavigation = async () => {
 
   //@ts-ignore
   const profile = user[0]
-  return profile.moderator ? (
+  const mod = profile.moderator === true ? true : false;
+  return mod ? (
     <div className="moderator-dash">
       <Link href="/pages/sites">Sites</Link>
       <Link href="/pages/moderator/restaurants">Restaurants</Link>
