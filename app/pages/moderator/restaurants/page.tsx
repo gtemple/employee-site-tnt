@@ -55,7 +55,14 @@ export default async function Sites() {
                 className="Table"
               >
                 <TableHead>
-                  <TableRow></TableRow>
+                  <TableRow className='Table-head'>
+                    <TableCell>Name</TableCell>
+                    <TableCell>City</TableCell>
+                    <TableCell>Phone Number</TableCell>
+                    <TableCell align="right"></TableCell>
+                    <TableCell align="right"></TableCell>
+                    <TableCell align="right"></TableCell>
+                  </TableRow>
                 </TableHead>
                 <TableBody>
                   {restaurants.allRestaurantData.map(

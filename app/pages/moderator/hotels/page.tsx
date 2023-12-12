@@ -29,7 +29,7 @@ export default async function Sites() {
   if ("error" in data) {
     return <div>Error: {data.error}</div>;
   }
-  
+
   let profile = data && data[0];
 
   if (profile && !profile.active) {
@@ -38,41 +38,44 @@ export default async function Sites() {
 
   return (
     <div>
-      {
-        hotels.allHotelData && hotels.allHotelData.length > 0 && (
-          <div>
-            {profile.moderator && (
+      {hotels.allHotelData && hotels.allHotelData.length > 0 && (
+        <div>
+          {profile.moderator && (
             <div className="page-nav">
-      <Link href="/">Back</Link>
+              <Link href="/">Back</Link>
 
               <Link href={`/pages/moderator/hotels/add`}>Add Hotel</Link>
-              </div>
-            )}
-            <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-                <TableHead>
-                  <TableRow></TableRow>
-                </TableHead>
-                <TableBody>
-                  {
-                    //@ts-ignore
-                    hotels.allHotelData.map((hotel: Hotel) => (
-                      <TableRow
-                        key={hotel.id}
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
-                        <TableCell>{hotel.name}</TableCell>
-                        <TableCell>{hotel.destinations.name}</TableCell>
-                        <TableCell>{hotel.phone}</TableCell>
-                        <TableCell>
-                          <Link href={`/pages/moderator/hotels/${hotel.id}`}>
-                            View
-                          </Link>
-                        </TableCell>
-                        {profile.moderator && (
-                          <>
+            </div>
+          )}
+          <TableContainer component={Paper}>
+            <Table
+              sx={{ minWidth: 650 }}
+              size="small"
+              aria-label="a dense table"
+            >
+              <TableHead>
+                <TableRow></TableRow>
+              </TableHead>
+              <TableBody>
+                {
+                  //@ts-ignore
+                  hotels.allHotelData.map((hotel: Hotel) => (
+                    <TableRow
+                      key={hotel.id}
+                      sx={{
+                        "&:last-child td, &:last-child th": { border: 0 },
+                      }}
+                    >
+                      <TableCell>{hotel.name}</TableCell>
+                      <TableCell>{hotel.destinations.name}</TableCell>
+                      <TableCell>{hotel.phone}</TableCell>
+                      <TableCell>
+                        <Link href={`/pages/moderator/hotels/${hotel.id}`}>
+                          View
+                        </Link>
+                      </TableCell>
+                      {profile.moderator && (
+                        <>
                           <TableCell>
                             <Link
                               href={`/pages/moderator/hotels/edit/${hotel.id}`}
@@ -81,19 +84,22 @@ export default async function Sites() {
                             </Link>
                           </TableCell>
                           <TableCell>
-                            <DeleteButton id={hotel.id} path={'hotels'} name={hotel.name} />
+                            <DeleteButton
+                              id={hotel.id}
+                              path={"hotels"}
+                              name={hotel.name}
+                            />
                           </TableCell>
-                          </>
-                        )}
-                      </TableRow>
-                    ))
-                  }
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </div>
-        )
-      }
+                        </>
+                      )}
+                    </TableRow>
+                  ))
+                }
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
+      )}
     </div>
   );
 }
