@@ -44,11 +44,17 @@ export default async function Sites() {
               <Link href="/">Back</Link>
             </div>
           )}
-          
+
           <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table sx={{ minWidth: 650 }} aria-label="simple table" className='Table'>
               <TableHead>
-                <TableRow></TableRow>
+                <TableRow className='Table-head'>
+                  <TableCell>Name</TableCell>
+                  <TableCell>City</TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                </TableRow>
               </TableHead>
               <TableBody>
                 {
@@ -60,11 +66,8 @@ export default async function Sites() {
                         "&:last-child td, &:last-child th": { border: 0 },
                       }}
                     >
-                      <TableCell component="th" scope="row">
-                        {site.image}
-                      </TableCell>
                       <TableCell>{site.name}</TableCell>
-                      <TableCell>{site.city}</TableCell>
+                      <TableCell>{site.destinations.name}</TableCell>
                       <TableCell>
                         <Link href={`/pages/sites/${site.id}`}>View</Link>
                       </TableCell>
@@ -92,7 +95,6 @@ export default async function Sites() {
           </TableContainer>
         </div>
       )}
-      <Link href="/">Back</Link>
     </div>
   );
 }

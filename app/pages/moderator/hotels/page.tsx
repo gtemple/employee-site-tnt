@@ -52,9 +52,17 @@ export default async function Sites() {
               sx={{ minWidth: 650 }}
               size="small"
               aria-label="a dense table"
+              className='Table'
             >
               <TableHead>
-                <TableRow></TableRow>
+                <TableRow className='Table-head'>
+                  <TableCell>Name</TableCell>
+                  <TableCell>City</TableCell>
+                  <TableCell>Phone</TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                </TableRow>
               </TableHead>
               <TableBody>
                 {

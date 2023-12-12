@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { SnackbarProvider, enqueueSnackbar } from "notistack";
 
+import DeleteIcon from '@mui/icons-material/Delete';
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
@@ -53,7 +54,7 @@ const DeleteButton = ({
   return (
     <div>
       <SnackbarProvider />
-      <button className='delete-btn' onClick={handleOpenConfirm}>Delete</button>
+      <button className='delete-btn' onClick={handleOpenConfirm}><DeleteIcon /></button>
       <Modal
         open={openConfirm}
         onClose={handleCloseConfirm}

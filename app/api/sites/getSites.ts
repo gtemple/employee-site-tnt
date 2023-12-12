@@ -31,7 +31,7 @@ export async function getAllSites() {
 
   const { data, error } = await supabase
     .from("sites")
-    .select("*")
+    .select(`*, destinations(*)`)
     .order("name");
 
   if (error) {

@@ -32,15 +32,27 @@ const ModeratorTours = async () => {
       {allTourData && allTourData.length > 0 && (
         <div>
           {profile.moderator && (
-            <div className='page-nav'>
+            <div className="page-nav">
               <Link href={`/pages/moderator/tours/add`}>Add tour</Link>
               <Link href="/pages/moderator/dashboard">Back</Link>
             </div>
           )}
           <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table
+              sx={{ minWidth: 650 }}
+              aria-label="simple table"
+              className="Table"
+            >
               <TableHead>
-                <TableRow></TableRow>
+                <TableRow className="Table-head">
+                  <TableCell>Name</TableCell>
+                  <TableCell>Destination</TableCell>
+                  <TableCell>Departure Date</TableCell>
+                  <TableCell>Return Date</TableCell>
+                  <TableCell>Activities Director</TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                </TableRow>
               </TableHead>
               <TableBody>
                 {allTourData.map((tour: Tour) => (

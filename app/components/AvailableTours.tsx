@@ -76,9 +76,20 @@ const AvailableTours = ({ profile, tours }: Props) => {
       {tours && tours.length > 0 && (
         <div>
           <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table
+              className="Table"
+              sx={{ minWidth: 650 }}
+              aria-label="simple table"
+            >
               <TableHead>
-                <TableRow></TableRow>
+                <TableRow className="Table-head">
+                  <TableCell>School</TableCell>
+                  <TableCell>Destination</TableCell>
+                  <TableCell>Departure</TableCell>
+                  <TableCell>Return</TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                </TableRow>
               </TableHead>
               <TableBody>
                 {tours.map((tour: Tour) => (
@@ -111,8 +122,8 @@ const AvailableTours = ({ profile, tours }: Props) => {
                         <Box className="modal-child">
                           <div>
                             By submitting your request you are confirming your
-                            availability for these dates. You will not be able to cancel your request. Do you want to
-                            continue?
+                            availability for these dates. You will not be able
+                            to cancel your request. Do you want to continue?
                           </div>
                           <Button
                             onClick={() => {

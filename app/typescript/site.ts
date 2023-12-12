@@ -4,7 +4,6 @@ export default interface Site {
   id: string;
   name: string;
   created_at: string;
-  city: number;
   address: string;
   website: string;
   postal: string;

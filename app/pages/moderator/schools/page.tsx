@@ -43,9 +43,21 @@ export default async function Sites() {
             </div>
           )}
           <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table
+              sx={{ minWidth: 650 }}
+              aria-label="simple table"
+              className="Table"
+            >
               <TableHead>
-                <TableRow></TableRow>
+                <TableRow className="Table-head">
+                  <TableCell>Name</TableCell>
+                  <TableCell>Board</TableCell>
+                  <TableCell>City</TableCell>
+                  <TableCell>Grade</TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                </TableRow>
               </TableHead>
               <TableBody>
                 {
