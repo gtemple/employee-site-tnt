@@ -1,30 +1,24 @@
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { getTourData } from "@/app/api/tours/getTours";
 import Params from "@/app/typescript/params";
 import '@/app/styles/tours/tour.css'
+import { Itinerary } from "@/app/typescript/itinerary";
+import dayjs from "dayjs";
+import PrintTourDay from "@/app/components/moderator/tour/PrintTourDay";
 
 export default async function Profile({ params }: Params) {
   //@ts-ignore
   const { tourData } = await getTourData(params.id);
 
   const {
-    id,
     name,
-    city,
-    address,
-    website,
-    postal,
-    phone,
+    itinerary,
     destinations,
     description,
   } = tourData !== undefined && tourData[0];
 
   const displayItinerary = (itin: Itinerary | null) => {
-    const [displayItinerary, setDisplayedItinerary] = useState<
-    JSX.Element[] | null
-  >([]);
-  
+
     if (!itin) {
       return null;
     }
@@ -40,16 +34,11 @@ export default async function Profile({ params }: Params) {
           </div>
         </div>
         {/* @ts-ignore */}
-        <PrintTourDay deleteEvent={deleteEvent} itinerary={itinerary[key]} />
+        <PrintTourDay deleteEvent={null} itinerary={itinerary[key]} />
       </div>
     ));
     return printedItems;
   };
-
-  useEffect(() => {
-    const result = displayItinerary(itinerary);
-    setDisplayedItinerary(result);
-  }, [itinerary]);
 
   return (
     <>
@@ -65,6 +54,7 @@ export default async function Profile({ params }: Params) {
         </div>
         <h4>About</h4>
         <div>{description}</div>
+        <div>{displayItinerary(itinerary)}</div>
       </div>
     </>
   );

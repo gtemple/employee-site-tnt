@@ -8,7 +8,7 @@ export async function getTourData(id: String) {
 
   const { data, error } = await supabase
     .from("tours")
-    .select(`*, schools (*)`)
+    .select(`*, schools (*), destinations (*)`)
     .eq("id", id);
 
   if (error) {

@@ -50,13 +50,15 @@ const PrintTourDay = ({ itinerary, deleteEvent }: Props) => {
             <div>{activity.activity.short_desc}</div>
           </div>
           <div className="delete-section">
-            <div
-              onClick={() => {
-                deleteEvent(activity);
-              }}
-            >
-              <DeleteIcon />
-            </div>
+            {deleteEvent !== null && (
+              <div
+                onClick={() => {
+                  deleteEvent(activity);
+                }}
+              >
+                <DeleteIcon />
+              </div>
+            )}
           </div>
         </div>
       );
