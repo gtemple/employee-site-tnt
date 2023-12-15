@@ -40,14 +40,10 @@ export default async function Admin() {
         //@ts-ignore
         profiles.allProfileData?.length > 0 && (
           <div>
-            <div>
-              {profileData[0].first_name} {profileData[0].last_name} admin
-              dashboard
-            </div>
             <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <Table sx={{ minWidth: 650 }} aria-label="simple table" className='Table'>
                 <TableHead>
-                  <TableRow>
+                  <TableRow className='Table-head'>
                     <TableCell>First Name</TableCell>
                     <TableCell>Last Name</TableCell>
                     <TableCell>Email</TableCell>
