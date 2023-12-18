@@ -74,95 +74,97 @@ const SchoolUpdateForm = (props: { school: School; boards: Board[] }) => {
   return (
     <div>
       <SnackbarProvider />
-      <TextField
-        id="outlined-basic"
-        label="Site Name"
-        variant="outlined"
-        type="text"
-        name="name"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          handleChange(e);
-        }}
-        defaultValue={name}
-        required
-      />
-      <Select
-        labelId="board"
-        id="board"
-        value={state.board}
-        name="board"
-        label="board"
-        //@ts-ignore
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          handleChange(e);
-        }}
-        required
-      >
-        {boards.map((board: Board) => {
-          return <MenuItem value={board.id}>{board.acronym}</MenuItem>;
-        })}
-      </Select>
-      <TextField
-        id="outlined-basic"
-        label="Teacher"
-        variant="outlined"
-        type="text"
-        name="teacher"
-        defaultValue={teacher}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          handleChange(e);
-        }}
-        required
-      />
-      <TextField
-        id="outlined-basic"
-        label="Street Address"
-        variant="outlined"
-        type="text"
-        name="address"
-        defaultValue={address}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          handleChange(e);
-        }}
-        required
-      />
-      <TextField
-        id="outlined-basic"
-        label="Postal Code"
-        variant="outlined"
-        type="text"
-        name="postal"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          handleChange(e);
-        }}
-        defaultValue={postal}
-        required
-      />
-      <TextField
-        id="outlined-basic"
-        label="Phone Number"
-        variant="outlined"
-        type="text"
-        name="phone"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          handleChange(e);
-        }}
-        defaultValue={phone}
-      />
+      <div className="custom-form">
+        <TextField
+          id="outlined-basic"
+          label="Site Name"
+          variant="outlined"
+          type="text"
+          name="name"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            handleChange(e);
+          }}
+          defaultValue={name}
+          required
+        />
+        <Select
+          labelId="board"
+          id="board"
+          value={state.board}
+          name="board"
+          label="board"
+          //@ts-ignore
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            handleChange(e);
+          }}
+          required
+        >
+          {boards.map((board: Board) => {
+            return <MenuItem value={board.id}>{board.acronym}</MenuItem>;
+          })}
+        </Select>
+        <TextField
+          id="outlined-basic"
+          label="Teacher"
+          variant="outlined"
+          type="text"
+          name="teacher"
+          defaultValue={teacher}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            handleChange(e);
+          }}
+          required
+        />
+        <TextField
+          id="outlined-basic"
+          label="Street Address"
+          variant="outlined"
+          type="text"
+          name="address"
+          defaultValue={address}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            handleChange(e);
+          }}
+          required
+        />
+        <TextField
+          id="outlined-basic"
+          label="Postal Code"
+          variant="outlined"
+          type="text"
+          name="postal"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            handleChange(e);
+          }}
+          defaultValue={postal}
+          required
+        />
+        <TextField
+          id="outlined-basic"
+          label="Phone Number"
+          variant="outlined"
+          type="text"
+          name="phone"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            handleChange(e);
+          }}
+          defaultValue={phone}
+        />
 
-      <TextField
-        id="standard-textarea"
-        className="extended-field"
-        label="Notes"
-        name="notes"
-        defaultValue={notes}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          handleChange(e);
-        }}
-        multiline
-        variant="outlined"
-      />
-      <button onClick={postUpdate}>Update</button>
+        <TextField
+          id="standard-textarea"
+          className="extended-field"
+          label="Notes"
+          name="notes"
+          defaultValue={notes}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            handleChange(e);
+          }}
+          multiline
+          variant="outlined"
+        />
+        <button onClick={postUpdate}>Update</button>
+      </div>
     </div>
   );
 };

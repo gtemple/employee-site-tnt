@@ -16,12 +16,11 @@ export default async function AddSchool() {
   return (
     <div>
       <div>
-        <div>Add School</div>
+        <h3>Add School</h3>
         <div>
           {boards !== undefined && (<SchoolAdd boards={boards} />) || <div className='fetch-fail'>Board Fetch Failed</div>}
         </div>
       </div>
-      <Link href="/pages/moderator/dashboard">Back</Link>
     </div>
   );
 }

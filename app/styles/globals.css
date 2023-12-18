@@ -59,6 +59,21 @@ form * {
   margin: 5px;
 }
 
+.custom-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.custom-form > *{
+  margin: 10px;
+  color: #E4E4E4;
+  background-color: #1F1F1F;
+}
+
+.custom-form > * > * {
+  color: #E4E4E4;
+}
+
 .fetch-fail {
   font-size: 30px;
   font-weight: 400;

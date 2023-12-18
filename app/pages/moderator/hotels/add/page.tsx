@@ -16,12 +16,11 @@ export default async function AddHotel() {
   return (
     <div>
       <div>
-        <div>Add Hotell</div>
+        <h3>Add Hotel</h3>
         <div>
           {destinations !== undefined && <HotelAdd destinations={destinations} />}
         </div>
       </div>
-      <Link href="/pages/moderator/dashboard">Back</Link>
     </div>
   );
 }

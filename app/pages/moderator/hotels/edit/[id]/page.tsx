@@ -21,7 +21,7 @@ export default async function UpdateHotel({ params }: Params) {
   return (
     <div>
       <div>
-        <div>Update site: {hotel.name}</div>
+        <h3>Update site: {hotel.name}</h3>
         <div>
           {destinations ? (
             <HotelUpdate hotel={hotel} destinations={destinations} />
@@ -30,7 +30,6 @@ export default async function UpdateHotel({ params }: Params) {
           )}
         </div>
       </div>
-      <Link href="/pages/moderator/hotels">Back</Link>
     </div>
   );
 }
