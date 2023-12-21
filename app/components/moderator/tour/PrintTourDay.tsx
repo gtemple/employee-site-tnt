@@ -4,10 +4,12 @@ import { ItineraryDay } from "@/app/typescript/itinerary";
 import Event from "@/app/typescript/event";
 import dayjs from "dayjs";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from '@mui/icons-material/Edit';
 
 type Props = {
   itinerary: ItineraryDay;
   deleteEvent: (event: Event) => void;
+  editEvent: (event: Event, description: string) => void;
 };
 
 const PrintTourDay = ({ itinerary, deleteEvent }: Props) => {
@@ -48,6 +50,9 @@ const PrintTourDay = ({ itinerary, deleteEvent }: Props) => {
               {activity.activity.address} - {activity.activity.phone}
             </div>
             <div>{activity.activity.short_desc}</div>
+          </div>
+          <div className="edit-section">
+            <EditIcon />
           </div>
           <div className="delete-section">
             {deleteEvent !== null && (

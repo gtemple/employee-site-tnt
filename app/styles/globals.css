@@ -27,6 +27,8 @@ h4 {
   min-height: 100vh;
   padding: 10px;
   background-color: rgb(36, 47, 63);
+  /* background-color: #1F1F1F; */
+
   color: rgb(207, 218, 248);
 }
 
@@ -62,7 +64,6 @@ form * {
 .custom-form {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
 }
 .custom-form > *{
   margin: 10px;
@@ -226,6 +227,12 @@ button:hover {
 .Table-head > * {
   font-size: 17px;
   border-bottom-width: 2px;
+}
+
+.Table {
+  border-color: white;
+  border-style: solid;
+  border-width: 1px;
 }
 
 .Table > * > * > * {

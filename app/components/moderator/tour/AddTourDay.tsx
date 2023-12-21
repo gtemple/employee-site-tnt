@@ -305,9 +305,18 @@ export const AddTourDay = ({
     const startTime = activity.start;
     const day = Number(activity.day);
     const key = dateKeyFormatter(activityName, startTime);
-
     const updatedItinerary = { ...itinerary };
     delete updatedItinerary[day].schedule[key];
+    setItinerary(updatedItinerary);
+  };
+
+  const editEvent = (activity: Event, description: string) => {
+    const activityName = activity.activity.name;
+    const startTime = activity.start;
+    const day = Number(activity.day);
+    const key = dateKeyFormatter(activityName, startTime);
+    const updatedItinerary = { ...itinerary };
+    updatedItinerary[day].schedule[key].activity.description = description;
     setItinerary(updatedItinerary);
   };
 
@@ -334,7 +343,7 @@ export const AddTourDay = ({
           />
         </div>
         {/* @ts-ignore */}
-        <PrintTourDay deleteEvent={deleteEvent} itinerary={itinerary[key]} />
+        <PrintTourDay editEvent={editEvent} deleteEvent={deleteEvent} itinerary={itinerary[key]} />
       </div>
     ));
     return printedItems;

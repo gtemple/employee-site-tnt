@@ -120,7 +120,6 @@ const HotelAdd = (props: { destinations: Destination[] }) => {
             handleChange(e);
           }}
         />
-
         <TextField
           id="standard-textarea"
           label="Email"
