@@ -1,11 +1,13 @@
 "use client";
 
+import { useState } from 'react'
 import { ItineraryDay } from "@/app/typescript/itinerary";
 import Event from "@/app/typescript/event";
 import dayjs from "dayjs";
 import { TextField } from "@mui/material";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from "@mui/icons-material/Edit";
 
 type Props = {
   itinerary: ItineraryDay;
@@ -14,6 +16,8 @@ type Props = {
 };
 
 const PrintTourDay = ({ itinerary, deleteEvent, editEvent }: Props) => {
+  const [field, setField] = useState('');
+
   const printActivities = () => {
     const activitiesKeys = Object.keys(itinerary.schedule);
 
@@ -36,20 +40,30 @@ const PrintTourDay = ({ itinerary, deleteEvent, editEvent }: Props) => {
       }
     };
 
-    const editModule = (activity: Event) => {
-      editEvent
+    const handleChange = (event: SelectChangeEvent) => {
+      const { name, value } = event.target;
+      setField(name);
+    };
 
-      <TextField
-      id="outlined-basic"
-      label="Phone Number"
-      variant="outlined"
-      type="text"
-      name="phone"
-      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-        handleChange(e);
-      }}
-    />
-    }
+    const editModule = (activity: Event) => {
+      editEvent;
+
+      return (
+        <div>
+          <TextField
+            id="outlined-basic"
+            label="Phone Number"
+            variant="outlined"
+            type="text"
+            name="phone"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              handleChange(e);
+            }}
+          />
+        </div>
+      );
+    };
+
     return sortedActivitiesKeys.map((key: string) => {
       const activity = itinerary.schedule[key];
       const activityLabel = "activity " + activityStyle(activity.type);
@@ -68,9 +82,9 @@ const PrintTourDay = ({ itinerary, deleteEvent, editEvent }: Props) => {
           </div>
           <div className="edit-section">
             <div
-                onClick={() => {
-                  editModule(activity);
-                }}
+              onClick={() => {
+                editModule(activity);
+              }}
             >
               <EditIcon />
             </div>
