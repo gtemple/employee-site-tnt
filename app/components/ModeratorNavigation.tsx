@@ -7,6 +7,9 @@ const ModeratorNavigation = async () => {
 
   //@ts-ignore
   const profile = user[0];
+  if (profile === undefined) {
+    return null
+  }
   const mod = profile.moderator === true ? true : false;
   return mod ? (
     <div className="moderator-dash">

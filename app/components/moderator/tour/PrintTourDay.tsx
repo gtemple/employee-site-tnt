@@ -3,6 +3,7 @@
 import { ItineraryDay } from "@/app/typescript/itinerary";
 import Event from "@/app/typescript/event";
 import dayjs from "dayjs";
+import { TextField } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from '@mui/icons-material/Edit';
 
@@ -12,7 +13,7 @@ type Props = {
   editEvent: (event: Event, description: string) => void;
 };
 
-const PrintTourDay = ({ itinerary, deleteEvent }: Props) => {
+const PrintTourDay = ({ itinerary, deleteEvent, editEvent }: Props) => {
   const printActivities = () => {
     const activitiesKeys = Object.keys(itinerary.schedule);
 
@@ -35,6 +36,20 @@ const PrintTourDay = ({ itinerary, deleteEvent }: Props) => {
       }
     };
 
+    const editModule = (activity: Event) => {
+      editEvent
+
+      <TextField
+      id="outlined-basic"
+      label="Phone Number"
+      variant="outlined"
+      type="text"
+      name="phone"
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+        handleChange(e);
+      }}
+    />
+    }
     return sortedActivitiesKeys.map((key: string) => {
       const activity = itinerary.schedule[key];
       const activityLabel = "activity " + activityStyle(activity.type);
@@ -52,7 +67,13 @@ const PrintTourDay = ({ itinerary, deleteEvent }: Props) => {
             <div>{activity.activity.short_desc}</div>
           </div>
           <div className="edit-section">
-            <EditIcon />
+            <div
+                onClick={() => {
+                  editModule(activity);
+                }}
+            >
+              <EditIcon />
+            </div>
           </div>
           <div className="delete-section">
             {deleteEvent !== null && (
