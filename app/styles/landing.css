@@ -32,3 +32,16 @@
   justify-content: center;
   gap: 20px;
 }
+
+.landing-image {
+  width: 100vw;
+  height: auto;
+  position: absolute;
+  left: 0;
+  top: 0;
+  filter: brightness(75%);
+}
+
+.landing-text {
+  z-index: 100;
+}
