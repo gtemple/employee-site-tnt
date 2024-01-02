@@ -6,13 +6,13 @@ const Landing = () => {
   return (
     <div className='landing'>
       <div>
-      {/* <Image
+      <Image
           src="/images/landing-background.jpeg"
           width={600}
           height={450}
           alt="Temple and Temple staff"
           className='landing-image'
-        /> */}
+        />
         <Image
           src="/images/temple-logo2.png"
           width={600}
