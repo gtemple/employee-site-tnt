@@ -89,21 +89,6 @@ form * {
   display: flex;
 }
 
-.landing-btn {
-  padding: 10px 10px 2px 10px;
-  border-radius: 3px;
-  text-decoration: none;
-  border-width: 0 0 3px 0;
-  border-style: solid;
-  border-color: orange;
-  font-size: 20px;
-  color: rgb(207, 218, 248);
-}
-
-.landing-btn:hover {
-  color: orange;
-}
-
 .back-btn {
   margin: 5px;
   padding: 4px 6px;
