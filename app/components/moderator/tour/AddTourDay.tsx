@@ -316,10 +316,11 @@ export const AddTourDay = ({
     const day = Number(activity.day);
     const key = dateKeyFormatter(activityName, startTime);
     const updatedItinerary = { ...itinerary };
-    updatedItinerary[day].schedule[key].activity.description = description;
+    updatedItinerary[day].schedule[key].activity.short_desc = description;
     setItinerary(updatedItinerary);
-    const result = displayItinerary(itinerary);
-    setDisplayedItinerary(result);
+    // const result = displayItinerary(updatedItinerary);
+    // setDisplayedItinerary(result);
+    // console.log(updatedItinerary)
   };
 
   const displayItinerary = (itin: Itinerary | null) => {
