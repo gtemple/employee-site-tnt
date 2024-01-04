@@ -66,18 +66,18 @@ const PrintTourDay = ({ itinerary, deleteEvent, editEvent }: Props) => {
             <div>{activity.activity.short_desc}</div>
           </div>
           <div className="delete-section">
-            <div onClick={handleOpen}>
-              <EditIcon />
-            </div>
-          </div>
-          <div className="delete-section">
             {deleteEvent !== null && (
-              <div
-                onClick={() => {
-                  deleteEvent(activity);
-                }}
-              >
-                <DeleteIcon />
+              <div>
+                <div onClick={handleOpen}>
+                  <EditIcon />
+                </div>
+                <div
+                  onClick={() => {
+                    deleteEvent(activity);
+                  }}
+                >
+                  <DeleteIcon />
+                </div>
               </div>
             )}
 
@@ -93,6 +93,7 @@ const PrintTourDay = ({ itinerary, deleteEvent, editEvent }: Props) => {
                   id="outlined-basic"
                   label="Edit Activity Description"
                   variant="outlined"
+                  defaultValue={activity.activity.short_desc}
                   fullWidth
                   type="text"
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {

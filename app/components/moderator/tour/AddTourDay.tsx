@@ -318,9 +318,6 @@ export const AddTourDay = ({
     const updatedItinerary = { ...itinerary };
     updatedItinerary[day].schedule[key].activity.short_desc = description;
     setItinerary(updatedItinerary);
-    // const result = displayItinerary(updatedItinerary);
-    // setDisplayedItinerary(result);
-    // console.log(updatedItinerary)
   };
 
   const displayItinerary = (itin: Itinerary | null) => {
