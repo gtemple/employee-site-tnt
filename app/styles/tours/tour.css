@@ -149,8 +149,8 @@
   display: flex;
   align-items: center;
   margin-left: auto;
-  max-width: 50px;
-  min-width: 50px;
+  max-width: 40px;
+  min-width: 40px;
 }
 
 .delete-section:hover {
@@ -206,4 +206,12 @@
   border-bottom-color: green;
   border-bottom-style: solid;
   border-bottom-width: 2px;
+}
+
+.edit-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: white;
+  padding: 25px;
 }

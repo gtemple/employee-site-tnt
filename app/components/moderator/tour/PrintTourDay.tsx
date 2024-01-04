@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from 'react'
+import { useState } from "react";
 import { ItineraryDay } from "@/app/typescript/itinerary";
 import Event from "@/app/typescript/event";
 import dayjs from "dayjs";
 import { TextField } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Modal from "@mui/material/Modal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
@@ -16,7 +17,10 @@ type Props = {
 };
 
 const PrintTourDay = ({ itinerary, deleteEvent, editEvent }: Props) => {
-  const [field, setField] = useState('');
+  const [field, setField] = useState("");
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const printActivities = () => {
     const activitiesKeys = Object.keys(itinerary.schedule);
@@ -41,27 +45,8 @@ const PrintTourDay = ({ itinerary, deleteEvent, editEvent }: Props) => {
     };
 
     const handleChange = (event: SelectChangeEvent) => {
-      const { name, value } = event.target;
-      setField(name);
-    };
-
-    const editModule = (activity: Event) => {
-      editEvent;
-
-      return (
-        <div>
-          <TextField
-            id="outlined-basic"
-            label="Phone Number"
-            variant="outlined"
-            type="text"
-            name="phone"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              handleChange(e);
-            }}
-          />
-        </div>
-      );
+      const { value } = event.target;
+      setField(value);
     };
 
     return sortedActivitiesKeys.map((key: string) => {
@@ -80,12 +65,8 @@ const PrintTourDay = ({ itinerary, deleteEvent, editEvent }: Props) => {
             </div>
             <div>{activity.activity.short_desc}</div>
           </div>
-          <div className="edit-section">
-            <div
-              onClick={() => {
-                editModule(activity);
-              }}
-            >
+          <div className="delete-section">
+            <div onClick={handleOpen}>
               <EditIcon />
             </div>
           </div>
@@ -99,6 +80,38 @@ const PrintTourDay = ({ itinerary, deleteEvent, editEvent }: Props) => {
                 <DeleteIcon />
               </div>
             )}
+
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <div className="edit-modal">
+                <div>{activity.activity.name}</div>
+                <TextField
+                  id="outlined-basic"
+                  label="Edit Activity Description"
+                  variant="outlined"
+                  fullWidth
+                  type="text"
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    handleChange(e);
+                  }}
+                />
+                <div>
+                  <button
+                    onClick={() => {
+                      editEvent(activity, field);
+                      handleClose();
+                    }}
+                  >
+                    Confirm
+                  </button>
+                  <button onClick={handleClose}>Cancel</button>
+                </div>
+              </div>
+            </Modal>
           </div>
         </div>
       );

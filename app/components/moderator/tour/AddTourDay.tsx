@@ -318,6 +318,8 @@ export const AddTourDay = ({
     const updatedItinerary = { ...itinerary };
     updatedItinerary[day].schedule[key].activity.description = description;
     setItinerary(updatedItinerary);
+    const result = displayItinerary(itinerary);
+    setDisplayedItinerary(result);
   };
 
   const displayItinerary = (itin: Itinerary | null) => {
@@ -342,8 +344,12 @@ export const AddTourDay = ({
             saveEvent={saveEvent}
           />
         </div>
-        {/* @ts-ignore */}
-        <PrintTourDay editEvent={editEvent} deleteEvent={deleteEvent} itinerary={itinerary[key]} />
+        <PrintTourDay
+          editEvent={editEvent}
+          deleteEvent={deleteEvent}
+          //@ts-ignore
+          itinerary={itinerary[key]}
+        />
       </div>
     ));
     return printedItems;
