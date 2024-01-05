@@ -91,9 +91,9 @@ const PrintTourDay = ({ itinerary, deleteEvent, editEvent }: Props) => {
                 <div>{activity.activity.name}</div>
                 <TextField
                   id="outlined-basic"
-                  label="Edit Activity Description"
                   variant="outlined"
                   defaultValue={activity.activity.short_desc}
+                  className='edit-box'
                   fullWidth
                   type="text"
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {

@@ -73,32 +73,41 @@ const UserProfile = (props: { profile: Profile }) => {
   return (
     <div>
       <SnackbarProvider />
-      hey {first_name} {user_id}
+      {first_name} {last_name}
       <div>admin? {admin ? "yes" : "no"}</div>
       <div>moderator? {moderator ? "yes" : "no"}</div>
       <div>active? {active ? "yes" : "no"}</div>
       <div>
-        Admin
-        <Button onClick={handleOpenAdmin} variant="outlined">
-          Change
-        </Button>
-        Moderator
-        <Button onClick={handleOpenModerator} variant="outlined">
-          Change
-        </Button>
-        Active
-        <Button
-          onClick={() => {
-            postUpdate("active");
-            enqueueSnackbar(`Account ${active ? "deactivated" : "activated"}`, {
-              autoHideDuration: 3000,
-              variant: "success",
-            });
-          }}
-          variant="outlined"
-        >
-          {active ? "deactivate" : "activate"}
-        </Button>
+        <div>
+          Admin
+          <Button onClick={handleOpenAdmin} variant="outlined">
+            Change
+          </Button>
+        </div>
+        <div>
+          Moderator
+          <Button onClick={handleOpenModerator} variant="outlined">
+            Change
+          </Button>
+        </div>
+        <div>
+          Active
+          <Button
+            onClick={() => {
+              postUpdate("active");
+              enqueueSnackbar(
+                `Account ${active ? "deactivated" : "activated"}`,
+                {
+                  autoHideDuration: 3000,
+                  variant: "success",
+                }
+              );
+            }}
+            variant="outlined"
+          >
+            {active ? "deactivate" : "activate"}
+          </Button>
+        </div>
         {/* admin modal */}
         <Modal
           open={openAdmin}

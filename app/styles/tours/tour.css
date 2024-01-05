@@ -216,8 +216,15 @@
 
 .edit-modal {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  background-color: white;
+  width: 60vw;
+  margin: 20vw;
+  color: white;
+  background-color: rgb(63, 82, 111);
+  border-radius: 3px;
   padding: 25px;
+}
+
+.edit-box {
+  background-color: white;
+  margin: 20px;
 }
