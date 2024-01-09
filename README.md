@@ -2,6 +2,9 @@
 
 Built for tourism, this app allows you to manage tours, employees, sites, etc. for better organization and tour management.
 
+## Admin Privledges
+!["Admin Home."](https://github.com/gtemple/employee-site-tnt/blob/main/docs/admin-home.png)
+
 
 ## Known issues:
 
