@@ -13,15 +13,12 @@ export default async function Profile({ params }: Params) {
   }
 
   const { first_name, last_name, user_id, admin, moderator, email, active } =
-  profileData[0];
+    profileData[0];
 
   return (
     <div>
       <div>
-        hello {first_name} {last_name}
-        <div>
-          <UserProfile profile={profileData[0]} />
-        </div>
+        <UserProfile profile={profileData[0]} />
       </div>
       <Link href="/pages/admin/dashboard">Back</Link>
     </div>
