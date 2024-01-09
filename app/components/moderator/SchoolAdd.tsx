@@ -62,7 +62,7 @@ const SchoolAdd = (props: { boards: Board[] }) => {
       <div className="custom-form">
         <TextField
           id="outlined-basic"
-          label="Site Name"
+          label="School Name"
           variant="outlined"
           type="text"
           name="name"
