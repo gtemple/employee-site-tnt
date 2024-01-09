@@ -5,6 +5,12 @@ Built for tourism, this app allows you to manage tours, employees, sites, etc. f
 ## Admin Privledges
 !["Admin Home."](https://github.com/gtemple/employee-site-tnt/blob/main/docs/admin-home.png)
 
+Accounts designated with admin priviledges are top-level users that have full access to view and edit any other user.
+
+- Admins can add/remove Admin priveledges from other users.
+- Admins can add/remove Moderator priviledges from other users.
+- Admins can activate or deactivate accounts. For more information, continue to the Activated status section.
+
 
 ## Known issues:
 
