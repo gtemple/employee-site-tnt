@@ -126,6 +126,17 @@ const SchoolAdd = (props: { boards: Board[] }) => {
         />
         <TextField
           id="outlined-basic"
+          label="Grade"
+          variant="outlined"
+          type="grade"
+          name="grade"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            handleChange(e);
+          }}
+          required
+        />
+        <TextField
+          id="outlined-basic"
           label="Postal Code"
           variant="outlined"
           type="text"

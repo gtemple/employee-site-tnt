@@ -59,7 +59,7 @@ const HotelAdd = (props: { destinations: Destination[] }) => {
       <div className="custom-form">
         <TextField
           id="outlined-basic"
-          label="Site Name"
+          label="Hotel Name"
           variant="outlined"
           type="text"
           name="name"
