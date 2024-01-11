@@ -48,7 +48,7 @@ const DeleteButton = ({
       autoHideDuration: 3000,
       variant: "success",
     });
-    router.push(`/pages/moderator/${path}/`);
+    router.refresh();
   };
 
   return (

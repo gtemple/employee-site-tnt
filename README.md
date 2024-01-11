@@ -25,6 +25,7 @@ Moderators are second-level users and have access to the most extensive toolset 
   - Tours (for more details, refer to the 'Creating a Tour' section)
 
 ## Creating a Tour
+!["Creating Tour."](https://github.com/gtemple/employee-site-tnt/blob/main/docs/create-tour.gif)
 to be written
 
 ## Active Accounts – including requesting a tour
@@ -39,3 +40,4 @@ to be written
 ## Features to be implemented:
 
 - Detailed site information including maps integration and Activity director speeches so that it's easily accessible while on tour
+- Search functions including filters for all aspects

@@ -1,5 +1,6 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
+// import { useRouter } from "next/navigation";
 import Link from "next/link";
 import DeleteButton from "@/app/components/moderator/DeleteButton";
 import { getProfileData } from "@/app/api/getProfiles";
@@ -16,6 +17,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
 export default async function Sites() {
+  // const router = useRouter();
+  // router.refresh();
   const supabase = createServerComponentClient({ cookies });
   const moderator = await isModerator();
   const {

@@ -44,7 +44,7 @@ const SchoolAdd = (props: { boards: Board[] }) => {
       autoHideDuration: 3000,
       variant: "success",
     });
-    router.push(`/pages/moderator/schools/all-schools`);
+    router.push(`/pages/moderator/schools`);
   };
 
   const handleChange = (event: SelectChangeEvent) => {

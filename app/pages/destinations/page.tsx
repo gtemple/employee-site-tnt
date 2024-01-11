@@ -1,6 +1,7 @@
 
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { getProfileData } from "@/app/api/getProfiles";
 import { getAllDestinations } from "@/app/api/destinations/getDestinations";
@@ -16,6 +17,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
 export default async function Sites() {
+  const router = useRouter();
+  router.refresh();
   const supabase = createServerComponentClient({cookies});
   const {
     data: { user },
